@@ -1,0 +1,78 @@
+<app-admin-header></app-admin-header>
+<!-- <app-card></app-card> -->
+<!--Container -->
+<div class=" bg-grey-400 h-[260px] max-w-[283px] " style="background-color: rgb(41, 44, 49);">
+    <!--Screen-->
+    <aside id="sidebar" class="bg-side-nav w-80 md:w-1/6 lg:w-[283px] border-r border-side-nav hidden md:block lg:block">
+
+        <ul class="list-reset flex flex-col">
+            <li class="w-full h-full py-3 px-2 border-b border-light-border" 
+            [class.bg-white]="isActive === 'dashboard'"
+            [class.text-black]="isActive === 'dashboard'"
+            [class.bg-gray-700]="isActive !== 'dashboard'"
+            [class.text-gray-200]="isActive !== 'dashboard'"
+            (click)="toggleButton('dashboard')">
+                <a href="#" class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+                    <i class="fas fa-tachometer-alt float-left mx-2"></i>
+                    Dashboard
+                    <span><i class="fas fa-angle-right float-right"></i></span>
+                </a>
+            </li>
+            <li class="w-full h-full py-3 px-2 text-gray-200 border-b border-light-border" 
+            [class.bg-white]="isActive === 'course'"
+            [class.text-black]="isActive === 'course'"
+            [class.bg-gray-700]="isActive !== 'course'"
+            [class.text-gray-200]="isActive !== 'course'"
+            (click)="toggleButton('course')">
+                <a href="#"
+                    class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+                    <i class="fab fa-wpforms float-left mx-2"></i>
+                    Courses
+                    <span><i class="fa fa-angle-right float-right"></i></span>
+                </a>
+            </li>
+            <li class="w-full h-full py-3 px-2 border-b border-light-border cursor-pointer"
+               [class.bg-white]="isActive === 'users'"
+               [class.text-black]="isActive === 'users'"
+               [class.bg-gray-700]="isActive !== 'users'"
+               [class.text-gray-200]="isActive !== 'users'"
+               (click)="toggleButton('users')">
+                <a href="#"
+                    class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+                    <i class="fas fa-grip-horizontal float-left mx-2"></i>
+                    Users
+                    <span><i class="fa fa-angle-right float-right"></i></span>
+                </a>
+            </li>
+            <li class="w-full h-full py-3 px-2 text-gray-200 border-b border-light-border"
+            [class.bg-white]="isActive === 'prblems'"
+            [class.text-black]="isActive === 'prblems'"
+            [class.bg-gray-700]="isActive !== 'prblems'"
+            [class.text-gray-200]="isActive !== 'prblems'"
+            (click)="toggleButton('prblems')">
+                <a href="#"
+                    class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+                    <i class="fas fa-table float-left mx-2"></i>
+                    Problems
+                    <span><i class="fa fa-angle-right float-right"></i></span>
+                </a>
+            </li>
+            <li class="w-full h-full py-3 px-2 text-gray-200 border-b border-light-border"
+            [class.bg-white]="isActive === 'daily-problems'"
+            [class.text-black]="isActive === 'daily-problems'"
+            [class.bg-gray-700]="isActive !== 'daily-problems'"
+            [class.text-gray-200]="isActive !== 'daily-problems'"
+            (click)="toggleButton('daily-problems')">
+                <a href="#" class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+                    <i class="fab fa-uikit float-left mx-2"></i>
+                    Daily Problems
+                    <span><i class="fa fa-angle-right float-right"></i></span>
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+</div>
+

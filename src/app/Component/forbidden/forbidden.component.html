@@ -1,0 +1,16 @@
+<!-- Modal Content -->
+<div class="modal" [ngClass]="{ 'visible': showModal }">
+    <div class="modal-content">
+        <div class="container mt-5 justify-center items-center">
+            <div class="card text-center" style="padding: 20px;">
+                <div class="max-width: 338px; items-center; justify-content: center;">
+                    <!-- Replace the i tag with the Font Awesome icon with custom styling -->
+                    <i class="fa-solid fa-circle-xmark mx-auto mb-4 text-6xl text-red-700" style="width: 200px;"></i>
+                    <h1 class="text-xl font-bold mb-2">Access Denied</h1>
+                    <p class="text-gray-600">Sorry, you are not allowed to access this page.</p>
+                    <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded mt-4 hover:bg-blue-700" (click)="hideModal()">Go Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

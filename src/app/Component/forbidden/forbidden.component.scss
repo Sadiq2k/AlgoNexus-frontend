@@ -1,0 +1,28 @@
+.container{
+    max-width: 1790px;
+    height: 100vh;
+    width: 100%;
+}
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    // display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal.visible {
+    display: flex; /* Display the modal when showModal is true */
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  

@@ -1,0 +1,44 @@
+<app-header></app-header>
+<div class="container dark:bg-gray-900  ">
+  <div *ngIf="submitted; else codeForm" >
+    <div  *ngIf="isActivated && isOkay && !isRegisterActive || !isActivated && isOkay && isRegisterActive else activationError">
+    <div class="activation-success" *ngIf="isActivated && isOkay && !isRegisterActive ">
+      <!-- Display this content if isActivated is true, isOkay is true, and isRegisterActive is false -->
+      <h2 class="text-2xl font-bold text-white">Activation successful</h2>
+      <p class="success-message">Your account ({{ email }}) has been successfully activated.</p>
+      <button class="btn-primary" (click)="redirectToNewPassword()">Go to new password</button>
+    </div>
+    <div class="activation-success" *ngIf="!isActivated && isOkay && isRegisterActive" >
+      <!-- Display this content if isActivated is false, isOkay is true, and isRegisterActive is true -->
+      <div class="code-form bg-white rounded-lg p-5">
+      <h2 class="text-2xl font-bold text-black">Activation successfully</h2>
+      <p class="success-message">Your account ({{ email }}) has been successfully activated.</p>
+      <button class="btn-primary" (click)="redirectToLogin()">Go to login</button>
+    </div>
+    </div>
+  </div>
+    <ng-template #activationError >
+      <!-- Display this content if none of the conditions above are met -->
+      <div class="code-form bg-white rounded-lg p-5">
+      <div class="activation-error">
+        <h2 class="text-2xl font-bold text-red-600">Activation failed</h2>
+        <p class="error-message">{{ message }}</p>
+        <button class="btn-primary" (click)="submitted = false">Try again</button>
+      </div>
+      </div>
+    </ng-template>
+  </div>
+
+  <ng-template #codeForm>
+    <!-- Content to display if 'submitted' is false -->
+    <div class="code-form bg-white rounded-lg p-5">
+      <h2 class="text-2xl font-bold">Enter your activation code</h2><br>
+      <p class="info-message">We have send a verification code to {{ email }}</p>
+      <p>Time left: {{ minutes }}:{{ seconds < 10 ? '0' + seconds : seconds }}</p> <br>
+      <button class="save-button bg-green-500 text-white px-3 py-2 rounded-lg" *ngIf="resendOtp" (click)="generateNewToken()">Resend Otp</button>
+      <!-- <p>{{message}}</p> -->
+      <code-input class=" code-input " [isCodeHidden]="false" [codeLength]="6" [code]="'number'" (codeCompleted)="onCodeCompleted($event)"></code-input>
+     <br>
+    </div>
+  </ng-template>
+</div>

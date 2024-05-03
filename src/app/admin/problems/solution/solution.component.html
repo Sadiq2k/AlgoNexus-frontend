@@ -1,0 +1,75 @@
+<app-admin></app-admin>
+
+
+<div class="mx-auto bg-grey-400 min-h-screen h-[1000px]  "
+    style="background-color: rgb(41, 44, 49); margin-top: -260px;">
+    <main class="bg-white-300  overflow-hidden">
+        <div
+            class="absolute top-[0px] left-[290px]  shadow-[11px_12px_11.9px_rgba(0,_0,_0,_0.25)] mt-[55px] rounded-lg bg-white w-[1515px] h-[975px]">
+            <b
+                class="absolute w-[18.2%] top-[calc(50%_-_443px)] left-[2.0%] text-3xl tracking-[-0.11px] inline-block text-gray-800 h-[36.2px]">New
+                Problem</b>
+            <div class="absolute top-[104.4px] left-[219px] w-[661px] h-[5.8px]">
+                <div
+                    class="absolute top-[0px] left-[92px] rounded-6xs bg-whitesmoke-300 bg-gray-400 w-[1109px] h-[5.8px]">
+                    <div
+                        class="absolute top-[0px] left-[0px] bg-green-800 rounded-tl-6xs rounded-tr-none rounded-br-none rounded-bl-6xs bg-lavender w-[351px] h-[5.8px]">
+                    </div>
+                </div>
+
+            </div>
+            <div class="absolute top-[69.9px] left-[275px] w-[50px] h-[26.3px]">
+                <b
+                    class="absolute top-[0px] left-[40px] tracking-[-0.11px] inline-block w-[50px] h-[13.1px]">Question</b>
+
+                <i class="fa-solid fa-question absolute top-[17.1px] left-[56px] w-4 h-[13.1px] object-cover"></i>
+            </div>
+            <div class="absolute top-[69.9px] left-[600px] w-[88px] h-[26.3px]">
+                <b
+                    class="absolute top-[0px] left-[40px] tracking-[-0.11px] inline-block w-[47px] h-[13.1px]">Solution</b>
+                <img class="absolute top-[16.1px] left-[54px] w-4 h-[13.1px] object-cover" alt=""
+                    src="./assets/blow-bulb.png" />
+            </div>
+            <div class="absolute top-[69.9px] left-[1272px] w-[53px] h-[26.3px]">
+                <b class="absolute top-[0px] left-[40px] tracking-[-0.11px] inline-block w-[85px] h-[13.1px]">Test
+                    Case</b>
+                <i class="fa-solid fa-list absolute top-[17.1px] left-[56px] w-4 h-[13.1px] object-cover"></i>
+            </div>
+
+            <div #editorContainer
+                class="absolute h-[30.95%] w-[1385px] top-[17.97%] right-[5.32%] bottom-[12.07%] left-[2.79%] text-3xl text-gray-1000 font-inter">
+                <ngx-monaco-editor
+                    class="absolute w-full top-[calc(50% - 84.9px)] mt-20 right-[0%] left-[0%] rounded-10xs bg-white box-border h-[563.4px] overflow-hidden flex flex-row items-start justify-start py-2 px-3 gap-[10px] text-base text-gray-600 font-roboto border-[1px] border-solid border-gray-200"
+                    [(ngModel)]="editorCode"
+                     [options]="editorOptions"
+                     (ngModelChange)="onEditorContentChange($event)"></ngx-monaco-editor>
+            </div>
+            <b class="absolute top-[144.6px] left-[122px] tracking-[-0.11px] inline-block text-black h-[13.1px]">
+            </b>
+            <div
+                class="absolute top-[178.7px] left-[41px] text-2xl tracking-[-0.11px] text-dimgray-500 inline-block w-[407px] h-[27.9px]">
+                Share your solution
+            </div>
+            <div
+                class="absolute top-[223.7px] left-[41px] tracking-[-0.11px] text-dimgray-500 inline-flex items-center">
+                <p class="mr-2">Select language:</p>
+                <!-- <select [(ngModel)]="selectedLanguage" class="border border-gray-300 rounded-md px-2 py-1">
+                          <option *ngFor="let lang of editorLanguages" [value]="lang">{{ lang }}</option> -->
+                <!-- </select> -->
+            </div>
+
+            <div class="absolute top-[69.9px] left-[929px] w-12 h-[26.3px]">
+                <div class="absolute top-[0px] left-[0px] w-12 h-[13.1px]">
+                    <b
+                        class="absolute top-[0px] left-[40px] tracking-[-0.11px] inline-block w-12 h-[13.1px]">Example</b>
+                </div>
+                <i class="fa-solid fa-pen-to-square absolute top-[17.1px] left-[56px] w-4 h-[13.1px] object-cover"></i>
+            </div>
+            <button
+                class="absolute bottom-0 right-0  mb-6 mr-28 py-2 px-4 text-xl bg-blue-500 text-white rounded hover:bg-blue-600"
+                (click)="gotToAddExample()">
+                Continues
+            </button>
+        </div>
+    </main>
+</div>

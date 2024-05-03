@@ -1,0 +1,285 @@
+<app-header></app-header>
+
+<div class="w-full relative bg-white text-xs text-black font-inter">
+    <div class="absolute top-0 left-0 bg-gray-900 w-full h-[420px]"></div>
+    <div class="absolute top-437px left-[251px] bg-gray-900 w-[254px] h-[292px] rounded-lg"></div>
+    <img class="absolute top-[165px] left-[323px] rounded-43xl w-[151px] h-[151px] object-cover lg:hidden" alt=""
+       src="" />
+    <img class="absolute top-[158px] left-[318px] rounded-43xl w-[152px] h-[152px] object-cover lg:block hidden" alt=""
+        src="./assets/profile.png" />
+    <div class="absolute top-[244px] left-[551px] text-white">
+        AlgoNexus ID: sadiq1
+    </div>
+    <div class="absolute top-[205px] left-[544px] text-[30px] text-white">
+        Sadiq Hussain
+    </div>
+    <div class="w-full relative bg-white text-xs text-black font-inter">
+        <div class="absolute top-0 left-0 bg-gray-900 w-full h-[420px]"></div>
+        <div class="absolute top-437px left-[251px] bg-gray-900 w-[254px] h-[292px] rounded-lg"></div>
+        <img class="absolute top-[158px] left-[318px] rounded-2xl w-[152px] h-[152px] object-cover lg:block " alt=""
+            [src]="userImage" />
+        <input type="file" #fileInput (change)="onFileSelected($event)">
+        <div class="absolute top-[210px] left-[480px] lg:top-[282px] lg:left-[474px]" (click)="changedProfilePic()">
+            <i class="fa-solid fa-pencil-alt text-gray-500 cursor-pointer" style="font-size: 24px;"></i>
+        </div>
+        <div class="absolute top-[244px] left-[551px] text-white">
+            AlgoNexus ID: sadiq1
+        </div>
+
+        <div class="absolute top-[205px] left-[544px] text-[30px] text-white">
+            {{userDetails?.firstname}} {{userDetails?.lastname}}
+        </div>
+
+        <div *ngIf="!enableUserAccount"
+            class="absolute top-[332px] left-[677px] lg:shadow-[0px_10px_15px_3px_rgba(0,_0,_0,_0.25)] lg:rounded-lg bg-white w-full lg:w-[854px] h-[656px] p-6">
+            <form action="#" [formGroup]="editFormName" (ngSubmit)="saveEdit('fullname')">
+                <div class="section flex items-center mb-6">
+                    <div class="label mr-6 text-lg w-36">Name</div>
+                    <div class="content flex items-center ml-28">
+                        <div class="value-container flex items-center">
+                            <span *ngIf="!isEditingFirstName && !isEditingLastName" class="value text-lg">{{
+                                userDetails.firstname }} {{ userDetails.lastname }}</span>
+                            <span *ngIf="isEditingFirstName || isEditingLastName" class="flex">
+                                <input formControlName="firstname" id="firstname" type="text" [value]="editedFirstName"
+                                    class="edit-input text-lg" />
+                                <input formControlName="lastname" type="text" [value]="editedLastName"
+                                    class="edit-input text-lg" />
+                                <input type="text" class="hidden" formControlName="id" value="">
+                            </span>
+                        </div>
+                        <div class="button-container ml-6">
+                            <button *ngIf="isEditingFirstName || isEditingLastName"
+                                class="save-button bg-green-500 text-white px-3 py-2 rounded-lg"
+                                type="submit">Save</button>
+                            <button *ngIf="isEditingFirstName || isEditingLastName"
+                                class="cancel-button bg-red-500 text-white px-3 py-2 rounded-lg ml-3"
+                                (click)="cancelEdit('name')">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="edit-button-container ml-6">
+                        <span *ngIf="!isEditingFirstName && !isEditingLastName"
+                            class="edit-button text-black cursor-pointer text-lg"
+                            (click)="startEditing('fullname')">Edit</span>
+                    </div>
+                </div>
+            </form>
+            <hr class="underline" />
+
+            <form action="#" [formGroup]="editFormGender" (ngSubmit)="saveEdit('gender')">
+                <div class="section flex items-center mb-6">
+                    <div class="label mr-6 text-lg w-36">Gender</div>
+                    <div class="content flex items-center ml-28">
+                        <div class="value-container">
+                            <span *ngIf="!isEditingGender" class="value text-lg">{{ userDetails.gender }}</span>
+                            <select *ngIf="isEditingGender" formControlName="gender" class="edit-input text-lg">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                            <input type="text" class="hidden" formControlName="id" value="">
+
+                        </div>
+                        <div class="button-container ml-6">
+                            <button *ngIf="isEditingGender"
+                                class="save-button bg-green-500 text-white px-3 py-2 rounded-lg"
+                                type="submit">Save</button>
+                            <button *ngIf="isEditingGender"
+                                class="cancel-button bg-red-500 text-white px-3 py-2 rounded-lg ml-3"
+                                (click)="cancelEdit('gender')">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="edit-button-container ml-6">
+                        <span *ngIf="!isEditingGender" class="edit-button text-black cursor-pointer text-lg"
+                            (click)="startEditing('gender')">Edit</span>
+                    </div>
+                </div>
+            </form>
+
+            <hr class="underline" />
+
+            <form action="#" [formGroup]="editFormLocation" (ngSubmit)="saveEdit('location')">
+                <div class="section flex items-center mb-6">
+                    <div class="label mr-6 text-lg w-36">Location</div>
+                    <div class="content flex items-center ml-28">
+                        <div class="value-container flex items-center">
+                            <span *ngIf="!isEditingLocation" class="value text-lg">{{ userDetails.location }}</span>
+                            <input *ngIf="isEditingLocation" formControlName="location" [value]="editedLocation"
+                                type="text" class="edit-input text-lg" />
+                            <input type="text" class="hidden" formControlName="id" value="">
+
+                        </div>
+                        <div class="button-container ml-6">
+                            <button *ngIf="isEditingLocation"
+                                class="save-button bg-green-500 text-white px-3 py-2 rounded-lg"
+                                type="submit">Save</button>
+                            <button *ngIf="isEditingLocation"
+                                class="cancel-button bg-red-500 text-white px-3 py-2 rounded-lg ml-3"
+                                (click)="cancelEdit('location')">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="edit-button-container ml-6">
+                        <span *ngIf="!isEditingLocation" class="edit-button text-black cursor-pointer text-lg"
+                            (click)="startEditing('location')">Edit</span>
+                    </div>
+                </div>
+            </form>
+
+            <hr class="underline" />
+
+            <form [formGroup]="editFormBirthday" (ngSubmit)="saveEdit('birthday')">
+                <div class="section flex items-center mb-6">
+                    <div class="label mr-6 text-lg w-36">Birthday</div>
+                    <div class="content flex items-center ml-28">
+                        <div class="value-container flex items-center">
+                            <span *ngIf="!isEditingBirthday" class="value text-lg">{{ userDetails?.dateOfBirth }}</span>
+                            <input *ngIf="isEditingBirthday" formControlName="birthday" class="edit-input text-lg"
+                                #datepickerInput matInput [matDatepicker]="picker">
+                            <input type="text" class="hidden" formControlName="id" value="">
+                            <mat-datepicker-toggle *ngIf="isEditingBirthday" matSuffix
+                                [for]="picker"></mat-datepicker-toggle>
+                            <!-- Unique identifier for the MatDatepicker -->
+                            <mat-datepicker #picker [touchUi]="false"
+                                (dateChange)="onDateChanged($event)"></mat-datepicker>
+                        </div>
+                        <div class="button-container ml-6">
+                            <button *ngIf="isEditingBirthday"
+                                class="save-button bg-green-500 text-white px-3 py-2 rounded-lg"
+                                type="submit">Save</button>
+                            <button *ngIf="isEditingBirthday"
+                                class="cancel-button bg-red-500 text-white px-3 py-2 rounded-lg ml-3"
+                                (click)="cancelEdit('birthday')">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="edit-button-container ml-6">
+                        <span *ngIf="!isEditingBirthday" class="edit-button text-black cursor-pointer text-lg"
+                            (click)="startEditing('birthday')">Edit</span>
+                    </div>
+                </div>
+            </form>
+
+            <hr class="underline" />
+
+            <form action="#" [formGroup]="editFormgithub" (ngSubmit)="saveEdit('github')">
+                <div class="section flex items-center mb-6">
+                    <div class="label mr-6 text-lg w-36">GitHub</div>
+                    <div class="content flex items-center ml-28">
+                        <div class="value-container flex items-center">
+                            <span *ngIf="!isEditinggithub" class="value text-lg">{{ userDetails.github }}</span>
+                            <input *ngIf="isEditinggithub" formControlName="github" [value]="editedgithub" type="text"
+                                class="edit-input text-lg" />
+                            <input type="text" class="hidden" formControlName="id" value="">
+
+                        </div>
+                        <div class="button-container ml-6">
+                            <button *ngIf="isEditinggithub"
+                                class="save-button bg-green-500 text-white px-3 py-2 rounded-lg"
+                                type="submit">Save</button>
+                            <button *ngIf="isEditinggithub"
+                                class="cancel-button bg-red-500 text-white px-3 py-2 rounded-lg ml-3"
+                                (click)="cancelEdit('github')">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="edit-button-container ml-6">
+                        <span *ngIf="!isEditinggithub" class="edit-button text-black cursor-pointer text-lg"
+                            (click)="startEditing('github')">Edit</span>
+                    </div>
+                </div>
+            </form>
+
+            <hr class="underline" />
+
+            <form action="#" [formGroup]="editFormlinkedin" (ngSubmit)="saveEdit('linkedin')">
+                <div class="section flex items-center mb-6">
+                    <div class="label mr-6 text-lg w-36">LinkedIn</div>
+                    <div class="content flex items-center ml-28">
+                        <div class="value-container flex items-center">
+                            <span *ngIf="!isEditingLinkedin" class="value text-lg">{{ userDetails.linkedin }}</span>
+                            <input *ngIf="isEditingLinkedin" formControlName="linkedin" [value]="editedlinkedin"
+                                type="text" class="edit-input text-lg" />
+                            <input type="text" class="hidden" formControlName="id" value="">
+
+                        </div>
+                        <div class="button-container ml-6">
+                            <button *ngIf="isEditingLinkedin"
+                                class="save-button bg-green-500 text-white px-3 py-2 rounded-lg"
+                                type="submit">Save</button>
+                            <button *ngIf="isEditingLinkedin"
+                                class="cancel-button bg-red-500 text-white px-3 py-2 rounded-lg ml-3"
+                                (click)="cancelEdit('linkedin')">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="edit-button-container ml-6">
+                        <span *ngIf="!isEditingLinkedin" class="edit-button text-black cursor-pointer text-lg"
+                            (click)="startEditing('linkedin')">Edit</span>
+                    </div>
+                </div>
+            </form>
+
+            <hr class="underline" />
+
+            <form action="#" [formGroup]="editFormWork" (ngSubmit)="saveEdit('work')">
+                <div class="section flex items-center mb-6">
+                    <div class="label mr-6 text-lg w-36">Work</div>
+                    <div class="content flex items-center ml-28">
+                        <div class="value-container flex items-center">
+                            <span *ngIf="!isEditingwork" class="value text-lg">{{ userDetails.work }}</span>
+                            <input *ngIf="isEditingwork" formControlName="work" [value]="editedwork" type="text"
+                                class="edit-input text-lg" />
+                            <input type="text" class="hidden" formControlName="id" value="">
+
+                        </div>
+                        <div class="button-container ml-6">
+                            <button *ngIf="isEditingwork"
+                                class="save-button bg-green-500 text-white px-3 py-2 rounded-lg"
+                                type="submit">Save</button>
+                            <button *ngIf="isEditingwork"
+                                class="cancel-button bg-red-500 text-white px-3 py-2 rounded-lg ml-3"
+                                (click)="cancelEdit('linkedin')">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="edit-button-container ml-6">
+                        <span *ngIf="!isEditingwork" class="edit-button text-black cursor-pointer text-lg"
+                            (click)="startEditing('work')">Edit</span>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+
+    </div>
+
+    <div class="w-full relative bg-white text-xs text-black font-inter">
+
+        <!-- Account Text -->
+        <div (click)="userAccount()"
+            class="absolute top-[515px] left-[299px] text-black cursor-pointer lg:top-[498px] lg:text-lg"
+            id="accountText">
+            Account
+        </div>
+        <img class="absolute top-[577px] left-[265px] w-[15px] h-[15px] object-cover lg:top-[500px] lg:left-[260px] lg:w-[26px] lg:h-[26px]"
+            alt="" src="./assets/profile.png">
+        <!-- Orders Text -->
+        <div class="absolute top-[554px] left-[299px] text-black cursor-pointer lg:top-[537px] lg:text-lg"
+            id="ordersText">
+            Orders
+        </div>
+        <!-- Orders Icon -->
+        <div
+            class="absolute top-[557px] left-[265px] w-[15px] h-[15px] object-cover lg:top-[544px] lg:left-[260px] lg:w-[20px] lg:h-[20px]">
+            <i class="fa-solid fa-paper-plane" style="font-size: 20px;"></i>
+        </div>
+
+        <!-- Basic Info Section -->
+        <div
+            class="absolute top-[437px] left-[251px] rounded-t-lg rounded-b-none bg-indigo-500 w-[254px] h-[41px] lg:top-[440px]">
+        </div>
+        <div class="absolute top-[448px] left-[280px] text-base text-black lg:top-[451px] lg:text-lg">
+            Basic info
+        </div>
+
+        <!-- <div class="absolute top-[158px] left-[318px] rounded-2xl w-[152px] h-[152px] object-cover"  > -->
+
+    </div>
+
+</div>
+<app-footer></app-footer>
