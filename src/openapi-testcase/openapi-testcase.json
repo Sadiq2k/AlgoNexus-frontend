@@ -1,0 +1,235 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "OpenAPI definition",
+        "version": "v0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8084",
+            "description": "Generated server url"
+        }
+    ],
+    "paths": {
+        "/test-case/run-and-test": {
+            "post": {
+                "tags": [
+                    "test-case-controller"
+                ],
+                "operationId": "runAndTestSolution",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SolutionSubmitRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TestCaseRunResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/test-case/add-testcase": {
+            "post": {
+                "tags": [
+                    "test-case-controller"
+                ],
+                "operationId": "addProblemTestCases",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddTestCaseRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/test-case/get-problem-testcases/{problemId}": {
+            "get": {
+                "tags": [
+                    "test-case-controller"
+                ],
+                "operationId": "getProblemTestCases",
+                "parameters": [
+                    {
+                        "name": "problemId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/TestCaseDTO"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "SolutionSubmitRequest": {
+                "type": "object",
+                "properties": {
+                    "problemId": {
+                        "type": "string"
+                    },
+                    "languageId": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "language": {
+                        "type": "string"
+                    },
+                    "solutionCode": {
+                        "type": "string"
+                    },
+                    "driverCode": {
+                        "type": "string"
+                    }
+                }
+            },
+            "AcceptCase": {
+                "type": "object",
+                "properties": {
+                    "input": {
+                        "type": "string"
+                    },
+                    "output": {
+                        "type": "string"
+                    }
+                }
+            },
+            "RejectCase": {
+                "type": "object",
+                "properties": {
+                    "input": {
+                        "type": "string"
+                    },
+                    "output": {
+                        "type": "string"
+                    },
+                    "expectedOutput": {
+                        "type": "string"
+                    }
+                }
+            },
+            "TestCaseRunResponse": {
+                "type": "object",
+                "properties": {
+                    "submission": {
+                        "type": "string",
+                        "enum": [
+                            "ACCEPTED",
+                            "REJECTED",
+                            "ERROR"
+                        ]
+                    },
+                    "averageTime": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "averageMemory": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "rejectCases": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/RejectCase"
+                        }
+                    },
+                    "acceptCases": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AcceptCase"
+                        }
+                    },
+                    "totalTestCases": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            },
+            "AddTestCaseRequest": {
+                "type": "object",
+                "properties": {
+                    "problemId": {
+                        "type": "string"
+                    },
+                    "testCases": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TestCase"
+                        }
+                    }
+                }
+            },
+            "TestCase": {
+                "type": "object",
+                "properties": {
+                    "testCaseInput": {
+                        "type": "string"
+                    },
+                    "expectedOutput": {
+                        "type": "string"
+                    }
+                }
+            },
+            "TestCaseDTO": {
+                "type": "object",
+                "properties": {
+                    "testCaseInput": {
+                        "type": "string"
+                    },
+                    "expectedOutput": {
+                        "type": "string"
+                    },
+                    "idx": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            }
+        }
+    }
+}

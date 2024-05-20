@@ -1,0 +1,330 @@
+<app-header></app-header>
+<div
+    class="w-full h-[1033px] relative bg-text-primary-white overflow-hidden flex  bg-black flex-col items-end justify-start pt-0 px-0 pb-16 box-border gap-[243px] leading-[normal] tracking-[normal] mq450:gap-[61px] mq1225:h-auto mq750:gap-[121px]">
+    <div class="mt-[-260px] flex flex-row items-start justify-end py-0 px-[30px]">
+        <img class="h-[17px] w-[19px] relative shrink-0 [debug_commit:1de1738]" alt="" src="" />
+    </div>
+    <main
+        class="self-stretch flex flex-col items-end justify-start gap-[12px] shrink-0 [debug_commit:1de1738] max-w-full">
+        <section
+            class="self-stretch flex flex-row items-start justify-end py-0 pr-2 pl-[11px] box-border max-w-full text-left text-base text-black font-inter">
+            <div class="flex-1 flex flex-row items-start justify-start gap-[13px] max-w-full mq1225:flex-wrap">
+                <div class="h-[858px] w-[724px] rounded-xl flex flex-col items-start justify-start custom-bg-color text-gray-200 pt-[55px] pb-[140px] pr-0 pl-[13px] box-border gap-[20px] min-w-[883px] max-w-full mq1050:pt-9 mq1050:pb-[91px] mq1050:box-border mq1050:min-w-full mq1225:flex-1 mq750:pt-[23px] mq750:pb-[59px] mq750:box-border"
+                    style="margin-left: 9px;margin-top: 17px;">
+                    <div class="self-stretch h-[892px] relative rounded-xl bg-gray-500 hidden"></div>
+                    <div
+                        class="mt-[-56px] ml-[-14px] bg-gray-500 rounded-xl rounded-b-none overflow-x-auto flex flex-row items-center justify-center min-w-[883px] shrink-0 z-[1]">
+                        <div
+                            class="h-9 w-[725px] relative rounded-t-xl rounded-b-none bg-gainsboro-200 shrink-0 hidden">
+                        </div>
+                        <div [ngClass]="{ 'bg-black text-green-500': showDescribtionBooll, 'bg-gainsboro-200 text-default': !showDescribtionBooll }"
+                            class=" bg-gainsboro-200 flex flex-row items-center rounded-lg rounded-b-none justify-center pt-2 pb-[7px] pr-[19px] pl-[26px] gap-[25px] z-[2]">
+                            <div (click)="showDescribtion()"
+                                class="relative cursor-pointer pl-4  font-medium inline-block min-w-[88px] z-[3]">
+                                Description
+                            </div>
+                            <div class="h-[21px] flex flex-col items-start justify-start pt-px px-0 pb-0 box-border">
+                                <div
+                                    class="w-px h-[21px] relative box-border z-[3] border-r-[1px] border-solid border-black">
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="w-[119px] bg-gainsboro-200 shrink-0 flex flex-row items-start justify-start pt-2 px-[11px] pb-[7px] box-border gap-[27px] z-[2]">
+                            <div class="relative font-medium cursor-pointer inline-block min-w-[63px] z-[3]">
+                                Submission
+                            </div>
+                            <div class="h-[21px] flex flex-col items-start justify-start pl-5  px-0 pb-0 box-border">
+                                <div
+                                    class="w-px h-[21px] relative box-border z-[3] border-r-[1px] border-solid border-black">
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="testResultbooll"
+                            [ngClass]="{ 'custom-bg-color  text-green-500': testResultbooll, 'bg-gainsboro-200 text-default': !testResultbooll }"
+                            class="w-[159px] ml-5 shrink-0 flex  flex-row items-center justify-between p-2 rounded-lg rounded-b-none shadow-lg box-border gap-[27px] z-[2]">
+                            <div (click)="showTestResult()"
+                                class="relative font-medium cursor-pointer inline-block min-w-[63px] z-[3]">
+                                Test Result
+                            </div>
+                            <i (click)="disabledTestResult()"
+                                class="fa-solid fa-xmark text-gray-300 cursor-pointer"></i>
+                        </div>
+
+                        <div *ngIf="acceptedBooll"
+                            [ngClass]="{ 'custom-bg-color  text-green-500': acceptedBooll, 'bg-gainsboro-200 text-default': !acceptedBooll }"
+                            class="w-[119px] ml-5 shrink-0 flex flex-row items-start justify-start rounded-lg rounded-b-none pt-2 px-[11px] pb-[7px] box-border gap-[27px] z-[2]">
+                            <div class="relative font-medium cursor-pointer inline-block min-w-[63px] z-[3]">
+                                Accepted
+                            </div>
+                            <i (click)="disabledAcceptedButton()"
+                                class="fa-solid fa-xmark text-gray-300 cursor-pointer"></i>
+                        </div>
+
+                    </div>
+                    <div *ngIf="showDescribtionBooll"
+                        class="self-stretch flex flex-col items-start justify-start py-0 pr-[21px] pl-0 box-border gap-[65px] max-w-full shrink-0 text-text-primary-white mq450:gap-[16px] mq750:gap-[32px]">
+                        <div
+                            class="self-stretch flex flex-row items-start justify-start py-0 pr-[13px] pl-3 box-border max-w-full">
+                            <div class="flex-1 flex flex-col items-start justify-start min-h-[399px] max-w-full">
+                                <div class="self-stretch relative z-[1]">
+                                    <div class="m-0 flex justify-between font-medium">
+                                        <p
+                                            [ngStyle]="{'font-size': '20px', 'font-weight': 'bold', 'font-family': 'Arial, sans-serif'}">
+                                            {{ problemData?.id }}. {{ problemData?.title }}
+                                        </p>
+
+                                        <p class="self-end" [ngClass]="{
+                                            'text-green': problemData?.difficulty === 'Easy',
+                                            'text-yellow': problemData?.difficulty === 'Medium',
+                                            'text-red': problemData?.difficulty === 'Hard'
+                                        }" *ngIf="problemData?.difficulty">
+                                            {{ problemData?.difficulty }}
+                                        </p>
+                                    </div>
+                                    <p class="m-0" style="letter-spacing: 1px; padding-top: 35px;">
+                                        {{problemData?.description}}
+                                    </p>
+                                    <div *ngFor="let problem of problemData?.examples" class="mt-10">
+                                        <p class="m-0 font-medium"> </p>
+                                        <p class="m-0">
+                                            <span class="font-medium font-inter" style="letter-spacing: 2px;">
+                                                <strong>Input : </strong> {{ problem.testCaseInput }}</span>
+                                            <br>
+                                            <span class="output-text">{{'Output : ' + problem?.expectedOutput }}</span>
+                                            <span class="font-light"></span>
+                                            <span class="font-medium font-inter">&nbsp;</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex flex-row items-start justify-start py-0 px-[17px] mt-[-373px]">
+                                    <button
+                                        class="cursor-pointer [border:none] pt-2 px-[27px] pb-[9px] bg-whitesmoke-400 rounded-6xl flex flex-row items-start justify-start z-[2] hover:bg-lightgray-200">
+                                        <div class="h-8 w-[82px] relative rounded-6xl bg-whitesmoke-400 hidden"></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="self-stretch flex flex-col items-start justify-start  max-w-full"
+                            style="margin-top: 98px;">
+                            <div
+                                class="self-stretch flex flex-col items-start justify-start gap-[53px] max-w-full mq750:gap-[26px]">
+                                <div class="flex flex-row items-start justify-start py-0 px-2 box-border max-w-full">
+                                    <div class="h-[76px] relative inline-block z-[1]">
+                                        <p class="m-0 font-medium">Constraints:</p>
+                                        <ul class="m-0 text-inherit pl-[21px]">
+                                            <li class="mb-0">
+                                                <span class="font-medium"
+                                                    style="letter-spacing: 1px;">{{problemData?.constraints}}</span><br>
+                                            </li>
+                                        </ul>
+                                        <p class="m-0 font-medium"></p>
+                                    </div>
+                                </div>
+                                <img class="self-stretch relative max-w-full overflow-hidden max-h-full object-contain mt-[-1px] z-[1]"
+                                    loading="lazy" alt="" />
+                            </div>
+                            <div
+                                class="flex flex-row items-start justify-start py-0 px-3 box-border max-w-full text-gray-100">
+                                <div class="relative font-medium z-[1]">
+                                    <p class="m-0 whitespace-pre-wrap">
+                                        Seen this question in a real interview before? 1/4
+                                    </p>
+                                    <p class="m-0 whitespace-pre-wrap">
+                                        Accepted 4.4M Submissions 7.8M Acceptance Rate 56.0%
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="testResultbooll"
+                        class="self-stretch flex flex-col items-start justify-start py-0 pr-[21px] pl-0 box-border gap-[65px] max-w-full shrink-0 text-text-primary-white mq450:gap-[16px] mq750:gap-[32px]">
+                        <div
+                            class="self-stretch flex flex-row items-start justify-start py-0 pr-[13px] pl-3 box-border max-w-full">
+                        </div>
+                        <div class="flex flex-col justify-center items-center w-full h-full">
+                            <p class="text-white mb-4">Presenting the Results</p>
+                            <div *ngIf="statusText"
+                                class="bg-black  min-h-[350px] max-h-[400px] relative overflow-y-scroll errorScrollerBar overflow-x-hidden background-width rounded-sm ">
+                                <pre class="w-40 text-red-700 p-4 rounded">{{ statusText }}</pre>
+                                <!-- <span
+                                    class="absolute border-spacing-44 right-3 opacity-5 cursor-pointer  text-gray-50 text-sm">
+                                    CSS by Ashif Ali p</span> -->
+                            </div>
+                            <!-- Loading animation -->
+                            <div *ngIf="loading"
+                                class="self-stretch flex flex-col  py-0 pr-[21px] pl-0 box-border gap-[65px] max-w-full items-center justify-center shrink-0 text-text-primary-white mq450:gap-[16px] mq750:gap-[32px]">
+                                <mat-progress-spinner color="primary" diameter="50"
+                                    mode="indeterminate"></mat-progress-spinner>
+                            </div>
+                            <!-- Accepted Cases -->
+                            <p class="text-green-400 mb-2" *ngIf="problemVerifiedResponse?.acceptedCases">
+                                Accepted: {{ problemVerifiedResponse?.acceptedCases?.length }}
+                            </p>
+                            <div class="mt-2" *ngFor="let test of problemVerifiedResponse?.acceptedCases">
+                                <div class="flex items-center justify-evenly border-2 border-green-700 rounded-md p-4 mb-2"
+                                    style="width: 716px; height: 50px; letter-spacing: 1px;">
+                                    <div class="flex items-center" style="width: 30%;">
+                                        <span class="font-bold text-white mr-2">Input:</span>
+                                        <span class="text-white" style="width: 100%;">[{{ test?.input }}]</span>
+                                    </div>
+                                    <div class="flex items-center" style="width: 20%;">
+                                        <span class="font-bold text-white mr-2">Output:</span>
+                                        <span class="text-white" style="width: 100%;">{{ test?.output }}</span>
+                                    </div>
+                                    <div class="flex items-center" style="width: 40%;">
+                                        <span class="font-bold text-white mr-2" style="width: 387px;">Expected
+                                            Output:</span>
+                                        <span class="text-white" style="width: 100%;">{{ test?.output }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Rejected Cases -->
+                            <p class="text-red-600 mb-2" *ngIf="problemVerifiedResponse?.rejectedCases">
+                                Rejected: {{ problemVerifiedResponse?.rejectedCases?.length }}
+                            </p>
+                            <div class="mt-2" *ngFor="let test of problemVerifiedResponse?.rejectedCases">
+                                <div class="flex items-center justify-between border border-red-700 rounded-md p-4 mb-2"
+                                    style="width: 716px; height: 50px; letter-spacing: 1px;">
+                                    <div class="flex items-center" style="width: 30%;">
+                                        <span class="font-bold text-white mr-2">Input:</span>
+                                        <span class="text-white" style="width: 100%;">[{{ test?.input }}]</span>
+                                    </div>
+                                    <div class="flex items-center" style="width: 30%;">
+                                        <span class="font-bold text-white mr-2">Output:</span>
+                                        <span class="text-white" style="width: 100%;">{{ test?.output }}</span>
+                                    </div>
+                                    <div class="flex items-center" style="width: 40%;">
+                                        <span class="font-bold text-white mr-2" style="width: 387px;">Expected
+                                            Output:</span>
+                                        <span class="text-white" style="width: 100%;">{{ test?.expectedOutput }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="acceptedBooll"
+                        class="self-stretch flex flex-col items-start justify-start py-0 pr-[21px] pl-0 box-border max-w-full shrink-0 text-text-primary-white mq450:gap-[16px] mq750:gap-[32px]">
+                        <strong [ngClass]="{'text-green-600': problemSubmissionsResponse?.submission === 'ACCEPTED','text-red-600': problemSubmissionsResponse?.submission === 'REJECTED'}"
+                         class="ml-6">
+                            {{problemSubmissionsResponse?.submission}}
+                        </strong>
+                        <div class="flex flex-row w-full ml-6 h-[50px] items-center space-x-4">
+                            <span>Submit at {{this.problemSubmissionsResponse.submissionTime}}</span>
+                            <span>TestCase: {{problemSubmissionsResponse.acceptedCases.length}} /
+                                {{problemSubmissionsResponse.totalTestCases}}</span>
+                        </div>
+                        <div class="flex flex-col  rounded-xl border-gray-400 border-2 border-box w-full h-[700px] ">
+                            <!-- Loading animation -->
+                            <div *ngIf="loading"
+                                class="self-stretch flex flex-col  py-0 pr-[21px] pl-0 box-border gap-[65px] max-w-full items-center justify-center shrink-0 text-text-primary-white mq450:gap-[16px] mq750:gap-[32px]">
+                                <mat-progress-spinner color="primary" diameter="50"
+                                    mode="indeterminate"></mat-progress-spinner>
+                            </div>
+                            <div class="w-[804px] mr-5 ml-5 mt-6">
+                                <div class="flex justify-between mb-8 mt-6">
+                                    <div *ngIf="problemSubmissionsResponse?.averageTime"
+                                        class=" bg-neutral-800 h-28 w-[390px] p-4 rounded-lg">
+                                        <div class="text-sm text-gray-100 font-bold mb-2 tracking-wide">Runtime</div>
+                                        <div class="items-center">
+                                            <strong
+                                                class="text-lg text-white font-semibold mr-2">{{problemSubmissionsResponse?.averageTime}}
+                                                ms</strong><br>
+                                            <span class="text-gray-400">(Beats 98.21% of users with Java)</span>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="problemSubmissionsResponse?.averageMemory"
+                                        class=" bg-neutral-800 h-28 w-[390px] p-4 rounded-lg">
+                                        <div class="text-sm text-gray-100 font-semibold mb-2">Memory </div>
+                                        <div class=" items-center">
+                                            <strong
+                                                class="text-lg text-gray-300 font-bold mr-2">{{problemSubmissionsResponse?.averageMemory
+                                                }} MB</strong><br>
+                                            <span class="text-gray-400">(Beats 98.21% of users with Java)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex gap-16 justify-evenly rounded-xl w-[804px] errorScrollerBar max-h-[470px] min-h-[470px] overflow-x-hidden bg-neutral-800">
+                                    <pre
+                                        class=" w-full h-full"><code #codeContainer class="language-java" style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, 'Andale Mono', 'Ubuntu Mono', 'Courier New', monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;">{{problemSubmissionsResponse?.sourceCode}}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="flex-1 flex flex-col items-start justify-start gap-[11px] min-w-[491px] max-w-full mq750:min-w-full">
+                    <div class="self-stretch rounded-xl  flex flex-col items-start justify-start text-gray-200  dark:bg-gray-900 pt-0 px-0  box-border gap-[12px] max-w-full mq750:pb-20 mq750:box-border"
+                        style="height: 857px; margin-top: 17px;">
+                        <div
+                            class="self-stretch rounded-xl rounded-b-none text-gray-200   bg-gainsboro-200 flex flex-row items-start bg-gray-500 justify-start py-0 px-3.5 box-border relative gap-[86px] max-w-full z-[1] mq450:flex-wrap mq450:gap-[43px]">
+                            <div
+                                class="self-stretch w-[756px] relative rounded-t-xl rounded-b-none bg-gainsboro-200 hidden max-w-full z-[0]">
+                            </div>
+                            <div
+                                class="h-full w-[88px] absolute !m-[0] top-[0px] bottom-[0px] left-[0px] rounded-tl-xl rounded-tr-none rounded-b-none bg-gainsboro-200 z-[2]">
+                            </div>
+                            <div
+                                class="w-[148px] flex flex-col items-start justify-start pt-[7px] px-0 pb-0 box-border">
+                                <div class="self-stretch flex flex-row items-start justify-start relative">
+                                    <div class="flex-1 relative font-medium whitespace-pre-wrap z-[3]">
+                                        &lt;/&gt; Code Java
+                                    </div>
+                                    <img class="h-[17px] w-[17px] absolute !m-[0] right-[12px] bottom-[0px] z-[4]"
+                                        loading="lazy" alt="" src="" />
+                                </div>
+                            </div>
+                            <div class="w-[183px] flex flex-row items-start justify-start gap-[20px]">
+                                <div class="flex flex-col items-start justify-start px-0 pb-0 space-y-2">
+                                    <div 
+                                        (click)="runTheCode()"
+                                        class="relative font-medium inline-flex items-center justify-center min-w-[78px] z-[2] px-4 py-2 rounded-md cursor-pointer bg-black text-green-500 hover:bg-gray-800 focus:ring-2 focus:ring-green-500">
+                                        <i class="fas fa-play mr-2"></i> Run
+                                    </div>
+                                </div>
+                                <div class="flex-1 flex flex-row items-end justify-start gap-[10px]">
+                                    <button
+                                        class="cursor-pointer [border:none] pt-[9px] px-0.5 pb-[7px] bg-gainsboro-200 flex-1 overflow-x-auto flex flex-row items-start justify-start gap-[15px] z-[2]">
+                                        <div class="h-[35px] w-[99px] relative bg-gainsboro-200 shrink-0 hidden"></div>
+                                        <div
+                                            class="h-[19px] flex flex-col items-start justify-start pt-0.5 pb-0 pr-[7px] pl-0 box-border">
+                                            <div
+                                                class="w-px h-[18px] relative box-border z-[3] border-r-[1px] border-solid border-black">
+                                            </div>
+                                        </div>
+                                        <button (click)="submitProblem()"
+                                            class="relative flex text-base  font-medium font-inter text-black text-left min-w-[54px] cursor-pointer z-[3]"
+                                            [disabled]="isloading || pendingLoading">
+                                            <span *ngIf="!isloading && !pendingLoading">Submit</span>
+                                            <ng-container *ngIf="isloading">
+                                                <em class="fas fa-spinner fa-spin"></em>
+                                                <span>&nbsp;Loading...</span>
+                                            </ng-container>
+                                            <ng-container *ngIf="pendingLoading">
+                                                <em class="fas fa-spinner fa-spin"></em>
+                                                <span>&nbsp;Pending...</span>
+                                            </ng-container>
+                                        </button>
+
+                                        <!-- <div
+                                            class="h-[19px] flex flex-col items-start justify-start pt-0.5 px-0 pb-0 box-border">
+                                            <div
+                                                class="w-px h-[18px] relative box-border z-[3] border-r-[1px] border-solid border-black">
+                                            </div>
+                                        </div> -->
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <ngx-monaco-editor
+                            class="relative w-full mt-[-11px] right-[0%] left-[0%] rounded-b-xl  bg-black  h-[857px] overflow-hidden flex flex-row items-start justify-start   text-base text-gray-600 font-roboto border-[1px] border-t-0 border-solid border-gray-200"
+                            [(ngModel)]="editorCode" [options]="editorOptions"
+                            (ngModelChange)="onEditorContentChange($event)">
+                        </ngx-monaco-editor>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>

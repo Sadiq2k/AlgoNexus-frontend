@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   errorMsg!: string[];
   shareRole: any='';
+  loading: boolean = false;
 
   constructor(
     private router: Router,
@@ -41,7 +42,7 @@ export class LoginComponent implements OnInit {
       this.loginForm.markAllAsTouched();
       return;
     }
-
+    this.loading = true;
     this.errorMsg = [];
     const authRequest = this.loginForm.value;
     this.authService.authenticate({ body: authRequest }).subscribe({
@@ -57,7 +58,7 @@ export class LoginComponent implements OnInit {
           const roles: Role[] = res.user?.roles ;
           this.userAuthService.setRoles(roles);
         }
-  
+        this.loading = false;
         // Route the user based on their role
         const role: string | undefined = res.user?.roles?.[0].name;
         console.log("roles: ", role);
@@ -76,6 +77,7 @@ export class LoginComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
+        this.loading = false;
         if (err.error.validationErrors) {
           this.errorMsg = err.error.validationErrors;
         } else {

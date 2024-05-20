@@ -48,7 +48,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { AddQuestionComponent } from './admin/problems/add-question/add-question.component';
 import { ExampleComponent } from './admin/problems/example/example.component';
 import { TestCaseComponent } from './admin/problems/testCase/test-case/test-case.component';
-
+import { ProblemListComponent } from './Component/ProblemList/problem-list/problem-list.component';
+import { CodingPageComponent } from './Component/ProblemList/coding-page/coding-page.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -76,7 +79,9 @@ import { TestCaseComponent } from './admin/problems/testCase/test-case/test-case
     CardComponent,
     AddQuestionComponent,
     ExampleComponent,
-    TestCaseComponent
+    TestCaseComponent,
+    ProblemListComponent,
+    CodingPageComponent
   ],
   imports: [
     BrowserModule,
@@ -99,6 +104,9 @@ import { TestCaseComponent } from './admin/problems/testCase/test-case/test-case
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
+    MatProgressSpinnerModule,
+    BrowserAnimationsModule, // Required for toastr animations
+    ToastrModule.forRoot(),
   ],
   providers: [
     HttpClient,

@@ -1,1 +1,78 @@
-<p>test-case works!</p>
+<app-admin></app-admin>
+
+<div class="mx-auto bg-grey-400 min-h-screen h-[1000px]" style="background-color: rgb(41, 44, 49); margin-top: -230px;">
+
+    <div class="mx-auto bg-gray-800 min-h-screen h-screen">
+        <div class="flex justify-center">
+            <main class="bg-white ml-12 md:ml-16 lg:ml-24 xl:ml-72 mt-2 min-h-screen h-screen shadow-lg rounded-lg"
+                style="width: 83%; ">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mt-6">
+                    <div class="relative">
+                        <b
+                            class="absolute top-0 left-0 text-gray-800 font-medium w-full text-center border-b-2 border-green-500 pb-6">Question</b>
+                        <i
+                            class="fa-solid fa-question absolute top-[20.1px] left-[50%] transform -translate-x-1/2 w-4 h-[13.1px] object-cover"></i>
+                    </div>
+
+                    <div class="relative">
+                        <b
+                            class="absolute top-0 left-0 text-gray-600 font-medium w-full text-center border-b-2 border-green-500 pb-6">Solution</b>
+                        <img class="absolute top-[20.1px] left-[50%] transform -translate-x-1/2 w-4 h-[13.1px] object-cover"
+                            alt="" src="./assets/blow-bulb.png" />
+                    </div>
+
+                    <div class="relative">
+                        <b
+                            class="absolute top-0 left-0 text-gray-600 font-medium w-full text-center border-b-2 border-green-500 pb-6">Example</b>
+                        <i
+                            class="fa-solid fa-pen-to-square absolute top-[20.1px] left-[50%] transform -translate-x-1/2 w-4 h-[13.1px] object-cover"></i>
+                    </div>
+
+                    <div class="relative">
+                        <b
+                            class="absolute top-0 left-0 text-gray-600 font-medium w-full text-center border-b-2 border-green-500 pb-6">Constrains</b>
+                        <i
+                            class="fa-solid fa-list absolute top-[24.1px] left-[50%] transform -translate-x-1/2 w-4 h-[13.1px] object-cover"></i>
+                    </div>
+                </div>
+                <form [formGroup]="constrainsForm" (ngSubmit)="onSubmit()">
+                    <div class="p-8 mt-14">
+                        <h1
+                            class="text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-gray-800 mb-8">
+                            New Problem
+                        </h1>
+                        <!-- <div class="mb-4">
+                        <label for="input" class="block text-gray-700 font-semibold mb-2">Test Case</label>
+                        <textarea type="text" rows="6" id="exampleInput" placeholder="Enter input" formControlName="input"
+                            class="w-3/4 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"></textarea>
+                    </div> -->
+                        <div class="mb-4">
+                            <label for="constraints" class="block text-gray-700 font-semibold mb-2">Constrains</label>
+                            <textarea type="text" rows="6" id="constraints" placeholder="Enter constraints"
+                                formControlName="constraints"
+                                class="w-full h-60 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"></textarea>
+                        </div>
+                        <!-- <div class="flex flex-col justify-start mt-[-300px] ml-auto w-1/5">
+                        <div class="bg-gray-500 p-4 rounded-md">
+                            <h1 class="text-xl font-semibold text-gray-300 mb-4">Sample</h1>
+                            <div class="text-gray-300">
+                                <p class="mb-2"><span class="font-semibold">Input:</span> nums = [2, 7, 11, 15], target = 9</p>
+                                <p class="mb-4"><span class="font-semibold">Output:</span> [0, 1]</p>
+                                <p class="mb-2"><span class="font-semibold">Input:</span> nums = [-3, 4, 3, 90], target = 0</p>
+                                <p class="mb-4"><span class="font-semibold">Output:</span> [0, 2]</p>
+                            </div>
+                        </div>
+                    </div> -->
+                        <div class="flex justify-end mt-6">
+                            <button
+                                class="py-2 px-4 text-xl bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                                type="submit">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </main>
+
+
+        </div>
+    </div>
+</div>

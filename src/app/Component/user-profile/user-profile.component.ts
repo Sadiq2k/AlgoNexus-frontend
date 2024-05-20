@@ -49,6 +49,7 @@ loadUserProfile() {
     },
     error: (error) => {
       console.error('Error retrieving user profile:', error);
+      window.location.reload();
     }
   });
 }

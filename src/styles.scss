@@ -10,4 +10,21 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;  }
+
+html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.errorScrollerBar::-webkit-scrollbar {
+    width: 12px; /* Width of the entire scrollbar */
+  }
+  
+  .errorScrollerBar::-webkit-scrollbar-track {
+    background: #222222; /* Background color of the scrollbar track */
+  }
+  
+  .errorScrollerBar::-webkit-scrollbar-thumb {
+    background-color: #3d3d3d; /* Color of the scrollbar thumb */
+    border-radius: 10px; /* Roundness of the scrollbar thumb */
+    border: 2px solid #3a6139; /* Space around the thumb */
+  }

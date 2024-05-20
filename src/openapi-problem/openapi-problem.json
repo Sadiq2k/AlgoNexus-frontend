@@ -1,0 +1,347 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8088",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/problem": {
+      "get": {
+        "tags": [
+          "problem-controller"
+        ],
+        "operationId": "getAllProblems",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Problem"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "problem-controller"
+        ],
+        "operationId": "addProblem",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddProblemRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddProblemResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/problem/verify-problem": {
+      "post": {
+        "tags": [
+          "problem-controller"
+        ],
+        "operationId": "verifyProblem",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProblemVerificationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemVerificationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/problem/{problemId}": {
+      "get": {
+        "tags": [
+          "problem-controller"
+        ],
+        "operationId": "getProblem",
+        "parameters": [
+          {
+            "name": "problemId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AddProblemRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "difficulty": {
+            "type": "string"
+          },
+          "driverCode": {
+            "type": "string"
+          },
+          "languageId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "constraints": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "solutionTemplate": {
+            "type": "string"
+          },
+          "acceptanceRate": {
+            "type": "number",
+            "format": "float"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "category": {
+            "type": "string"
+          },
+          "examples": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Example"
+            }
+          },
+          "testCases": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TestCase"
+            }
+          }
+        }
+      },
+      "Example": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "testCases": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TestCase"
+            }
+          }
+        }
+      },
+      "TestCase": {
+        "type": "object",
+        "properties": {
+          "testCaseInput": {
+            "type": "string"
+          },
+          "expectedOutput": {
+            "type": "string"
+          }
+        }
+      },
+      "AddProblemResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ProblemVerificationRequest": {
+        "required": [
+          "languageId",
+          "sourceCode",
+          "testCases"
+        ],
+        "type": "object",
+        "properties": {
+          "testCases": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TestCase"
+            }
+          },
+          "sourceCode": {
+            "type": "string"
+          },
+          "languageId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "AcceptCase": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string"
+          },
+          "output": {
+            "type": "string"
+          }
+        }
+      },
+      "ProblemVerificationResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "acceptedCases": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AcceptCase"
+            }
+          },
+          "rejectedCases": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RejectCase"
+            }
+          }
+        }
+      },
+      "RejectCase": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string"
+          },
+          "output": {
+            "type": "string"
+          },
+          "expectedOutput": {
+            "type": "string"
+          }
+        }
+      },
+      "Problem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "difficulty": {
+            "type": "string"
+          },
+          "driverCode": {
+            "type": "string"
+          },
+          "languageId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "constraints": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "solutionTemplate": {
+            "type": "string"
+          },
+          "acceptanceRate": {
+            "type": "number",
+            "format": "float"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "category": {
+            "type": "string"
+          },
+          "examples": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Example"
+            }
+          },
+          "testCases": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TestCase"
+            }
+          }
+        }
+      }
+    }
+  }
+}

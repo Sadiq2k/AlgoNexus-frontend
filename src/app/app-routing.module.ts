@@ -18,6 +18,9 @@ import { SolutionComponent } from './admin/problems/solution/solution.component'
 import { CardComponent } from './admin/cards/card/card.component';
 import { AddQuestionComponent } from './admin/problems/add-question/add-question.component';
 import { ExampleComponent } from './admin/problems/example/example.component';
+import { TestCaseComponent } from './admin/problems/testCase/test-case/test-case.component';
+import { ProblemListComponent } from './Component/ProblemList/problem-list/problem-list.component';
+import { CodingPageComponent } from './Component/ProblemList/coding-page/coding-page.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -32,12 +35,14 @@ const routes: Routes = [
   { path: 'forbidden', component: ForbiddenComponent },
   { path: 'user-details', component: UserDetailsComponent, canActivate: [AuthGuard], data: { roles: ['USER'] } },
   { path: 'user-account', component: UserAccountComponent, canActivate: [AuthGuard], data: { roles: ['USER'] } },
+  { path: 'user-problems', component: ProblemListComponent },
+  { path: 'user-coding', component: CodingPageComponent },
   { path: 'add-question', component: AddQuestionComponent },
   { path: 'admin/problems', component: ProblemsComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN'] } },
-  {path:'admin/user-management',component:UserManagementComponent,canActivate: [AuthGuard], data: { roles: ['ADMIN'] }},
-  {path:'admin/problems/solution',component:SolutionComponent,canActivate: [AuthGuard], data: { roles: ['ADMIN'] }},
-  // {path:'admin/dashboard',component:CardComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN'] }},
-  {path:'admin/problems/example',component:ExampleComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN'] }}
+  { path: 'admin/user-management', component: UserManagementComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN'] } },
+  { path: 'admin/problems/solution', component: SolutionComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN'] } },
+  { path: 'admin/problems/example', component: ExampleComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN'] } },
+  { path: 'admin/problems/test-case', component: TestCaseComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN'] } }
 
 ];
 

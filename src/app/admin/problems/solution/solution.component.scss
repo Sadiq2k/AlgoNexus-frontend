@@ -1,0 +1,18 @@
+.absolute-container {
+    position: absolute;
+    width: 100%;
+    right: 0%;
+    left: 0%;
+    background-color: #1E1E1E; /* dark:bg-neutral-900 */
+    border-radius: 10px;
+    height: 375.4px; /* Set a fixed height or adjust dynamically */
+    overflow: auto; /* Enable scrolling */
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px; /* Adjust font size if needed */
+    color: #A0AEC0; /* text-gray-600 */
+}

@@ -76,7 +76,7 @@ export class AdminComponent {
   ngOnInit(): void {
     this.store.select(getuserlist).subscribe(users => {
       this.users = users;
-      console.log("==========",this.users);
+      // console.log("==========",this.users);
       
       this.users.forEach(user => {
         if (Array.isArray(user.role)) {

@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
   signupForm!: FormGroup;
   errorMessage: string = '';
   successMessage: string = '';
+  loading: boolean = false;
 
   constructor(private router: Router,
     private authService:AuthenticationService,
@@ -50,7 +51,7 @@ export class RegisterComponent implements OnInit {
   
    register(): void {
     this.signupForm.markAllAsTouched();
-    
+    this.loading = true;
     if (this.signupForm.invalid) {
       this.errorMessage = 'Please fill out all required fields.';
       return;
@@ -58,13 +59,15 @@ export class RegisterComponent implements OnInit {
   
    this.authService.register({ body: this.signupForm.value }).subscribe({
     next: (res) => { // Accept any type for response
-      console.log('User created successfully.');
+      // console.log('User created successfully.');
+      this.loading = false;
       this.dataShare.setEmail(this.signupForm.get('email')?.value);
       this.router.navigate(['activate-account', { isRegisterActive: true, email: this.signupForm.value.email }]);
     },
     
     error: (err: HttpErrorResponse) => {
-      console.error(err);
+      this.loading = false;
+      // console.error(err);
       if (err.error.validationErrors) {
         this.errorMessage = err.error.validationErrors;
       } else {

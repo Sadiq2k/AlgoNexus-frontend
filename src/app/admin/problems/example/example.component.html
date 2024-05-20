@@ -1,70 +1,115 @@
 <app-admin></app-admin>
 
-
 <div class="mx-auto bg-grey-400 min-h-screen h-[1000px]  "
-    style="background-color: rgb(41, 44, 49); margin-top: -260px;">
-        <main class="bg-white-300  overflow-hidden" >
-                <div
-                    class="absolute top-[0px] left-[290px]  shadow-[11px_12px_11.9px_rgba(0,_0,_0,_0.25)] mt-[55px] rounded-lg bg-white w-[1515px] h-[975px]">
-                    <b
-                        class="absolute w-[18.2%] top-[calc(50%_-_443px)] left-[2.0%] text-3xl tracking-[-0.11px] inline-block text-gray-800 h-[36.2px]">New
-                        Problem</b>
-                    <div class="absolute top-[104.4px] left-[219px] w-[661px] h-[5.8px]">
-                        <div
-                            class="absolute top-[0px] left-[92px] rounded-6xs bg-whitesmoke-300 bg-gray-400 w-[1109px] h-[5.8px]">
-                            <div
-                                class="absolute top-[0px] left-[0px] bg-green-800 rounded-tl-6xs rounded-tr-none rounded-br-none rounded-bl-6xs bg-lavender w-[682px] h-[5.8px]">
+    style="background-color: rgb(41, 44, 49); margin-top: -230px;">
+
+    <div class="mx-auto bg-gray-800 min-h-screen h-screen">
+        <div class="flex justify-center">
+            <main class="bg-white ml-12 md:ml-16 lg:ml-24 xl:ml-72 mt-2   min-h-screen h-screen shadow-lg rounded-lg"
+                style="width: 83%; ">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mt-6">
+                    <div class="relative">
+                        <b
+                            class="absolute top-0 left-0 text-gray-800 font-medium w-full text-center border-b-2 border-green-500 pb-6">Question</b>
+                        <i
+                            class="fa-solid fa-question absolute top-[20.1px] left-[50%] transform -translate-x-1/2 w-4 h-[13.1px] object-cover"></i>
+                    </div>
+
+                    <div class="relative">
+                        <b
+                            class="absolute top-0 left-0 text-gray-600 font-medium w-full text-center border-b-2 border-green-500 pb-6">Solution</b>
+                        <img class="absolute top-[20.1px] left-[50%] transform -translate-x-1/2 w-4 h-[13.1px] object-cover"
+                            alt="" src="./assets/blow-bulb.png" />
+                    </div>
+                    <div class="relative">
+                        <b
+                            class="absolute top-0 left-0 text-gray-600 font-medium w-full text-center border-b-2 border-green-500 pb-6">Example</b>
+                        <i
+                            class="fa-solid fa-pen-to-square absolute top-[20.1px] left-[50%] transform -translate-x-1/2 w-4 h-[13.1px] object-cover"></i>
+                    </div>
+                    <div class="relative">
+                        <b
+                            class="absolute top-0 left-0 text-gray-600 font-medium w-full text-center border-b-2 border-gray-300 pb-6">Constrains</b>
+                        <i
+                            class="fa-solid fa-list absolute top-[24.1px] left-[50%] transform -translate-x-1/2 w-4 h-[13.1px] object-cover"></i>
+                    </div>
+                </div>
+                <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()">
+                    <div class="p-8 mt-14" >
+                        <h1
+                            class="text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-gray-800 mb-8">
+                            New Problem
+                        </h1>
+                     
+                        <!-- <div class="mt-6">
+                            <label for="explanation" class="text-gray-600 font-medium mb-2 block">Explanation*</label>
+                            <textarea id="explanation" name="explanation" formControlName="explanation"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                rows="10" placeholder="Enter explanation"></textarea>
+
+                        </div> -->
+                        <label class="text-gray-600 font-medium mb-2 block">Example Test Cases</label>
+                        <div class="mt-6" *ngFor="let test of testCases;let i = index">
+                           
+                            <div class="grid grid-cols-2 gap-4">
+                                <!-- Input -->
+                                <div>
+                                    <label for="testCaseInput{{i}}" class="text-gray-600 font-medium mb-2 block">testCaseInput {{i+1}}*</label>
+                                    <input id="testCaseInput{{i}}" type="text" name="testCaseInput{{i}}" formControlName="testCaseInput{{i}}"
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                        placeholder="Enter testCaseInput {{i+1}}" [value]="test?.testCaseInput">
+                                </div>
+                                <!-- Output -->
+                                <div>
+                                    <label for="expectedOutput{{i}}" class="text-gray-600 font-medium mb-2 block">expectedOutput {{i+1}}*</label>
+                                    <input id="expectedOutput{{i}}" type="text" name="expectedOutput{{i}}" [value]="test?.expectedOutput" formControlName="expectedOutput{{i}}"
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                        placeholder="Enter expectedOutput {{i+1}}" >
+                                </div>
                             </div>
                         </div>
-
-                    </div>
-                    <div class="absolute top-[69.9px] left-[275px] w-[50px] h-[26.3px]">
-                        <b
-                            class="absolute top-[0px] left-[40px] tracking-[-0.11px] inline-block w-[50px] h-[13.1px]">Question</b>
-
-                        <i
-                            class="fa-solid fa-question absolute top-[17.1px] left-[56px] w-4 h-[13.1px] object-cover"></i>
-                    </div>
-                    <div class="absolute top-[69.9px] left-[600px] w-[88px] h-[26.3px]">
-                        <b
-                            class="absolute top-[0px] left-[40px] tracking-[-0.11px] inline-block w-[47px] h-[13.1px]">Solution</b>
-                        <img class="absolute top-[16.1px] left-[54px] w-4 h-[13.1px] object-cover" alt=""
-                            src="./assets/blow-bulb.png" />
-                    </div>
-                    <div class="absolute top-[69.9px] left-[1272px] w-[53px] h-[26.3px]">
-                        <b class="absolute top-[0px] left-[40px] tracking-[-0.11px] inline-block w-[85px] h-[13.1px]">Test
-                            Case</b>
-                        <i class="fa-solid fa-list absolute top-[17.1px] left-[56px] w-4 h-[13.1px] object-cover"></i>
-                    </div>
-                   
-                    <div #editorContainer class="absolute h-[30.95%] w-[1385px] top-[17.97%] right-[5.32%] bottom-[12.07%] left-[2.79%] text-3xl text-gray-1000 font-inter">
-                        <ngx-monaco-editor
-                          class="absolute w-[71%] top-[calc(50% - 84.9px)] mt-20 right-[0%] left-[0%] rounded-10xs bg-white box-border h-[477.4px] overflow-hidden flex flex-row items-start justify-start py-2 px-3 gap-[10px] text-base text-gray-600 font-roboto border-[1px] border-solid border-gray-200"
-                          [(ngModel)]="editorCode" [options]="editorOptions"></ngx-monaco-editor>
-                      </div>
-                    <b
-                        class="absolute top-[144.6px] left-[122px] tracking-[-0.11px] inline-block text-black h-[13.1px]">
-                    </b>
-                    <div
-                        class="absolute top-[178.7px] left-[41px] text-2xl tracking-[-0.11px] text-dimgray-500 inline-block w-[407px] h-[27.9px]">
-                        Provide proper Example.
-                    </div>
-                   
-                      
-                    <div class="absolute top-[69.9px] left-[929px] w-12 h-[26.3px]">
-                        <div class="absolute top-[0px] left-[0px] w-12 h-[13.1px]">
-                            <b
-                                class="absolute top-[0px] left-[40px] tracking-[-0.11px] inline-block w-12 h-[13.1px]">Example</b>
+                        <!-- <div class="mt-6">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label for="input1{{i}}" class="text-gray-600 font-medium mb-2 block">Input {{i+1}}*</label>
+                                    <input id="input1{{i}}" type="text" name="input1{{i}}" formControlName="input1{{i}}"
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                        placeholder="Enter input1 {{i+1}}" [value]="test?.testCaseInput">
+                                </div>
+                                <div>
+                                    <label for="output1{{i}}" class="text-gray-600 font-medium mb-2 block">Output {{i+1}}*</label>
+                                    <input id="output1{{i}}" type="text" name="output1{{i}}" formControlName="output1{{i}}"
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                        placeholder="Enter output1 {{i+1}}" [value]="test?.expectedOutput">
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- <div class="mt-6">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label for="input{{i}}" class="text-gray-600 font-medium mb-2 block">Input {{i+1}}*</label>
+                                    <input id="input{{i}}" type="text" name="input{{i}}" formControlName="input{{i}}"
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                        placeholder="Enter input {{i+1}}" [value]="test?.testCaseInput">
+                                </div>
+                                <div>
+                                    <label for="output{{i}}" class="text-gray-600 font-medium mb-2 block">Output {{i+1}}*</label>
+                                    <input id="output{{i}}" type="text" name="output{{i}}" formControlName="output{{i}}"
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                        placeholder="Enter output {{i+1}}" [value]="test?.expectedOutput">
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="flex justify-end mt-6">
+                            <button
+                                class="py-2 px-4 text-xl bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                                type="submit">Continue
+                            </button>
                         </div>
-                        <i
-                            class="fa-solid fa-pen-to-square absolute top-[17.1px] left-[56px] w-4 h-[13.1px] object-cover"></i>
                     </div>
-                    <button
-                        class="absolute bottom-0 right-0  mb-32 mr-40 py-2 px-4 text-xl bg-blue-500 text-white rounded hover:bg-blue-600">
-                        Continues
-                    </button>
-                </div>
-            <!-- </div> -->
-        </main>
+                </form>
+            </main>
+        </div>
+    </div>
     <!-- </div> -->
 </div>

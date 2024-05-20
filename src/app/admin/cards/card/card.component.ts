@@ -9,16 +9,19 @@ import { ChartModule } from 'primeng/chart';
 export class CardComponent {
   data: any;
   options: any;
+  userData:any
+  userOptions:any
 
   constructor() {
     this.data = {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [
         {
-          label: 'My First Dataset',
+          label: 'Users Data',
           data: [65, 59, 80, 81, 56, 55, 40],
           fill: false,
           borderColor: 'rgb(75, 192, 192)',
+          
           tension: 0.1
         }
       ]
@@ -26,8 +29,23 @@ export class CardComponent {
 
     this.options = {
       responsive: true,
-      maintainAspectRatio: false
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          grid: {
+            color: 'rgba(255, 255, 255, 0.1)', // Change the color of the vertical grid lines to white
+          },
+        },
+        y: {
+          grid: {
+            color: 'rgba(255, 255, 255, 0.1)', // Change the color of the horizontal grid lines to white
+          },
+        },
+      },
     };
+
+   
+  
   }
 
 }

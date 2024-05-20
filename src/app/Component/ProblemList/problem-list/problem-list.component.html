@@ -1,0 +1,182 @@
+<app-header></app-header>
+<!-- app.component.html -->
+
+<div class="container flex justify-between mx-auto p-4">
+    <!-- Filter Section -->
+    <div class="filter-section bg-gray-100 ml-32 w-[70%] rounded-md p-4">
+        <mat-form-field class="mr-4 mb-4">
+            <mat-label>All Topics</mat-label>
+            <mat-select>
+                <!-- Options for all topics -->
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="mr-4 mb-4">
+            <mat-label>Difficulty</mat-label>
+            <mat-select>
+                <mat-option value="easy">Easy</mat-option>
+                <mat-option value="medium">Medium</mat-option>
+                <mat-option value="hard">Hard</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <!-- <mat-form-field class="mr-4 mb-4">
+            <mat-label>Tag</mat-label>
+            <mat-select>
+                <mat-option value="tag1">Tag 1</mat-option>
+                <mat-option value="tag2">Tag 2</mat-option>
+                <mat-option value="tag3">Tag 3</mat-option>
+            </mat-select>
+        </mat-form-field> -->
+
+        <mat-form-field class="mr-4 mb-4">
+            <input matInput type="text" placeholder="Search">
+        </mat-form-field>
+    </div>
+
+    <div class="ml-auto justify-end  items-end mr-44">
+        <!-- Calendar -->
+        <mat-form-field class="mb-4 ">
+            <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <div class="flex-1 rounded-lg bg-white flex-row items-end justify-start pt-[9px] px-[9px] pb-4 gap-[14px] min-w-[230px]"
+            style="height: 196px;">
+            <div class="h-36 w-[297px] relative rounded-lg bg-lavenderblush hidden"></div>
+
+            <!-- Solved Problems Section -->
+            <div class="flex flex-col items-start justify-end pt-0 px-0 pb-[52px] ">
+                <div class="flex flex-col items-start justify-start gap-[19px]">
+                    <div class="font-bold text-green-900">Solved Problems</div>
+                    <div class="flex flex-row items-start justify-start py-0 px-0.5 text-[24px] text-black">
+                        <div class="flex flex-col items-start justify-start pt-4 px-[18px] pb-[17px] relative">
+                            <div
+                                class="w-28 h-28 absolute !m-[0] top-[0px] right-[0px] bottom-[0px] left-[0px] rounded-[50%] bg-gainsboro-200 shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] box-border z-[1] border-[0px] border-solid border-darkslategray">
+                            </div>
+                            <div class="flex flex-row items-start justify-start py-0 pr-2 pl-[23px]">
+                                <div class="relative font-medium inline-block min-w-[27px] z-[3]" style="top: 10px;">91
+                                </div>
+                            </div>
+                            <div class="relative text-smi inline-block min-w-[42px] z-[2]" style="top: 27px;">Solved
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Difficulty Section -->
+            <div
+                class="flex-1 shadow-xl flex flex-col items-start justify-start gap-[30px] text-3xs min-w-[230px] text-black">
+                <!-- Easy -->
+                <div class="self-stretch flex flex-col items-start justify-start gap-[3px]">
+                    <div class="flex flex-row items-start justify-start gap-[14.5px]">
+                        <div class="flex flex-col items-start justify-start pt-0.5 pb-0 pr-5 pl-0">
+                            <div class="relative inline-block min-w-[23px]">Easy</div>
+                        </div>
+                        <div class="relative leading-[12.38px] font-medium inline-block min-w-[33px]">
+                            <span>70</span>
+                            <span class="text-5xs">/760</span>
+                        </div>
+                        <div class="flex flex-col items-start justify-start pt-0.5 px-0 pb-0 text-5xs">
+                            <div class="relative inline-block min-w-[52px]">
+                                <span>Beats</span>
+                                <span class="font-medium whitespace-pre-wrap">84.7%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="self-stretch h-[9px] relative rounded bg-easy-color">
+                        <div class="absolute top-[0px] left-[0px] rounded bg-darkolivegreen w-full h-full"></div>
+                        <div class="absolute top-[0px] left-[0px] rounded bg-green-800 w-[31px] h-[9px]"></div>
+                    </div>
+                </div>
+
+                <!-- Medium -->
+                <div class="self-stretch flex flex-col items-start justify-start gap-[3px]">
+                    <div class="flex flex-row items-start justify-start gap-[17.5px]">
+                        <div class="flex flex-col items-start justify-start pt-0.5 px-0 pb-0">
+                            <div class="relative inline-block min-w-[38px]">Medium</div>
+                        </div>
+                        <div class="relative leading-[12.38px] font-medium inline-block min-w-[32px]">
+                            <span>19</span>
+                            <span class="text-5xs">/760</span>
+                        </div>
+                        <div class="flex flex-col items-start justify-start pt-0.5 px-0 pb-0 text-5xs">
+                            <div class="relative inline-block min-w-[52px]">
+                                <span>Beats</span>
+                                <span class="font-medium whitespace-pre-wrap">64.7%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="self-stretch h-[9px] relative rounded bg-darkkhaki">
+                        <div class="absolute top-[0px] left-[0px] rounded bg-darkkhaki w-full h-full"></div>
+                        <div class="absolute top-[0px] left-[0px] rounded bg-olive w-2.5 h-[9px]"></div>
+                    </div>
+                </div>
+
+                <!-- Hard -->
+                <div class="self-stretch flex flex-col items-start justify-start gap-[3px]">
+                    <div class="flex flex-row items-start justify-start gap-[20px]">
+                        <div class="flex flex-col items-start justify-start pt-0.5 pb-0 pr-3.5 pl-0">
+                            <div class="relative inline-block min-w-[23px]">Hard</div>
+                        </div>
+                        <div class="relative leading-[12.38px] font-medium inline-block min-w-[27px]">
+                            <span>2</span>
+                            <span class="text-5xs">/760</span>
+                        </div>
+                        <div class="flex flex-col items-start justify-start pt-0.5 px-0 pb-0 text-5xs">
+                            <div class="relative inline-block min-w-[52px]">
+                                <span>Beats</span>
+                                <span class="font-medium whitespace-pre-wrap">24.7%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="self-stretch h-[9px] relative rounded bg-maroon">
+                        <div class="absolute top-[0px] left-[0px] rounded bg-maroon w-full h-full"></div>
+                        <div class="absolute top-[0px] left-[0px] rounded bg-firebrick w-[5px] h-[9px]"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Problem List -->
+
+    <div
+        class="absolute top-[200px] left-[285px] lg:shadow-[0px_10px_15px_3px_rgba(0,_0,_0,_0.25)] lg:rounded-lg bg-white w-full lg:w-[940px] h-[656px] ">
+        <div action="#">
+            <!-- Header Row -->
+            <div class="flex bg-gray-700 text-white rounded-t-lg">
+                <div class="w-1/4 py-2 px-4">Status</div>
+                <div class="w-3/4 py-2 px-4">Title</div>
+                <div class="w-1/4 py-2 px-4">Acceptance</div>
+                <div class="w-1/4 py-2 px-4">Difficulty</div>
+            </div>
+
+            <!-- Question Rows -->
+            <div class="section flex items-center bg-gray-200 mb-1" *ngFor="let Problem of allProblem ">
+                <div class="w-1/4 flex ml-3" *ngIf="Problem.identity">
+                    <i class="far fa-circle-check text-green-500" style="font-size: 20px;"></i>
+                </div>
+                <div class="w-1/4 flex ml-3" *ngIf="!Problem.identity"></div>
+                <!-- <i class="fa-regular fa-circle-xmark w-1/4 flex ml-3" *ngIf="!Problem.identity"></i> -->
+                <div class="w-3/4 py-2 px-4 cursor-pointer hover:bg-gray-200 hover:text-blue-800 " (click)="goToProblemDetails(Problem.problemId)">{{Problem?.title}}</div>
+
+                <div class="w-1/4 py-2 px-4">56%</div>
+                <div class="w-1/4 py-2 px-4" [ngClass]="{
+                    'text-green': Problem?.difficulty === 'Easy',
+                    'text-yellow': Problem?.difficulty === 'Medium',
+                    'text-red': Problem?.difficulty === 'Hard'
+                }" *ngIf="Problem?.difficulty">
+                    {{ Problem?.difficulty }}
+                </div>
+            </div>
+            
+          
+
+        </div>
+
+
+    </div>
+
+
+</div>

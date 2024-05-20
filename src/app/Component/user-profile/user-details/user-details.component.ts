@@ -140,6 +140,7 @@ export class UserDetailsComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error retrieving user details:', error);
+        window.location.reload();
       }
     });
   }
@@ -346,6 +347,10 @@ export class UserDetailsComponent implements OnInit {
     this.cloudinaryImageControllerService.uploadImage(params).subscribe({
       next: (res) => {
         console.log("Successfully uploaded image", res);
+        // this.router.navigateByUrl(['user-profile']).then(()=>{
+        //   this.router.navigate(['/user-details'])
+        // })
+        window.location.reload();
       },
       error: (err) => {
         console.log("Error occurred during image uploading ", err);
