@@ -17,7 +17,9 @@ export class UserProfileComponent implements OnInit {
 
   userEmail!: string;
   userId!: any;
-  userImage!: string | undefined;
+  // userImage!: string | undefined;
+  userImage!:string
+
   totalDifficulties: any
   solvedProblems: any
   solvedEasy!: number
@@ -49,7 +51,7 @@ export class UserProfileComponent implements OnInit {
     this.getCountSolvedProblems(this.userId)
     this.getRecentSubmission();
     this.getStreak(this.userId)
-    this.getUserProfilePic(this.userId)
+    // this.getUserProfilePic(this.userId)
   }
 
   loadUserProfile() {
@@ -70,16 +72,16 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  getUserProfilePic(userId:string){
-    this.userService.getImageByUserId(userId).subscribe({
-      next: (userImages) => {
-        this.userImage = userImages.imageUrl;
+  // getUserProfilePic(userId:string){
+  //   this.userService.getImageByUserId(userId).subscribe({
+  //     next: (userImages) => {
+  //       this.userImage = userImages.imageUrl;
         // console.log("user images", this.userImage);
-      },error:(err)=>{
-        console.log("error occure while fetching the user profile pic",err)
-      }
-    });
-  }
+  //     },error:(err)=>{
+  //       console.log("error occure while fetching the user profile pic",err)
+  //     }
+  //   });
+  // }
 
   redirectUserDetails() {
     this.router.navigate(['user-details']);
