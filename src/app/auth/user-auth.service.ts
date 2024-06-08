@@ -1,12 +1,11 @@
-  import { isPlatformBrowser } from '@angular/common';
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+  import { Injectable } from '@angular/core';
 
   @Injectable({
     providedIn: 'root'
   })
   export class UserAuthService {
 
-    // constructor() {}
+  //   constructor() {}
 
   //   public setRoles(roles: any[]) {
   //     localStorage.setItem('roles', JSON.stringify(roles));
@@ -46,20 +45,22 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
   //     console.log("roles in authguard: ",roles)
   //     return roles ? roles.includes(role) : false;
   //   }
-  private isBrowser: boolean;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    this.isBrowser = isPlatformBrowser(this.platformId);
+
+  constructor() {}
+
+  private isLocalStorageAvailable(): boolean {
+    return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
   }
 
   public setRoles(roles: any[]) {
-    if (this.isBrowser) {
+    if (this.isLocalStorageAvailable()) {
       localStorage.setItem('roles', JSON.stringify(roles));
     }
   }
 
   public getRoles(): string[] | null {
-    if (this.isBrowser) {
+    if (this.isLocalStorageAvailable()) {
       const rolesJson = localStorage.getItem('roles');
       return rolesJson ? JSON.parse(rolesJson) : null;
     }
@@ -67,27 +68,27 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
   }
 
   public setToken(jwtToken: string) {
-    if (this.isBrowser) {
+    if (this.isLocalStorageAvailable()) {
       localStorage.setItem('jwtToken', jwtToken);
     }
   }
 
   public getToken(): string | null {
-    if (this.isBrowser) {
+    if (this.isLocalStorageAvailable()) {
       const token = localStorage.getItem('jwtToken');
-      return token || '';
+      return token || null;
     }
     return null;
   }
 
   public setUserId(userId: string) {
-    if (this.isBrowser) {
+    if (this.isLocalStorageAvailable()) {
       localStorage.setItem('userId', JSON.stringify(userId));
     }
   }
 
-  public getUserId() {
-    if (this.isBrowser) {
+  public getUserId(): string | null {
+    if (this.isLocalStorageAvailable()) {
       const userIdJson = localStorage.getItem('userId');
       return userIdJson ? JSON.parse(userIdJson) : null;
     }
@@ -95,13 +96,13 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
   }
 
   public clear() {
-    if (this.isBrowser) {
+    if (this.isLocalStorageAvailable()) {
       localStorage.clear();
     }
   }
 
-  public isLoggedIn() {
-    return this.isBrowser && this.getRoles() && this.getToken();
+  public isLoggedIn(): boolean {
+    return !!this.getRoles() && !!this.getToken();
   }
 
   public hasRole(role: string): boolean {

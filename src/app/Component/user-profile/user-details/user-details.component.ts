@@ -63,7 +63,7 @@ export class UserDetailsComponent implements OnInit {
   @ViewChild('datepickerInput') datepickerInput!: ElementRef<HTMLInputElement>;
   @ViewChild(MatDatepicker) picker!: MatDatepicker<Date>;
 
-  userId!: string;
+  userId!: string ;
   userImage: string | undefined;
 
 
@@ -81,7 +81,7 @@ export class UserDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userId = this.userAuthService.getUserId();
+    this.userId = this.userAuthService.getUserId() as string;
     console.log(this.userId);
     this.loadUserProfile(this.userId);
 

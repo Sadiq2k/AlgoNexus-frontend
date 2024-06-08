@@ -21,7 +21,7 @@ export class AllSubmissionsComponent implements OnInit{
     private router:Router) { }
 
   ngOnInit(): void {
-    this.userId = this.userAuthService.getUserId();
+    this.userId = this.userAuthService.getUserId() as string;
     this.getAllSubmissions(this.page, this.size);
   }
 

@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userId = this.userAuthService.getUserId();
+    this.userId = this.userAuthService.getUserId() as string;
     this.getDailyStreak(this.userId)
     this.getUserProfilePic(this.userId)
   }

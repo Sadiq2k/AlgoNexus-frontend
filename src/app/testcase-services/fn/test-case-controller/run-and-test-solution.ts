@@ -10,7 +10,7 @@ import { SolutionSubmitRequest } from '../../models/solution-submit-request';
 import { TestCaseRunResponse } from '../../models/test-case-run-response';
 
 export interface RunAndTestSolution$Params {
-      body: SolutionSubmitRequest
+      body: SolutionSubmitRequest 
 }
 
 export function runAndTestSolution(http: HttpClient, rootUrl: string, params: RunAndTestSolution$Params, context?: HttpContext): Observable<StrictHttpResponse<TestCaseRunResponse>> {

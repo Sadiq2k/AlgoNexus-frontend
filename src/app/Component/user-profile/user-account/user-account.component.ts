@@ -28,7 +28,7 @@ export class UserAccountComponent implements OnInit {
   userAccount: any;
 
   ngOnInit(): void {
-    this.userId = this.userAuthService.getUserId();
+    this.userId = this.userAuthService.getUserId() as string;
     console.log(this.userId);
     this.loadUserProfile(this.userId);
   }

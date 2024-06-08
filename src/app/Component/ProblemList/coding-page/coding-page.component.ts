@@ -8,8 +8,6 @@ import { TestCaseControllerService } from '../../../testcase-services/services';
 import { timeStamp } from 'console';
 import { strict } from 'assert';
 import { response } from 'express';
-import { BlobOptions } from 'buffer';
-import Prism from 'prismjs';
 import { UserAuthService } from '../../../auth/user-auth.service';
 import Swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
@@ -257,7 +255,7 @@ export class CodingPageComponent implements AfterViewInit {
     this.problemVerifiedResponse = '';
 
 
-    const userId = this.authService.getUserId();
+    const userId = this.authService.getUserId() as string;
     if (!userId) {
       Swal.fire({
         text: 'PLEASE REGISTER THE ACCOUNT'
@@ -290,7 +288,7 @@ export class CodingPageComponent implements AfterViewInit {
       languageId: this.problemData.languageId,
       problemId: this.problemData.problemId,
       solutionCode: userSourceCode,
-      userId: this.authService.getUserId(),
+      userId: this.authService.getUserId() as string,
       difficulty: this.problemData.difficulty,
       problemNo: this.problemData.problemNo,
       title: this.problemData.title
