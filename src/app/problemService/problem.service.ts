@@ -17,7 +17,7 @@ export class ProblemService {
     private userAuthService:UserAuthService
   ) { }
 
-  rootUrl: string = 'http://localhost:8084';
+  rootUrl: string = 'http://13.202.64.234:8084';
 
   saveProblem(newProblem: any): Observable<any> {
 
