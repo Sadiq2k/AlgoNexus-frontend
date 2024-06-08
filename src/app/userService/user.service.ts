@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UserAuthService } from '../auth/user-auth.service';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Users } from '../adminState/file-handler/users';
 import { BlockUser$Params } from '../services/fn/authentication/block-user';
@@ -57,46 +57,14 @@ export class UserService {
     return this.httpClient.get(this.PATH_OF_API + `/users/logedUser/${userId}`, httpOptions);
   }
 
-  // getImageByUserId(userId: string): Observable<any> {
-  //   const jwtToken = this.userAuthService.getToken();
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       'Authorization': `Bearer ${jwtToken}`
-  //     })
-  //   };
-  //   return this.httpClient.get(this.PATH_OF_API + `/cloudinary/${userId}`, httpOptions);
-  // }
-
-
   getImageByUserId(userId: string): Observable<any> {
     const jwtToken = this.userAuthService.getToken();
-
-    if (!jwtToken) {
-      console.error('JWT token is null or undefined');
-      return throwError('JWT token is not available');
-    }
-
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${jwtToken}`
       })
     };
-
-    const url = `${this.PATH_OF_API}/cloudinary/${userId}`;
-    return this.httpClient.get(url, httpOptions).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  private handleError(error: any): Observable<never> {
-    if (error.error instanceof ErrorEvent) {
-      // Client-side or network error occurred
-      console.error('An error occurred:', error.error.message);
-    } else {
-      // Backend returned an unsuccessful response code
-      console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
-    }
-    return throwError('Something bad happened; please try again later.');
+    return this.httpClient.get(this.PATH_OF_API + `/cloudinary/${userId}`, httpOptions);
   }
 
 
