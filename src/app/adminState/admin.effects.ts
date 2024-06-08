@@ -5,7 +5,7 @@ import {  Actions, createEffect, ofType } from '@ngrx/effects';
 import { EMPTY, of } from 'rxjs';
 import { catchError, exhaustMap, map, mergeMap } from 'rxjs/operators';
 import * as adminActions from './admin.action';
-import { loadUsersSuccess ,updateUserSuccess ,updateUserFailure } from './admin.action';
+import { loadUsersSuccess } from './admin.action';
 import { UserService } from '../userService/user.service';
 import { UserControllerService } from '../user-services/services';
 import { User, UserResponse } from '../user-services/models';
@@ -48,17 +48,6 @@ loadUsers$ = createEffect(() =>
     )
 );
 
-updateUser$ = createEffect(() => {
-  return this.actions$.pipe(
-    ofType(adminActions.updateUser),
-    exhaustMap((action) => {
-      return this.userController.updateUser({body:action.user}).pipe(
-        map((updatedUser) => adminActions.updateUserSuccess({ user: updatedUser })),
-        catchError((error) => of(adminActions.updateUserFailure({ error })))
-      );
-    })
-  );
-});
 
 blockUsers$ = createEffect(() =>
   this.actions$.pipe(

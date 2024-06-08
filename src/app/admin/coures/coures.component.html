@@ -1,0 +1,73 @@
+<app-admin></app-admin>
+<div class="mx-auto min-h-screen" style="background-color: rgb(41, 44, 49); margin-top: -230px;">
+    <div class="flex flex-1">
+        <main class="bg-white-300 ml-72 flex-1 p-6 overflow-hidden min-h-screen" style="background-color: #f8f9fa;">
+            <div class="flex flex-col">
+                <div class="flex items-center justify-between mb-6">
+                    <h1 class="text-2xl font-bold text-gray-800">All Courses</h1>
+                    <div class="flex items-center space-x-4">
+                        <input type="text" placeholder="Search Courses..."
+                            class="px-4 py-2 rounded border border-gray-300"  [(ngModel)]="searchQuery" (keyup)="search()">
+                        <button routerLink="/admin/courses/add"
+                            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                            <i class="fas fa-plus"></i> Add Course
+                        </button>
+                    </div>
+                </div>
+                <div class="flex flex-1 flex-col md:flex-row lg:flex-row mx-2">
+                    <table class="min-w-full bg-white shadow-lg rounded overflow-hidden">
+                        <thead class="bg-gray-800 text-white">
+                            <tr class="">
+                                <th class="py-3 px-4 md:px-6 lg:px-8 w-1/12 text-left">No</th>
+                                <th class="py-3 px-4 md:px-6 lg:px-8 w-2/12 text-left">Image</th>
+                                <th class="py-3 px-4 md:px-6 lg:px-8 w-3/12 text-left">Topic</th>
+                                <th class="py-3 px-4 md:px-6 lg:px-8 w-4/12 text-left">Courses</th>
+                                <th class="py-3 px-4 md:px-6 lg:px-8 w-2/12 text-left">Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody >
+                            <tr *ngFor="let course of (searchbooll ? filteredCourses : allCourses?.content); let i = index"  class="border-b  hover:bg-gray-200">
+                                <td class="py-3 px-5">{{(page * size) + i + 1}}</td>
+                                <td class="py-3 px-5 w-16 h-16 ">
+                                    <img [src]="course?.courses?.imageUrl" alt="Course Image"
+                                        class="rounded-full w-12 h-12">
+                                </td>
+                                <td (click)="goToCourseVideoPage(course?.courses?.courseId , course?.courses?.topicName)"
+                                    class="py-3 px-5 cursor-pointer hover:text-blue-600  transition duration-300">
+                                    {{course?.courses?.topicName}}
+                                </td>
+                                <td class="py-3 px-5">{{course?.totalVideoCount}}</td>
+                                <td class="py-3 px-5">
+                                    <button class="text-blue-500 hover:underline"
+                                        (click)="editCourseTopic(course?.courses)">Edit</button>
+                                    <button class="text-red-500 hover:underline ml-4"
+                                        (click)="deleteCourseTopic(course?.courses?.courseId)">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 flex justify-center gap-5 w-[100%]">
+                    <button (click)="previousPage()" [disabled]="page === 0"
+                        class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                        <i class="fa-solid fa-circle-chevron-left text-blue-600"></i>
+                        Newer
+                    </button>
+                    <div>
+                        <button *ngFor="let p of [].constructor(totalPages); let i = index" (click)="goToPage(i)"
+                            [ngClass]="{'bg-blue-500 text-white': page === i, 'bg-gray-300': page !== i}"
+                            class="px-4 py-2 rounded mx-1">
+                            {{ i + 1 }}
+                        </button>
+                    </div>
+                    <button (click)="nextPage()" [disabled]="page === totalPages - 1"
+                        class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                        Older
+                        <i class="fa-solid fa-circle-chevron-right text-blue-600"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>

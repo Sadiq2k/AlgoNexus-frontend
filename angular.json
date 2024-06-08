@@ -33,7 +33,7 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
+              "src/Algo-exus-logo.ico",
               "src/assets",
               { "glob": "**/*", "input": "node_modules/monaco-editor", "output": "assets/monaco-editor/" },
               {
@@ -110,7 +110,7 @@
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
+              "src/Algo-exus-logo.ico",
               "src/assets"
             ],
             "styles": [

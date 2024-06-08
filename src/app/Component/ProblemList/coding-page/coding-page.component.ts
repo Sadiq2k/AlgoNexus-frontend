@@ -19,7 +19,7 @@ import { DatePipe } from '@angular/common';
   templateUrl: './coding-page.component.html',
   styleUrl: './coding-page.component.scss'
 })
-export class CodingPageComponent implements AfterViewInit{
+export class CodingPageComponent implements AfterViewInit {
 
 
 
@@ -32,6 +32,9 @@ export class CodingPageComponent implements AfterViewInit{
   isClicked: boolean = false;
   private errorPrefix: string = 'messageproblemsService.Model.Judge0.error.SandboxCompile';
   isloading: boolean = false;
+  statusTextAcceptedOrRejected: string = ''
+  pendingLoading: boolean = false;
+  acceptedBooll: boolean = false;
 
   constructor(private route: ActivatedRoute,
     private problemControleService: ProblemControllerService,
@@ -39,11 +42,11 @@ export class CodingPageComponent implements AfterViewInit{
     private monacoLoaderService: MonacoEditorLoaderService,
     private testCaseControllerService: TestCaseControllerService,
     private el: ElementRef,
-    private authService:UserAuthService,
+    private authService: UserAuthService,
     private datePipe: DatePipe
   ) { }
 
-  
+
 
   editorCode: string = '';
   editorOptions = {
@@ -57,13 +60,9 @@ export class CodingPageComponent implements AfterViewInit{
 
   ngAfterViewInit() {
     console.log("ngAfterViewInit called");
-    setTimeout(() => {
-      Prism.highlightAll();
-    }, 0);
-    // Accessing the editor instance after the view is initialized
+
     this.monacoLoaderService.isMonacoLoaded$.subscribe(isLoaded => {
       if (isLoaded) {
-        // Accessing the editor instance
         if (this.editorContainer && this.editorContainer.nativeElement) {
           console.log("Editor container found:", this.editorContainer.nativeElement);
           this.editorInstance = this.editorContainer.nativeElement.editor;
@@ -75,12 +74,10 @@ export class CodingPageComponent implements AfterViewInit{
         console.log("Monaco editor not loaded");
       }
     });
-    
+
   }
 
   ngOnInit(): void {
-
-
     this.route.params.subscribe(params => {
       this.problemId = params['problemId'];
       console.log('Problem ID:', this.problemId);
@@ -88,7 +85,6 @@ export class CodingPageComponent implements AfterViewInit{
       if (this.problemId) {
         this.getProblem(this.problemId);
       }
-
     });
 
   }
@@ -154,15 +150,16 @@ export class CodingPageComponent implements AfterViewInit{
   }
 
   runTheCode() {
-
+    this.problemVerifiedResponse = ''
     this.loading = true;
+    this.showSubmissionBooll = false;
     // this.statusText = "";
     // this.isClicked = true;
     this.testResultbooll = true;
     this.problemVerifiedResponse = ''
     this.showDescribtionBooll = false;
     this.acceptedBooll = false;
-    this.statusText =''
+    this.statusText = ''
 
     if (Array.isArray(this.testCases)) {
       this.testCases.forEach((testCases: any) => {
@@ -188,7 +185,7 @@ export class CodingPageComponent implements AfterViewInit{
 
     // Decoding sourceCode
     const decodedDriverCode = atob(this.problemData.driverCode);
-    const res = this.editorCode + decodedDriverCode  ;
+    const res = this.editorCode + decodedDriverCode;
 
     const DriverCodePlusUserSourceCode: any = btoa(res);
     console.log("Decoded Source Code:", this.testCases);
@@ -212,7 +209,7 @@ export class CodingPageComponent implements AfterViewInit{
       }, error: (err) => {
         console.log("error occure to the conding page component run the solution", err)
         if (err.error) {
-          this.statusText = err.error.message.substring(this.errorPrefix.length)
+          this.statusText = err.error.message;
           console.log(" message", this.statusText);
           this.loading = false;
         } else {
@@ -226,42 +223,49 @@ export class CodingPageComponent implements AfterViewInit{
     this.testResultbooll = true;
     this.isClicked = true;
     this.showDescribtionBooll = false
+    this.showSubmissionBooll = false
+    this.acceptedBooll = false;
   }
 
   disabledTestResult() {
+    this.showSubmissionBooll = false
     this.testResultbooll = false;
     this.showDescribtionBooll = true
+    this.problemVerifiedResponse = null;
+    this.statusText = ''
   }
   disabledAcceptedButton() {
     this.acceptedBooll = false
     this.showDescribtionBooll = true;
+
   }
 
   showDescribtionBooll: boolean = true;
   showDescribtion() {
-    // this.testResultbooll = false;
+    this.testResultbooll = false;
     this.showDescribtionBooll = true;
     this.isClicked = false;
+    this.showSubmissionBooll = false
+
   }
 
-  statusTextAcceptedOrRejected: string = ''
-  pendingLoading: boolean = false;
-  acceptedBooll: boolean = false;
+
   submitProblem() {
     this.isloading = true
-    this.problemSubmissionsResponse ='';
+    this.problemSubmissionsResponse = '';
     this.acceptedBooll = false;
+    this.problemVerifiedResponse = '';
 
-    
+
     const userId = this.authService.getUserId();
     if (!userId) {
       Swal.fire({
         text: 'PLEASE REGISTER THE ACCOUNT'
       }).then(() => {
-        this.isloading = false; 
+        this.isloading = false;
         return;
       });
-      return; 
+      return;
     }
     setTimeout(() => {
       this.isloading = false;
@@ -285,12 +289,18 @@ export class CodingPageComponent implements AfterViewInit{
       language: language,
       languageId: this.problemData.languageId,
       problemId: this.problemData.problemId,
-      solutionCode: userSourceCode
+      solutionCode: userSourceCode,
+      userId: this.authService.getUserId(),
+      difficulty: this.problemData.difficulty,
+      problemNo: this.problemData.problemNo,
+      title: this.problemData.title
     }
+
+    console.log("?????????", requestbody)
 
     this.testCaseControllerService.runAndTestSolution({ body: requestbody }).subscribe({
       next: (response) => {
-        
+
         this.problemSubmissionsResponse = response
         this.problemSubmissionsResponse.sourceCode = atob(this.problemSubmissionsResponse.sourceCode)
         console.log(this.problemSubmissionsResponse);
@@ -301,16 +311,17 @@ export class CodingPageComponent implements AfterViewInit{
         this.showDescribtionBooll = false;
         this.testResultbooll = false;
         this.problemSubmissionsResponse.submissionTime = this.datePipe.transform(
-        this.problemSubmissionsResponse.submissionTime, 'MMMM d, yyyy HH:mm') || '';
-
+          this.problemSubmissionsResponse.submissionTime, 'MMMM d, yyyy HH:mm') || '';
+        this.showSubmisstion()
       }, error: (err) => {
         console.log(err);
         this.pendingLoading = false;
-        
+        this.loading = false;
+
         if (err.error) {
-          this.testResultbooll =true;
-          this.showDescribtionBooll =false;
-          this.loading =false;
+          this.testResultbooll = true;
+          this.showDescribtionBooll = false;
+          this.loading = false;
           this.statusText = err.error.message
           console.log(" message", this.statusText);
         } else {
@@ -318,6 +329,20 @@ export class CodingPageComponent implements AfterViewInit{
         }
       }
     })
+
+  }
+  allSubmission: any;
+  showSubmissionBooll: boolean = false
+  showSubmisstion() {
+    this.testResultbooll = false;
+    this.showDescribtionBooll = false;
+    this.showSubmissionBooll = true;
+    this.acceptedBooll = false;
+
+    // this.allSubmission = this.problemData.submissionDTO;
+    this.allSubmission = this.problemData.submissionDTO.reverse();
+
+    console.log("========", this.allSubmission)
 
   }
 

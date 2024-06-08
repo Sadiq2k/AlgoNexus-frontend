@@ -1,0 +1,65 @@
+<app-admin-header></app-admin-header>
+<div class="container mx-auto py-8">
+     <!-- Loading animation -->
+     <div *ngIf="loading"
+     class="self-stretch flex flex-col  py-0 pr-[21px] pl-0 box-border gap-[65px] max-w-full items-center justify-center shrink-0 text-text-primary-white mq450:gap-[16px] mq750:gap-[32px]">
+     <mat-progress-spinner color="primary" diameter="50"
+         mode="indeterminate"></mat-progress-spinner>
+ </div>
+    <section class="bg-white p-8 rounded-custom shadow-lg">
+        <div class="mb-6">
+            <h1 class="text-3xl font-bold text-gray-800">Add New Video</h1>
+        </div>
+        <form [formGroup]="videoForm" (ngSubmit)="onSubmit()">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
+                    Video Title
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="title"
+                    type="text"
+                    formControlName="title"
+                    placeholder="Enter video title">
+                <!-- <div *ngIf="videoForm.get('title').invalid && (videoForm.get('title').dirty || videoForm.get('title').touched)">
+                    <p class="text-red-500 text-xs italic">Title is required.</p>
+                </div> -->
+         
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="description">
+                    Description
+                </label>
+                <textarea
+                    class="shadow appearance-none border rounded w-full min-h-40 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="description"
+                    formControlName="description"
+                    placeholder="Enter video description"></textarea>
+                <!-- <div *ngIf="videoForm.get('description').invalid && (videoForm.get('description').dirty || videoForm.get('description').touched)">
+                    <p class="text-red-500 text-xs italic">Description is required.</p>
+                </div> -->
+            </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="file">
+                    Upload Video
+                </label>
+                <input
+                    type="file"
+                    id="file"
+                    (change)="onFileSelected($event)"
+                    class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"/>
+                <div *ngIf="selectedFileError">
+                    <p class="text-red-500 text-xs italic">{{ selectedFileError }}</p>
+                </div>
+            </div>
+            <div class="flex items-center justify-between">
+                <button
+                    class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-800 transition duration-300"
+                    type="submit"
+                    [disabled]="!videoForm.valid">
+                    Add Video
+                </button>
+            </div>
+        </form>
+    </section>
+</div>

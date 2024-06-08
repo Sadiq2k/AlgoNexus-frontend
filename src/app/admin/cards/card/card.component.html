@@ -1,100 +1,70 @@
-<app-admin></app-admin>
+<!-- <app-admin></app-admin>
 <div class="relative bg-grey-400 flex min-w-[200px] max-w-[1813px] ml-[282px]"
     style="background-color: rgb(41, 44, 49);margin-top: -232px;">
 
-    <div class="flex flex-col flex-1" style="height: 132px;">
-        <!-- Stats Row Starts Here -->
-        <div class="flex flex-1 flex-col md:flex-row lg:flex-row mx-2">
-            <div
-                class="shadow-lg bg-red-vibrant bg-white rounded-md border-l-8 hover:bg-red-vibrant-dark border-red-vibrant-dark mb-2 p-2 md:w-1/4 mx-2 flex justify-between items-start">
-                <div class="p-4 flex flex-col">
-                    <a href="#" class="no-underline text-black text-2xl font-semibold">
-                        3212
-                    </a>
-                    <a href="#" class="no-underline text-black text-lg font-bold " style="padding-top: 10px;">
-                        Total User
-                    </a>
-                </div>
-                <i class="fa-solid fa-users" style="font-size: x-large; padding: 10px;"></i>
-            </div>
+    <div class="flex flex-col flex-1" style="height: 132px; margin-top:6px">
+        Stats Row Starts Here 
+        
 
-            <div
-                class="shadow-lg bg-red-vibrant bg-white rounded-md border-l-8 hover:bg-red-vibrant-dark border-red-vibrant-dark mb-2 p-2 md:w-1/4 mx-2 flex justify-between items-start">
-                <div class="p-4 flex flex-col">
-                    <a href="#" class="no-underline text-black text-2xl font-semibold">
-                        70,689
-                    </a>
-                    <a href="#" class="no-underline text-black text-lg font-bold " style="padding-top: 10px;">
-                        Question
-                    </a>
-                </div>
-                <i class="fa-solid fa-layer-group" style="font-size: x-large; padding: 10px;"></i>
-            </div>
-            <div
-                class="shadow-lg bg-red-vibrant bg-white rounded-md border-l-8 hover:bg-red-vibrant-dark border-red-vibrant-dark mb-2 p-2 md:w-1/4 mx-2 flex justify-between items-start">
-                <div class="p-4 flex flex-col">
-                    <a href="#" class="no-underline text-black text-2xl font-semibold">
-                        70,689
-                    </a>
-                    <a href="#" class="no-underline text-black text-lg font-bold " style="padding-top: 10px;">
-                        Courses
-                    </a>
-                </div>
-                <i class="fa-brands fa-discourse" style="font-size: x-large; padding: 10px;"></i>
-            </div>
+    </div> -->
 
-            <div
-                class="shadow-lg bg-red-vibrant bg-white rounded-md border-l-8 hover:bg-red-vibrant-dark border-red-vibrant-dark mb-2 p-2 md:w-1/4 mx-2 flex justify-between items-start">
-                <div class="p-4 flex flex-col">
-                    <a href="#" class="no-underline text-black text-2xl font-semibold">
-                        70,689
-                    </a>
-                    <a href="#" class="no-underline text-black text-lg font-bold " style="padding-top: 10px;">
-                        Submissions
-                    </a>
-                </div>
-                <i class="fa-solid fa-closed-captioning" style="font-size: x-large; padding: 10px;"></i>
-            </div>
-
-            <div
-                class="shadow-lg bg-red-vibrant bg-white rounded-md border-l-8 hover:bg-red-vibrant-dark border-red-vibrant-dark mb-2 p-2 md:w-1/4 mx-2 flex justify-between items-start">
-                <div class="p-4 flex flex-col"> <!-- Adjusted width -->
-                    <a href="#" class="no-underline text-black text-2xl font-semibold">
-                        70,689
-                    </a>
-                    <a href="#" class="no-underline text-black text-lg font-bold"
-                        style="padding-top: 10px; width: 138px;">
-                        Premium Users
-                    </a>
-                </div>
-                <i class="fa-solid fa-users-viewfinder" style="font-size: x-large; padding: 10px;"></i>
-            </div>
-
-            <div
-                class="shadow-lg bg-red-vibrant bg-white rounded-md border-l-8 hover:bg-red-vibrant-dark border-red-vibrant-dark mb-2 p-2 md:w-1/4 mx-2 flex justify-between items-start">
-                <div class="p-4 flex flex-col">
-                    <a href="#" class="no-underline text-black text-2xl font-semibold">
-                        70,689
-                    </a>
-                    <a href="#" class="no-underline text-black text-lg font-bold " style="padding-top: 10px;">
-                        Acceptence
-                    </a>
-                </div>
-                <i class="fa-solid fa-circle-check" style="font-size: x-large; padding: 10px;"></i>
-            </div>
-        </div>
-
-        <div class="chart-container mt-4 text-white" style="background-color: rgb(41, 44, 49);">
-            <div class="w-full">
-                <div class="chart-title mt-5">Users Growth</div>
-                <div class="chart-legend ">
-                    <div class="chart-legend-item " *ngFor="let dataset of data.datasets">
-                        <div class="chart-legend-color " [style.background-color]="dataset.borderColor"></div>
-                        <div class="chart-legend-label">{{ dataset.label }}</div>
+<app-admin></app-admin>
+<div class="mx-auto bg-gray-900 min-h-screen" style="margin-top: -231px;">
+    <div class="mx-auto bg-gray-800 min-h-screen h-full">
+        <div class="flex justify-center">
+            <main class="bg-white ml-12 md:ml-16 lg:ml-24 xl:ml-72 mt-2 min-h-screen h-full shadow-lg rounded-lg" style="width: 85%;">
+                <div class="flex flex-wrap justify-between space-y-4 lg:space-y-0 lg:flex-nowrap">
+                    <div class="shadow-lg bg-white rounded-md border-l-8 border-red-500 p-6 flex justify-between items-center w-full lg:w-1/4">
+                        <div>
+                            <p class="text-3xl font-bold text-gray-800">{{totalUsers}}</p>
+                            <p class="text-lg font-medium text-gray-500 mt-1">Total Users</p>
+                        </div>
+                        <i class="fa-solid fa-users text-4xl text-gray-400"></i>
+                    </div>
+                    <div class="shadow-lg bg-white rounded-md border-l-8 border-blue-500 p-6 flex justify-between items-center w-full lg:w-1/4">
+                        <div>
+                            <p class="text-3xl font-bold text-gray-800">{{totalProblems}}</p>
+                            <p class="text-lg font-medium text-gray-500 mt-1">Problems</p>
+                        </div>
+                        <i class="fa-solid fa-layer-group text-4xl text-gray-400"></i>
+                    </div>
+                    <div class="shadow-lg bg-white rounded-md border-l-8 border-green-500 p-6 flex justify-between items-center w-full lg:w-1/4">
+                        <div>
+                            <p class="text-3xl font-bold text-gray-800">{{totalCourse}}</p>
+                            <p class="text-lg font-medium text-gray-500 mt-1">Courses</p>
+                        </div>
+                        <i class="fa-brands fa-discourse text-4xl text-gray-400"></i>
+                    </div>
+                    <div class="shadow-lg bg-white rounded-md border-l-8 border-yellow-500 p-6 flex justify-between items-center w-full lg:w-1/4">
+                        <div>
+                            <p class="text-3xl font-bold text-gray-800">{{totalSubmission}}</p>
+                            <p class="text-lg font-medium text-gray-500 mt-1">Submissions</p>
+                        </div>
+                        <i class="fa-solid fa-closed-captioning text-4xl text-gray-400"></i>
+                    </div>
+                    <div class="shadow-lg bg-white rounded-md border-l-8 border-purple-500 p-6 flex justify-between items-center w-full lg:w-1/4">
+                        <div>
+                            <p class="text-3xl font-bold text-gray-800">{{totalAcceptence}}</p>
+                            <p class="text-lg font-medium text-gray-500 mt-1">Acceptance</p>
+                        </div>
+                        <i class="fa-solid fa-circle-check text-4xl text-gray-400"></i>
                     </div>
                 </div>
-                <p-chart type="line" class="style" [data]="data" [options]="options"></p-chart>
-            </div>
-        </div>
 
+                <div class="chart-container mt-8 text-white">
+                    <div class="w-full">
+                        <div class="chart-title text-black text-center font-semibold text-xl">Users Growth</div>
+                        <div class="chart-legend flex justify-center mt-4 space-x-4">
+                            <div class="chart-legend-item flex items-center" *ngFor="let dataset of data?.datasets">
+                                <div class="chart-legend-color h-4 w-4 rounded-full mr-2" [style.backgroundColor]="dataset?.borderColor"></div>
+                                <div class="chart-legend-label text-gray-800">{{ dataset?.label }}</div>
+                            </div>
+                        </div>
+                        <p-chart *ngIf="data && data.datasets && data.datasets.length" type="line" class="style mt-4" [data]="data" [options]="options"></p-chart>
+                        <div *ngIf="!data || !data.datasets || data.datasets.length === 0" class="error-message text-center text-red-500 mt-4">No data available for chart.</div>
+                    </div>
+                </div>
+            </main>
+        </div>
     </div>
+</div>

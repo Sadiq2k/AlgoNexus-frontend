@@ -9,11 +9,15 @@ import { RequestBuilder } from '../../request-builder';
 import { Problem } from '../../models/problem';
 
 export interface GetAllProblems$Params {
+  page?:number
+  size?:number
 }
 
 export function getAllProblems(http: HttpClient, rootUrl: string, params?: GetAllProblems$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Problem>>> {
   const rb = new RequestBuilder(rootUrl, getAllProblems.PATH, 'get');
   if (params) {
+    rb.query('page', params.page);
+    rb.query('size', params.size);
   }
 
   return http.request(

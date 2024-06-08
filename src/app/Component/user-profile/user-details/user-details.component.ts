@@ -36,6 +36,8 @@ export class UserDetailsComponent implements OnInit {
   editFormgithub!: FormGroup;
   editFormlinkedin!: FormGroup;
   editFormWork!: FormGroup;
+  editFormWorks!: FormGroup
+  editFormEducation!:FormGroup
 
   userDetails: any;
   enableUserAccount: boolean = false;
@@ -46,20 +48,23 @@ export class UserDetailsComponent implements OnInit {
   editedLocation: string = '';
   editedgithub: string = '';
   editedlinkedin: string = '';
-  editedwork: string ='';
+  editedwork: string = '';
+  editedGender:string = ''
+  editedEducation:string = ''
   editedBirthday: any;
   isEditingGender: boolean = false;
   isEditingLocation: boolean = false;
   isEditingBirthday: boolean = false;
   isEditinggithub: boolean = false;
   isEditingLinkedin: boolean = false;
-  isEditingwork:boolean =false;
+  isEditingwork: boolean = false;
+  isEditingEducation:boolean = false
 
   @ViewChild('datepickerInput') datepickerInput!: ElementRef<HTMLInputElement>;
   @ViewChild(MatDatepicker) picker!: MatDatepicker<Date>;
 
-  userId!:string;
-  userImage: string |undefined;
+  userId!: string;
+  userImage: string | undefined;
 
 
 
@@ -72,13 +77,13 @@ export class UserDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private datePipe: DatePipe,
-    private userAuthService:UserAuthService
+    private userAuthService: UserAuthService
   ) { }
 
   ngOnInit(): void {
     this.userId = this.userAuthService.getUserId();
-   console.log(this.userId);
-   this.loadUserProfile(this.userId);
+    console.log(this.userId);
+    this.loadUserProfile(this.userId);
 
   }
 
@@ -94,13 +99,13 @@ export class UserDetailsComponent implements OnInit {
       id: [this.userDetails?.id || '']
     });
 
-    this.editFormGender = this.fb.group({
+    this.editFormLocation = this.fb.group({
       location: [this.userDetails?.location || ''],
       id: [this.userDetails?.id || '']
     });
 
-    this.editFormLocation = this.fb.group({
-      location: [this.userDetails?.location || ''],
+    this.editFormEducation = this.fb.group({
+      education: [this.userDetails?.education || ''],
       id: [this.userDetails?.id || '']
     });
 
@@ -117,7 +122,7 @@ export class UserDetailsComponent implements OnInit {
       id: [this.userDetails?.id || '']
     });
     this.editFormWork = this.fb.group({
-      linkedin: [this.userDetails?.work || ''],
+      work: [this.userDetails?.work || ''],
       id: [this.userDetails?.id || '']
     });
 
@@ -135,12 +140,16 @@ export class UserDetailsComponent implements OnInit {
             this.userImage = userImages.imageUrl;
             console.log("user images", userImages);
           },
-        
+
         });
       },
       error: (error) => {
         console.error('Error retrieving user details:', error);
-        window.location.reload();
+        // window.location.reload();
+        if(error.status == 503){
+          this.router.navigate(['/server-down'])
+          
+        }
       }
     });
   }
@@ -171,6 +180,10 @@ export class UserDetailsComponent implements OnInit {
         this.isEditingLocation = true;
         this.editedLocation = this.userDetails?.location;
         break;
+        case 'education':
+        this.isEditingEducation = true;
+        this.editedEducation = this.userDetails?.education;
+        break;
       case 'birthday':
         this.isEditingBirthday = true;
         this.editedBirthday = this.userDetails?.dateOfBirth;
@@ -184,14 +197,14 @@ export class UserDetailsComponent implements OnInit {
         this.editedgithub = this.userDetails?.github;
         break;
 
-        case 'linkedin':
-          this.isEditingLinkedin = true;
-          this.editedlinkedin = this.userDetails?.linkedin;
-          break;
-          case 'work':
-            this.isEditingwork = true;
-            this.editedwork = this.userDetails?.work;
-            break;
+      case 'linkedin':
+        this.isEditingLinkedin = true;
+        this.editedlinkedin = this.userDetails?.linkedin;
+        break;
+      case 'work':
+        this.isEditingwork = true;
+        this.editedwork = this.userDetails?.work;
+        break;
     }
   }
 
@@ -199,103 +212,126 @@ export class UserDetailsComponent implements OnInit {
   saveEdit(field: string): void {
 
     switch (field) {
-        case 'fullname':
-            this.isEditingFirstName = false;
-            this.isEditingLastName = false;
 
-            const fullname = this.editFormName.value;
-            console.log(fullname);
-            this.userControllerService.setFullName({ body: fullname }).subscribe({
-                next: (res) => {
-                    this.userDetails.firstname = fullname.firstname;
-                    this.userDetails.lastname = fullname.lastname;
-                },
-                error: (err) => {
-                    console.log("error occure user details component changing full name", err);
+      case 'fullname':
+        this.isEditingFirstName = false;
+        this.isEditingLastName = false;
+
+        const fullname = this.editFormName.value;
+        console.log(fullname);
+        this.userControllerService.setFullName({ body: fullname }).subscribe({
+          next: (res) => {
+            this.userDetails.firstname = fullname.firstname;
+            this.userDetails.lastname = fullname.lastname;
+          },
+          error: (err) => {
+            console.log("error occure user details component changing full name", err);
+          }
+
+        });
+
+        break;
+      case 'gender':
+        this.isEditingGender = false;
+        const gender = this.editFormGender.value;
+        this.userControllerService.setGender({ body: gender }).subscribe({
+          next: (res) => {
+            this.userDetails.gender = gender.gender;
+          }, error: (err) => {
+            console.log("error occure user details component update the gender", err);
+          }
+        });
+        break;
+
+      case 'location':
+        this.isEditingLocation = false;
+        const location = this.editFormLocation.value;
+        this.userControllerService.setLocation({ body: location }).subscribe({
+          next: (res) => {
+            this.userDetails.location = location.location;
+          }, error: (err) => {
+            console.log("error occure user details component update the location", err);
+          }
+        });
+        break;
+
+        case 'education':
+          this.isEditingEducation = false;
+          const education = this.editFormEducation.value;
+          this.userControllerService.setEducation({ body: education }).subscribe({
+            next: (res) => {
+              this.userDetails.education = education.education;
+            }, error: (err) => {
+                if(err.status ==200){
+                  this.userDetails.education = education.education;
                 }
 
-            });
+              console.log("error occure user details component update the education", err);
+            }
+          });
+          break;
 
-            break;
-        case 'gender':
-            this.isEditingGender = false;
-            const gender = this.editFormGender.value;
-            this.userControllerService.setGender({ body: gender }).subscribe({
-                next: (res) => {
-                    this.userDetails.gender = gender.gender;
-                }, error: (err) => {
-                    console.log("error occure user details component update the gender", err);
-                }
-            });
-            break;
+      case 'birthday':
+        this.isEditingBirthday = false;
+        const birthday = this.editFormBirthday.value;
 
-        case 'location':
-            this.isEditingLocation = false;
-            const location = this.editFormLocation.value;
-            this.userControllerService.setLocation({ body: location }).subscribe({
-                next: (res) => {
-                    this.userDetails.location = location.location;
-                }, error: (err) => {
-                    console.log("error occure user details component update the location", err);
-                }
-            });
-            break;
+        birthday.birthday = this.datePipe.transform(birthday.birthday, 'yyyy-MM-dd');
+        console.log(birthday.birthday)
+        this.userControllerService.setBirthday({ body: birthday }).subscribe({
+          next: (res) => {
+            this.userDetails.dateOfBirth = birthday.birthday;
+          },
+          error: (err) => {
+            console.log('error occure user details component while updating birthday', err);
+          }
+        });
+        break;
+      case 'github':
+        this.isEditinggithub = false;
+        const Github = this.editFormgithub.value;
 
-        case 'birthday':
-            this.isEditingBirthday = false;
-            const birthday = this.editFormBirthday.value;
+        this.userControllerService.setGithub({ body: Github }).subscribe({
+          next: (res) => {
+            this.userDetails.github = Github.github;
+          }, error: (err) => {
+            console.log("error occure user details component updating github link", err);
+          }
+        });
 
-            birthday.birthday = this.datePipe.transform(birthday.birthday, 'yyyy-MM-dd');
-            console.log(birthday.birthday)
-            this.userControllerService.setBirthday({ body: birthday }).subscribe({
-                next: (res) => {
-                    this.userDetails.dateOfBirth = birthday.birthday;
-                },
-                error: (err) => {
-                    console.log('error occure user details component while updating birthday', err);
-                }
-            });
-            break;
-        case 'github':
-            this.isEditinggithub = false;
-            const Github = this.editFormgithub.value;
+        break;
+      case 'linkedin':
+        this.isEditingLinkedin = false
+        const Linkedin = this.editFormlinkedin.value;
+        console.log(Linkedin.linkedin)
+        this.userControllerService.setLinkedIn({ body: Linkedin }).subscribe({
+          next: (res) => {
+            this.userDetails.linkedin = Linkedin.linkedin;
+          }, error: (err) => {
+            if(err.status == 200){
+              this.userDetails.linkedin = Linkedin.linkedin;
+            }
+            console.log("error occure user details component linkedin link", err);
+          }
+        });
+        break;
 
-            this.userControllerService.setGithub({ body: Github }).subscribe({
-                next: (res) => {
-                    this.userDetails.github = Github.github;
-                }, error: (err) => {
-                    console.log("error occure user details component updating github link", err);
-                }
-            });
-
-            break;
-        case 'linkedin':
-            this.isEditingLinkedin = false
-            const Linkedin = this.editFormlinkedin.value;
-            console.log(Linkedin.linkedin)
-            this.userControllerService.setLinkedIn({ body: Linkedin }).subscribe({
-                next: (res) => {
-                    this.userDetails.linkedin = Linkedin.linkedin;
-                }, error: (err) => {
-                    console.log("error occure user details component linkedin link", err);
-                }
-            });
-            break;
-
-            case 'work':
-              this.isEditingLinkedin = false
-              const Work = this.editFormWork.value;
-              console.log(Work.work)
-              this.userControllerService.setWork({ body: Work }).subscribe({
-                  next: (res) => {
-                      this.userDetails.work = Work.work;
-                  }, error: (err) => {
-                      console.log("error occure user details component updating work link", err);
-                  }
-              });
-              break;
+      case 'work':
+        this.isEditingwork = false
+        const Work = this.editFormWork.value;
+        console.log("work", Work)
+        this.userControllerService.setWork({ body: Work }).subscribe({
+          next: (res) => {
+            this.userDetails.work = Work.work;
+          }, error: (err) => {
+            if(err.status == 200){
+              this.userDetails.work = Work.work;
+            }
+            console.log("error occure user details component updating work link", err);
+          }
+        });
+        break;
     }
-}
+  }
 
   cancelEdit(field: string): void {
     switch (field) {
@@ -309,18 +345,21 @@ export class UserDetailsComponent implements OnInit {
       case 'location':
         this.isEditingLocation = false;
         break;
+      case 'education':
+        this.isEditingEducation = false;
+        break;
       case 'birthday':
         this.isEditingBirthday = false;
         break;
       case 'github':
         this.isEditinggithub = false;
         break;
-        case 'linkedin':
+      case 'linkedin':
         this.isEditingLinkedin = false;
         break;
-        case 'work':
-          this.isEditingwork = false;
-          break;
+      case 'work':
+        this.isEditingwork = false;
+        break;
       default:
         this.initializeForm();
         break;
@@ -332,12 +371,12 @@ export class UserDetailsComponent implements OnInit {
   changedProfilePic() {
     this.fileInput.nativeElement.click();
   }
-  
+
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     this.uploadImage(this.userId, file);
   }
-  
+
   uploadImage(userId: string, file: File) {
     const params: UploadImage$Params = {
       userId: userId,
@@ -350,13 +389,14 @@ export class UserDetailsComponent implements OnInit {
         // this.router.navigateByUrl(['user-profile']).then(()=>{
         //   this.router.navigate(['/user-details'])
         // })
+
         window.location.reload();
       },
       error: (err) => {
         console.log("Error occurred during image uploading ", err);
       }
     });
-}
+  }
 
 
 

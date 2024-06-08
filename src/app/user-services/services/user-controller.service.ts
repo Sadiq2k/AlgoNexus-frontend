@@ -36,9 +36,11 @@ import { updateUser } from '../fn/user-controller/update-user';
 import { UpdateUser$Params } from '../fn/user-controller/update-user';
 import { User } from '../models/user';
 import { UserResponse } from '../models/user-response';
+import { setEducation } from '../fn/user-controller/set-education';
 
 @Injectable({ providedIn: 'root' })
 export class UserControllerService extends BaseService {
+  
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
@@ -340,6 +342,20 @@ export class UserControllerService extends BaseService {
   getLoginUser(params: GetLoginUser$Params, context?: HttpContext): Observable<User> {
     return this.getLoginUser$Response(params, context).pipe(
       map((r: StrictHttpResponse<User>): User => r.body)
+    );
+  }
+
+  static readonly SetEducationPath = '/users/add/education';
+
+
+  setEducation$Response(params: SetLocation$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+    return setEducation(this.http, this.rootUrl, params, context);
+  }
+
+
+  setEducation(params: SetLocation$Params, context?: HttpContext): Observable<string> {
+    return this.setEducation$Response(params, context).pipe(
+      map((r: StrictHttpResponse<string>): string => r.body)
     );
   }
 

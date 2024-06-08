@@ -35,6 +35,15 @@ export class LoginComponent implements OnInit {
         this.errorMsg = [];
       }
     });
+    if (this.userAuthService.getToken()) {
+      const roles = this.userAuthService.getRoles(); 
+      if (roles && roles.includes('ADMIN')) { 
+          this.router.navigate(['/admin/dashboard']);
+      } else {
+          this.router.navigate(['/userProfile']);
+      }
+  }
+  
   }
 
   login(): void {
@@ -64,6 +73,7 @@ export class LoginComponent implements OnInit {
         console.log("roles: ", role);
       
         if (role === 'ADMIN') {
+      
           
           this.router.navigate(['/admin/dashboard']);
         } else {
@@ -78,11 +88,15 @@ export class LoginComponent implements OnInit {
       error: (err) => {
         console.log(err);
         this.loading = false;
-        if (err.error.validationErrors) {
+        if (err.status === 0) {
+          this.loading = false;
+          this.errorMsg.push('Server is down or network error.');
+        }else if (err.error.validationErrors) {
           this.errorMsg = err.error.validationErrors;
         } else {
           console.log(err.error.error);
           this.errorMsg.push(err.error.error);
+          this.loading = false;
         }
       }
     });

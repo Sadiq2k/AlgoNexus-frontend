@@ -1,7 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataShareService } from '../../../dataShare/data-share.service';
 import { Router } from '@angular/router';
+import { AddCategoryDialogComponent } from '../add-category-dialog/add-category-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ProblemService } from '../../../problemService/problem.service';
 
 @Component({
   selector: 'app-add-question',
@@ -9,17 +12,38 @@ import { Router } from '@angular/router';
   styleUrl: './add-question.component.scss'
 })
 export class AddQuestionComponent implements OnInit{
-
+ 
+  showDialog: boolean = false;
   problemForm!: FormGroup;
-  @Output() formData = new EventEmitter<any>();
+  showAddCategoryDialog: boolean = false;
+  allCategories: any;
+  difficulties!: any;
+  errMessage!:string;
 
   constructor(private formBuilder: FormBuilder,
     private shareData:DataShareService,
-    private router:Router
+    private router:Router,
+    private dialog: MatDialog,
+    private problemService:ProblemService
   ) { }
 
   ngOnInit(): void {
+    this.getAllCategory();
     this.initForm();
+
+  }
+
+  getAllCategory(){
+   this.problemService.getAllCategory().subscribe({
+      next:(res)=>{
+        console.log(res)
+        this.allCategories = res.categories;
+        this.difficulties = res.difficulties;
+        console.log(this.difficulties)
+        console.log(this.allCategories)
+      }
+    })
+   
   }
 
   initForm() {
@@ -36,6 +60,7 @@ export class AddQuestionComponent implements OnInit{
    get difficulty() { return this.problemForm.get('difficulty'); }
    get description() { return this.problemForm.get('description'); }
 
+
   onSubmit() {
     this.problemForm.markAllAsTouched();
     
@@ -45,13 +70,34 @@ export class AddQuestionComponent implements OnInit{
     } 
     if (this.problemForm.valid) {
       console.log('Form submitted:', this.problemForm.value);
-      // Here you can perform further actions like sending the data to your backend
       const formData = this.problemForm.value;
-      this.shareData.sendFormDataQuestion(formData);
-     this.router.navigate(['/admin/problems/solution'])
+      this.problemService.checkExistsTitleOrNot(formData.title).subscribe({
+        next:(res)=>{
+          this.shareData.sendFormDataQuestion(formData);
+          this.router.navigate(['/admin/problems/solution'])
+        },error:(err)=>{
+          if(err.status == 409){
+            this.errMessage = err.error;
+          }
+        }
+      })
+      
     } else {
-      // Handle form validation errors
       console.log('Form invalid');
     }
+  }
+
+  openAddCategoryDialog() {
+    this.showDialog = true;
+    const dialogRef = this.dialog.open(AddCategoryDialogComponent, {
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.router.navigate(['/add-question'])
+      this.showDialog = false;
+      console.log('The dialog was closed');
+      
+    });
   }
 }

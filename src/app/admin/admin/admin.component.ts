@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { UserControllerService } from '../../user-services/services';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { User, UserResponse } from '../../user-services/models';
-import { blockUser, loadUsers, updateUser } from '../../adminState/admin.action';
+import { blockUser, loadUsers } from '../../adminState/admin.action';
 import { Observable } from 'rxjs';
 import { AdminState } from '../../adminState/admin.reducer';
 import { Store } from '@ngrx/store';
@@ -39,9 +39,9 @@ export class AdminComponent {
           break;
       case 'course':
           this.adminStateService.setIsActivete(buttonName);
-          this.router.navigateByUrl('/course');
+          this.router.navigateByUrl('/admin/courses');
           break;
-          case 'prblems':
+          case 'problems':
           this.adminStateService.setIsActivete(buttonName);
           this.router.navigateByUrl('/admin/problems');
           break;
@@ -75,9 +75,7 @@ export class AdminComponent {
 
   ngOnInit(): void {
     this.store.select(getuserlist).subscribe(users => {
-      this.users = users;
-      // console.log("==========",this.users);
-      
+      this.users = users;      
       this.users.forEach(user => {
         if (Array.isArray(user.role)) {
           const roles: string = user.role.map(role => role.name).join(', ');
@@ -92,11 +90,6 @@ export class AdminComponent {
 
   }
  
-
-  // canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-  //   return this.showUserManagement;
-  // }
-
   toggleUserManagement() {
        this.router.navigate(['admin/user-management'])
 

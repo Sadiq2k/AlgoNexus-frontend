@@ -1,0 +1,99 @@
+<app-header></app-header>
+<div
+    class="w-full relative bg-text-primary-white overflow-hidden flex flex-col items-end justify-start pt-0 px-0 pb-1 box-border gap-[65px] leading-[normal] tracking-[normal] mq975:gap-[32px] mq450:gap-[16px]">
+    <section
+        class="self-stretch flex flex-row items-start justify-start relative max-w-full text-left text-5xl text-darkgray-300 font-encode-sans">
+        <!-- First Half -->
+        <div class="relative flex-1 h-[401px] max-w-[50%] overflow-hidden object-cover">
+            <img class="absolute inset-0 w-full h-full object-cover" loading="lazy" alt=""
+                src="./assets/abstract-digital-art-uhdpaper.com-4K-8.2839-Half.jpg" />
+            <!-- Gradient Overlay for First Half -->
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent to-black"></div>
+        </div>
+
+        <!-- Second Half -->
+        <div class="relative flex-1 h-[401px] max-w-[50%] overflow-hidden object-cover">
+            <img class="absolute inset-0 w-full h-full object-cover" loading="lazy" alt=""
+                src="./assets/abstract-digital-art-uhdpaper.com-4K-8.2839-Right.jpg" />
+            <!-- Gradient Overlay for Second Half -->
+            <div class="absolute inset-0 bg-gradient-to-l from-transparent to-black"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-center mt-24 text-white w-full">
+            <div class="text-4xl font-semibold mb-4">Welcome to</div>
+            <h1 class="text-9xl font-extrabold tracking-tighter leading-tight mb-6">{{topicName}}</h1>
+            <p class="text-lg">Discover the world of algorithms and problem-solving.</p>
+        </div>
+    </section>
+
+    <section
+        class="self-stretch flex flex-row items-start justify-center py-0 pr-5 pl-7 box-border max-w-full text-left text-lg text-black font-inter">
+        <div class="w-full flex flex-col items-start justify-start gap-[43px] max-w-full mq700:gap-[21px]">
+            <div class="self-stretch flex flex-row items-center justify-center gap-[9px] max-w-full">
+                <div
+                    class="flex-1  flex flex-col items-start justify-start pt-px px-0 pb-0 box-border max-w-[calc(100%_-_303px)] mq975:max-w-full">
+                    <div
+                        class="self-stretch  rounded-6xs bg-gainsboro-500 flex flex-col items-start justify-start px-[34px] pb-7 box-border max-w-full mq975:pt-[31px] mq975:pb-5 mq975:box-border mq700:pt-5 mq700:box-border">
+                        <div class="h-[987px] w-[941px] relative rounded-6xs bg-gainsboro-500 hidden max-w-full"></div>
+                        
+                        <div 
+                            class="flex-1 rounded-lg min-h-screen shadow-xl flex flex-col items-start justify-start pt-[19px] pb-[99px] pr-[22px] pl-[25px] box-border gap-[39px] max-w-full z-[1] mq975:pt-5 mq975:pb-16 mq975:box-border mq450:gap-[19px] mq450:pb-[42px] mq450:box-border">
+                            <div
+                                class="self-stretch flex flex-row flex-wrap items-end justify-start gap-[22.5px] w-full">
+
+                                <div class="w-full ">
+                                    <h1 class="text-3xl font-semibold mb-4">Videos</h1>
+                                    <!-- <p class="mb-6 text-gray-700">In this video-based course, we will take you on a
+                                        journey to learn the
+                                        fundamental concepts of system design. Mastering the key design concepts is the
+                                        best way to
+                                        learn system design. It's also the most effective way to prepare for system
+                                        design interviews.
+                                        Every system is unique, and the larger and more complex the system, the further
+                                        it is from
+                                        conventional design approaches. However, in a system design interview, you are
+                                        not expected
+                                        to know all the unique details of a system. Rather, you are expected to
+                                        demonstrate your knowledge
+                                        and understanding of widely used system design concepts and best practices.
+                                        Thus, our focus on this
+                                        course is to reinforce your understanding of frequently used system design
+                                        concepts and to
+                                        demonstrate how to apply them to solve problems.</p> -->
+                                </div>
+
+                                <!-- Video List -->
+                                <div *ngFor="let video of allVideos"
+                                 class="w-full space-y-6">
+                                    <!-- Video Item -->
+                                    <div 
+                                        class="border border-gray-300 p-4 rounded-md bg-gray-50 flex flex-col lg:flex-row">
+                                        <div class="lg:w-1/3 mb-4 lg:mb-0 lg:mr-4">
+                                            <div class="aspect-w-16 aspect-h-9">
+                                                <iframe class="rounded-md w-full"
+                                                [src]="sanitizeUrl(video.videoUrl)"
+                                                controls
+                                                    frameborder="0"
+                                                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                    allowfullscreen></iframe>
+                                            </div>
+                                        </div>
+                                        <div class="lg:w-2/3">
+                                            <h2 class="text-xl font-semibold mb-2">{{video?.title}}</h2>
+                                            <p class="text-gray-700">{{video?.description}}</p>
+                                        </div>
+                                    </div>
+                                    <!-- Repeat similar blocks for more videos -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+           
+        </div>
+    </section>
+</div>
+<app-footer></app-footer>

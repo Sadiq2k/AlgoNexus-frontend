@@ -1,0 +1,48 @@
+<app-admin-header></app-admin-header>
+<div class="container mx-auto py-8">
+    <section class="bg-white p-8 rounded-custom shadow-lg">
+        
+        <div class="flex justify-between  mb-6">
+            
+            <h1 class="text-3xl font-bold text-gray-800">Video Management</h1>
+            <h2 class="justify-center items-center text-2xl font-semibold underline">{{topicName}}</h2>
+            <button (click)="addVideo()" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-800 transition duration-300">
+                Add Video
+            </button>
+           
+        </div>
+        <p>Total: {{totalVideo}}</p>
+        <div *ngIf="showCourses" class="space-y-6">
+            <ng-container *ngIf="!showEditModal">
+                <!-- Video Item -->
+                <div *ngFor="let video of allVideos" class="border border-gray-200 p-6 rounded-custom bg-white shadow-sm flex flex-col lg:flex-row mb-8">
+                    <div class="lg:w-1/5  mb-4 lg:mb-0 lg:mr-6">
+                        <div class="aspect-w-16 aspect-h-9">
+                            <iframe class="rounded-md w-full "
+                                    [src]="sanitizeUrl(video.videoUrl)"
+                                    controls
+                                    frameborder="0"
+                                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                        </div>
+                    </div>                
+                    <div class="lg:w-2/3 flex flex-col">
+                        <div class="flex justify-between items-center ">
+                            <h2 class="text-2xl font-semibold text-gray-800">{{ video?.title }}</h2>
+                            <div class="flex space-x-2">
+                                <button (click)="editVideo(video)" class="text-green-600   rounded-md hover:text-green-800 transition duration-300">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                <button (click)="deleteVideo(video.id)" class="text-red-600    rounded-md hover:text-red-800 transition duration-300">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <p class="text-gray-600">{{ truncateDescription(video?.description) }}</p>
+                    </div>
+                </div>
+            </ng-container>
+            <app-video-edit-model *ngIf="showEditModal"></app-video-edit-model> 
+        </div>
+    </section>
+</div>

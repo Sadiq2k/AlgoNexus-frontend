@@ -20,3 +20,40 @@
     margin: 0;
     padding: 0;
 }
+:host ::ng-deep .p-calendar .p-datepicker {
+    background-color: #282424; /* Black background color */
+  
+  }
+  
+  :host ::ng-deep .p-calendar .p-datepicker table {
+    border-color: #666; /* Border color */
+   
+  }
+  
+  :host ::ng-deep .p-calendar .p-datepicker .p-datepicker-weeknumber {
+    color: #bbb; /* Week number color */
+    
+  }
+  
+  :host ::ng-deep .p-calendar .p-datepicker .p-datepicker-day {
+    color: #bbb; /* Day number color */
+   
+  }
+  
+  :host ::ng-deep .p-calendar .p-datepicker .p-highlight {
+    background-color: #555; /* Highlighted date background color */
+    color: #fff; /* Highlighted date text color */
+  }
+  
+  :host ::ng-deep .p-calendar .p-datepicker .p-button {
+    background-color: #555; /* Button background color */
+    color: #fff; /* Button text color */
+  }
+  
+  :host ::ng-deep .p-calendar .p-datepicker .p-button:hover {
+    background-color: #777; /* Button hover background color */
+  }
+
+  :host ::ng-deep .p-datepicker table td{
+    padding: 0px;
+  }

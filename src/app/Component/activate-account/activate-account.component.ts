@@ -4,6 +4,7 @@ import { AuthenticationService } from '../../services/services';
 import { DataShareService } from '../../dataShare/data-share.service';
 import { UserService } from '../../userService/user.service';
 import { Subscription, interval } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-activate-account',
@@ -48,7 +49,10 @@ export class ActivateAccountComponent implements OnInit {
   isRunning = false;
 
   onStart() {
+    this.resendOtp = false; 
     this.isRunning = true;
+    this.minutes = 1; // Reset minutes
+    this.seconds = 0; // Reset seconds
     this.subscription = this.count.subscribe(() => {
       if (this.seconds === 0) {
         if (this.minutes === 0) {
@@ -89,7 +93,6 @@ export class ActivateAccountComponent implements OnInit {
       } else {
         this.email = params.get('email') || '';
         if (this.email) {
-          
         }
       }
       this.userId = params.get('userId') || '';
@@ -110,6 +113,12 @@ export class ActivateAccountComponent implements OnInit {
         this.message = 'Your account has been successfully activated.\nNow you can proceed to login'
         this.submitted = true;
         this.isOkay = true;
+        // Swal.fire({
+        //   icon: 'success',
+        //   title: 'Account Activated',
+        //   text: 'Your account has been successfully activated. Now you can proceed to login',
+        //   confirmButtonText: 'OK'
+        // });
 
       }, error: (err): void => {
         if (err.status === 403) {
@@ -128,11 +137,11 @@ export class ActivateAccountComponent implements OnInit {
 
   generateNewToken(): void {
     this.resendOtp = false;
-    this.onStart();
+    
     this.userService.generateToken(this.email).subscribe({
       next: (res) => {
         console.log('New token generated:', res);
-     
+        this.onStart();
         
       },
       error: (err: any) => {

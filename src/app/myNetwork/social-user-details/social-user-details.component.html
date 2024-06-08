@@ -1,0 +1,268 @@
+<app-header></app-header>
+<div
+    class="w-full relative dark:bg-gray-900 text-white overflow-hidden flex flex-col items-center justify-center pt-0 px-0 pb-[63px] box-border gap-[30px] leading-[normal] tracking-[normal]">
+    <main class="w-[2841px] flex  flex-row items-start justify-center py-10 px-5 box-border max-w-full">
+        <section
+            class="w-[1231px]  flex flex-col items-end justify-start gap-[7.5px] max-w-full text-left text-xs text-gray-300 font-inter">
+            <div class="self-stretch flex flex-row  items-start justify-start gap-[15px] max-w-full mq925:flex-wrap">
+                <div class="flex-1 flex flex-col items-start justify-start gap-[8px] max-w-full mq700:min-w-full">
+                    <div class="self-stretch flex flex-row items-start justify-start gap-[7px] mq700:flex-wrap"
+                        style="height: 221px;">
+                        <div class="flex-1 rounded-lg bg-white flex flex-row items-end justify-start pt-[9px] px-[9px] pb-4 box-border gap-[14px] min-w-[230px]"
+                            style="height: 196px;">
+                            <div class="flex flex-col items-start justify-end ">
+                                <div class="flex flex-col items-start justify-start gap-5">
+                                    <div class="relative font-bold text-green-900 inline-block min-w-24 z-1">
+                                        Solved Problems
+                                    </div>
+                                    <div class="flex items-center justify-start text-2xl text-black">
+                                        <div
+                                            class="relative flex items-center justify-center w-32 h-32 bg-gray-200 rounded-full shadow-lg">
+                                            <div class="text-center">
+                                                <span class=" text-3xl ">{{totalSovledProblems}}</span>
+                                                <span class="pl-3 text-lg">/ {{totalProblemCount}}</span>
+                                                <div class="text-sm mt-2">Solved</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex-1 flex flex-col items-start justify-start gap-[30px] text-3xs text-black">
+                                <div *ngFor="let difficulty of totalDifficulties"
+                                    class="self-stretch flex flex-col items-start justify-start gap-[3px]">
+                                    <div class="flex flex-row items-start justify-start gap-[14.5px]">
+                                        <div class="flex flex-col items-start justify-start pt-0.5 pb-0 pr-5 pl-0">
+                                            <div class="relative inline-block min-w-[23px] z-[1]">
+                                                {{difficulty?.name}}
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="relative leading-[12.38px] font-medium inline-block min-w-[33px] z-[1]">
+                                            <span *ngIf="difficulty?.name === 'Easy'">{{solvedEasy}}</span>
+                                            <span *ngIf="difficulty?.name === 'Medium'">{{solvedMedium}}</span>
+                                            <span *ngIf="difficulty?.name === 'Hard'">{{solvedHard}}</span>
+                                            <span class="text-5xs">/{{difficulty?.totalCount}}</span>
+                                        </div>
+
+                                    </div>
+                                    <div class="self-stretch h-[9px] relative rounded  z-[1]" [ngClass]="{
+                                        'bg-easy-color': difficulty?.name === 'Easy',
+                                        'bg-darkkhaki': difficulty?.name === 'Medium',
+                                        'bg-maroon': difficulty?.name === 'Hard'
+                                      }">
+                                        <div
+                                            class="absolute top-[0px] left-[0px] rounded bg-darkolivegreen w-full h-full hidden z-[1]">
+                                        </div>
+                                        <div class="absolute top-[0px] left-[0px] rounded h-[9px] z-[2]" [ngStyle]="{
+                                                width: difficulty?.name === 'Easy' ? getEasyPercentage() + '%' :
+                                                       difficulty?.name === 'Medium' ? getMediumPercentage() + '%' :
+                                                       difficulty?.name === 'Hard' ? getHardPercentage() + '%' : '0%'
+                                              }" [ngClass]="{
+                                                'bg-green-800': difficulty?.name === 'Easy',
+                                                'bg-olive': difficulty?.name === 'Medium',
+                                                'bg-firebrick': difficulty?.name === 'Hard'
+                                              }">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-[0.9785] rounded-lg bg-white flex flex-col items-start justify-start pt-[11px] px-3 pb-[23px] box-border gap-[1px] min-w-[230px] text-smi text-gray-600 mq450:flex-1"
+                            style="height: 196px;">
+                            <div class="w-[297px] h-36 relative rounded-lg bg-white hidden"></div>
+                            <div class="relative font-medium inline-block min-w-[47px] z-[1]">
+                                Badges
+                            </div>
+                            <div
+                                class="w-[218px] h-[93px] flex flex-col items-start justify-start gap-[20px] text-base text-black">
+                                <div class="self-stretch flex-1 flex flex-row items-start justify-between gap-[20px]">
+                                    <div class="relative font-medium inline-block min-w-[8px] z-[1]">
+                                        0
+                                    </div>
+                                    <div
+                                        class="self-stretch w-16 flex flex-col items-start justify-start pt-2 px-0 pb-0 box-border">
+                                    </div>
+                                </div>
+                                <div class="relative text-2xs font-medium inline-block min-w-[110px] z-[1]"
+                                    style="top: 40px;">
+                                    May AlgoNexus Challenge
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container mx-auto  bg-white shadow-lg rounded-lg">
+                        <div
+                            class="header bg-blue-700 text-white h-9  px-4 rounded-t-lg flex justify-between items-center">
+                            <div class="view-all  flex items-center space-x-2" id="viewAllSubmissions">
+                                <span>Recent Submissions</span>
+                            </div>
+                        </div>
+                        <div *ngFor="let recentsub of recentSubmissionData" class="content py-2 px-4 space-y-4">
+                            <div class="submission flex justify-between items-center bg-gray-100 p-4 rounded-lg">
+                                <span class="text-black">{{recentsub?.title}}</span>
+                                <span class="text-gray-500">{{recentsub?.createdAt | date:'short'}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="w-[312px] rounded-lg bg-white flex flex-col items-end justify-start pt-[11px] pb-[13px] pr-7 pl-[23px] box-border gap-[13px] min-w-[312px] text-3xs text-black mq925:flex-1">
+                    <div class="w-[312px]  h-[380px] relative rounded-lg bg-gainsboro-200 hidden"></div>
+                    <div class="self-stretch flex flex-col items-start justify-start gap-[16px]">
+                        <div
+                            class="self-stretch flex flex-row items-start justify-start pt-0 pb-[9px] pr-1 pl-px text-base">
+                            <div class="flex-1 flex flex-col items-start justify-start gap-[8px]">
+                                <div class="w-[249px] flex flex-row items-end justify-start gap-[34px]">
+                                    <ng-container *ngIf="userDetails?.profileImage?.imageUrl ">
+                                        <!-- Show user image if userImage is present -->
+                                        <img class="h-[100px] w-[100px] relative rounded-[62px] object-cover z-[1]"
+                                            alt="" [src]="userDetails?.profileImage?.imageUrl" />
+                                    </ng-container>
+                                    <ng-container *ngIf="!userDetails?.profileImage?.imageUrl">
+                                        <!-- Show default image if userImage is not present -->
+                                        <img class="h-[100px] w-[100px] relative rounded-[62px] object-cover z-[1]"
+                                            alt="" src="./assets/profile-icon_933463-1136.avif" />
+                                    </ng-container>
+                                    <div class="flex-1 flex flex-col items-start justify-end pt-0 px-0 pb-[9px]">
+                                        <div class="self-stretch flex flex-col items-start justify-start gap-[25px]">
+                                            <div class="self-stretch flex flex-col items-start justify-start gap-[2px]">
+                                                <h3
+                                                    class="m-0 self-stretch relative text-sm font-normal font-inherit z-[1]">
+                                                    {{userDetails?.firstname +' '+ userDetails?.lastname}}
+                                                </h3>
+
+                                            </div>
+                                            <div
+                                                class="relative text-[15px] whitespace-pre-wrap inline-block min-w-[103px] z-[1]">
+                                                Max Streak: {{streaks}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="self-stretch flex flex-row items-start justify-start text-xs text-green">
+                                    <div class="h-[21px] w-64 relative rounded-[5px] bg-blue-700 cursor-pointer z-[1]"
+                                        id="inputProcessor"></div>
+                                    <div class="flex flex-col items-start justify-start pt-[3px] px-0 pb-0 ml-[-159px]">
+                                        <button class="relative inline-block min-w-[62px] text-white z-[2]">
+                                            Follow
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-start justify-start gap-[10px]">
+                            <div class="flex flex-row items-start justify-start py-0 pr-0 pl-px text-gray-500">
+                                <div class="flex flex-row items-start justify-start gap-[7px]">
+                                    <img class="h-3.5 w-3.5 relative object-cover min-h-[14px] z-[1]" loading="lazy"
+                                        alt="" src="./assets/box.png" />
+
+                                    <div class="relative inline-block min-w-[93px] z-[1]">
+                                        {{userDetails?.work}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-start justify-start gap-[4px]">
+                                <div class="flex flex-row items-start justify-start gap-[7px]">
+                                    <img class="h-3.5 w-3.5 relative object-cover min-h-[16px] z-[1]" loading="lazy"
+                                        alt="" src="./assets/location-pin.png" />
+
+                                    <div class="flex flex-col items-start justify-start pt-px px-0 pb-0">
+                                        <div class="relative inline-block min-w-[23px] z-[1]">
+                                            {{userDetails?.location}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-row items-start justify-start py-0 pr-0 pl-0.5">
+                                    <div class="flex flex-row items-start justify-start gap-[8px]">
+                                        <div class="flex flex-col items-start justify-start pt-0.5 px-0 pb-0">
+                                            <img class="h-3.5 w-3.5 relative object-cover z-[1]" loading="lazy" alt=""
+                                                src="./assets/graduate_icon.png" />
+                                        </div>
+                                        <div class="relative inline-block min-w-[80px] z-[1]">
+                                            {{userDetails?.education}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-row items-start justify-start py-0 px-[3px]">
+                                <div class="flex flex-row items-start justify-start gap-[9px]">
+                                    <img class="h-3.5 w-3.5 relative z-[1]" loading="lazy" alt=""
+                                        src="./assets/global.png" />
+                                    <a [href]="userDetails?.linkedin" target="_blank"
+                                        class="relative text-blue-600 cursor-pointer inline-block min-w-[39px] z-[1]">
+                                        {{userDetails?.linkedin}}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="self-stretch flex flex-row items-start justify-start py-0 pr-0 pl-[5px]">
+                            <div class="flex-1 flex flex-col items-start justify-start gap-[6px]">
+                                <div
+                                    class="self-stretch h-px relative box-border z-[1] border-t-[1px] border-solid border-gray-100">
+                                </div>
+                                <div class="self-stretch flex flex-col items-start text-black justify-start gap-[12px]">
+                                    <div class="relative inline-block min-w-[52px] z-[1]">
+                                        Languages
+                                    </div>
+                                    <div
+                                        class="self-stretch flex flex-row items-end justify-between gap-[20px] text-5xs text-white">
+                                        <div
+                                            class="w-[50px] flex flex-col items-start text-black justify-start gap-[7px]">
+                                            <div
+                                                class="w-[33px] rounded-2xl bg-darkgray-100 flex flex-row items-start justify-start pt-[3px] px-[7px] pb-1 box-border z-[1]">
+                                                <div
+                                                    class="h-[17px] w-[33px] relative rounded-2xl bg-darkgray-100 hidden">
+                                                </div>
+                                                <div class="relative inline-block min-w-[18px] z-[2]">
+                                                    Java
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="self-stretch rounded-2xl bg-darkgray-100 flex flex-row items-start justify-start pt-[3px] px-1 pb-1 z-[1]">
+                                                <div
+                                                    class="h-[17px] w-[50px] relative rounded-2xl bg-darkgray-100 hidden">
+                                                </div>
+                                                <div class="relative inline-block min-w-[41px] z-[2]">
+                                                    TypeScript
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="flex flex-col items-start justify-end pt-0 px-0 pb-0.5 text-2xs text-gray-400">
+                                            <div class="flex flex-col items-start justify-start gap-[11px]">
+                                                <div
+                                                    class="relative leading-[13.33px] inline-block min-w-[94px] whitespace-nowrap z-[1]">
+                                                    <span>78</span>
+                                                    <span class="text-3xs text-black"> problems solved</span>
+                                                </div>
+                                                <div
+                                                    class="flex flex-row items-start justify-start py-0 pr-0 pl-[7px] text-3xs text-black">
+                                                    <div class="relative inline-block min-w-[87px] z-[1]">
+                                                        9 problems solved
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="self-stretch flex flex-row items-start justify-center py-0 pr-0 pl-2.5">
+                        <button
+                            class="cursor-pointer [border:none] py-[5px] pr-2 pl-[9px] bg-dimgray rounded-sm flex flex-row items-start justify-start whitespace-nowrap z-[1] hover:bg-rosybrown">
+                            <div class="h-[22px] w-[71px] relative rounded-sm bg-dimgray hidden"></div>
+                            <div
+                                class="relative text-3xs font-inter text-silver-100 text-left inline-block min-w-[54px] z-[2]">
+                                Show more
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<app-footer></app-footer>

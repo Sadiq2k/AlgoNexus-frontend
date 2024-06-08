@@ -5,6 +5,7 @@ import { UserService } from '../../../userService/user.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ResetPasswordComponent } from '../../../forgotPassword/reset-password/reset-password.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-account',
@@ -20,7 +21,8 @@ export class UserAccountComponent implements OnInit {
     private userService: UserService,
     private cloudinaryImageControllerService: CloudinaryImageControllerService,
     private userAuthService: UserAuthService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router:Router
   ) { }
 
   userAccount: any;
@@ -45,6 +47,10 @@ export class UserAccountComponent implements OnInit {
       },
       error: (error) => {
         console.log("this error occur is user account",error);
+        if(error.status == 503){
+          this.router.navigate(['/server-down'])
+          
+        }
       }
     });
   }

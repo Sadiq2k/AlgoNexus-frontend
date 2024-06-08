@@ -10,7 +10,7 @@ import { LoginComponent } from './Component/login/login.component';
 import { RegisterComponent } from './Component/register/register.component';
 import { FooterComponent } from './Component/footer/footer.component';
 import { UserProfileComponent } from './Component/user-profile/user-profile.component';
-import { HttpClient, HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ActivateAccountComponent } from './Component/activate-account/activate-account.component';
@@ -52,6 +52,21 @@ import { ProblemListComponent } from './Component/ProblemList/problem-list/probl
 import { CodingPageComponent } from './Component/ProblemList/coding-page/coding-page.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ToastrModule } from 'ngx-toastr';
+import { ExploreComponent } from './Component/explore/explore.component';
+import { CourseDetailsComponent } from './Component/explore/course-details/course-details.component';
+import { CouresComponent } from './admin/coures/coures.component';
+import { AddCouresComponent } from './admin/coures/add-coures/add-coures.component';
+import { CourseVideosComponent } from './admin/coures/course-videos/course-videos.component';
+import { AddVideoComponent } from './admin/coures/add-video/add-video.component';
+import { VideoEditModelComponent } from './admin/coures/video-edit-model/video-edit-model.component';
+import { EditCourseComponent } from './admin/coures/edit-course/edit-course.component';
+import { AddCategoryDialogComponent } from './admin/problems/add-category-dialog/add-category-dialog.component';
+import { AllSubmissionsComponent } from './Component/user-profile/all-submissions/all-submissions.component';
+import { CalendarModule } from 'primeng/calendar';
+import { MyNetworkComponent } from './myNetwork/my-network/my-network.component';
+import { SocialUserDetailsComponent } from './myNetwork/social-user-details/social-user-details.component';
+import { DailyProblemsComponent } from './admin/daily-problems/daily-problems.component';
+import { ServerComponent } from './SERVER-DOWN/server-down/server.component';
 
 
 @NgModule({
@@ -81,7 +96,23 @@ import { ToastrModule } from 'ngx-toastr';
     ExampleComponent,
     TestCaseComponent,
     ProblemListComponent,
-    CodingPageComponent
+    CodingPageComponent,
+    ExploreComponent,
+    CourseDetailsComponent,
+    CouresComponent,
+    AddCouresComponent,
+    CourseVideosComponent,
+    AddVideoComponent,
+    VideoEditModelComponent,
+    EditCourseComponent,
+    AddCategoryDialogComponent,
+    AllSubmissionsComponent,
+    MyNetworkComponent,
+    SocialUserDetailsComponent,
+    DailyProblemsComponent,
+    ServerComponent,
+    
+    
   ],
   imports: [
     BrowserModule,
@@ -106,10 +137,19 @@ import { ToastrModule } from 'ngx-toastr';
     MatInputModule,
     MatProgressSpinnerModule,
     BrowserAnimationsModule, // Required for toastr animations
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-right', // Set the position to top-right
+      timeOut: 3000, // Duration to show the toast
+      closeButton: true, // Show close button
+      progressBar: true, // Show progress bar
+    }),
+    CalendarModule
+  
+    
   ],
   providers: [
     HttpClient,
+    provideHttpClient(),
     provideClientHydration(),
     AuthGuard,
     provideAnimationsAsync(),

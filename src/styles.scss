@@ -28,3 +28,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border-radius: 10px; /* Roundness of the scrollbar thumb */
     border: 2px solid #3a6139; /* Space around the thumb */
   }
+
+  .custom-bg-color{
+    background-color: rgb(30,30,30);
+}
+.custom-bg-dark-color{
+  background: #222222;
+}

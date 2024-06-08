@@ -6,4 +6,9 @@ export interface SolutionSubmitRequest {
   languageId?: number;
   problemId?: string;
   solutionCode?: string;
+  userId?: string;
+  difficulty?: string;
+  problemNo?: number
+  title?: string
+
 }

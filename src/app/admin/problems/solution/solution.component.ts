@@ -33,7 +33,6 @@ export class SolutionComponent implements AfterViewInit, OnInit {
   constructor(private router: Router,
     private monacoLoaderService: MonacoEditorLoaderService,
     private shareDataService: DataShareService,
-    private adminService: AdminStateService,
     private problemControllerService: ProblemControllerService
   ) { }
 
@@ -92,8 +91,6 @@ export class SolutionComponent implements AfterViewInit, OnInit {
   }
 
 
-
-
   ngAfterViewInit() {
     this.monacoLoaderService.isMonacoLoaded$.subscribe(isLoaded => {
       if (isLoaded) {
@@ -112,7 +109,7 @@ export class SolutionComponent implements AfterViewInit, OnInit {
     this.editorCode = content;
     console.log('Editor content changed:', content);
   }
- 
+
   onNewEditorContentChange(newContent: string) {
     this.newEditorCode = newContent;
     console.log("editor new content ", this.newEditorCode)
@@ -125,7 +122,7 @@ export class SolutionComponent implements AfterViewInit, OnInit {
       this.router.navigate(['/admin/problems/example']);
     });
   }
-  
+
   onContinueClicked() {
     const editorContent = this.editorCode;
     const data = this.requestBody
@@ -176,6 +173,7 @@ export class SolutionComponent implements AfterViewInit, OnInit {
     switch (language) {
       case 62:
         this.editorCode = `import java.util.*;
+
 class Algo {
   public int calculateSum(int[] array) {
       int sum = 0;
@@ -197,8 +195,8 @@ public class Main {
                 intArray[i] = Integer.parseInt(stringArray[i]);
             }
         }
-        Algo arraySum = new Algo();
-        int sum = arraySum.calculateSum(intArray);
+        Algo obj = new Algo();
+        int sum = obj.calculateSum(intArray);
         System.out.println(sum);
     }
 } 
@@ -327,7 +325,7 @@ main();
         break;
     }
   }
-  
+
   onRunClick() {
     this.loading = true;
     this.statusText = "";
@@ -343,7 +341,7 @@ main();
         expectedOutput: typeof joinedOutput[index] === 'string' ? joinedOutput[index] : ''
       }))
     };
-    // console.log(this.requestBody);
+    
     this.problemControllerService.verifyProblem({ body: this.requestBody }).subscribe({
       next: (response) => {
         this.problemVerifiedResponse = response;

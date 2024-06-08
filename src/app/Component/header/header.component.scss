@@ -1,26 +1,60 @@
+/* Tailwind CSS utilities */
 .yellow-icon {
-    filter: brightness(0) saturate(100%) invert(75%) sepia(96%) saturate(269%) hue-rotate(18deg) brightness(91%) contrast(86%);
-}
-.bg-color{
-    background-color: #16276A;
-   
+  filter: brightness(0) saturate(100%) invert(75%) sepia(96%) saturate(269%) hue-rotate(18deg) brightness(91%) contrast(86%);
 }
 
+.bg-color {
+  background-color: #1e1e2b;
+}
+
+/* Logout button styles using Tailwind CSS classes */
+.logout-button,
+.logout-buttons {
+  @apply absolute top-3 px-4 py-2 font-bold rounded shadow-md cursor-pointer transition duration-300 ease-in-out;
+}
 
 .logout-button {
-    @apply absolute top-2 right-80 px-4 py-2 bg-green-500 text-white font-bold rounded shadow-md cursor-pointer transition duration-300 ease-in-out;
-  
-    &:hover {
-      @apply bg-green-600;
-    }
-  }
-  
-.logout-buttons {
-  @apply absolute top-2 right-80 px-4 py-2 bg-red-500 text-white font-bold rounded shadow-md cursor-pointer transition duration-300 ease-in-out;
+  @apply bg-green-500 text-white;
+}
 
-  &:hover {
-    @apply bg-red-600;
+.logout-buttons {
+  @apply bg-red-500 text-white;
+}
+
+.logout-button:hover,
+.logout-buttons:hover {
+  @apply bg-green-600;
+}
+
+.logout-buttons:hover {
+  @apply bg-red-600;
+}
+
+/* Flame animation */
+@keyframes flameMovement {
+  0% { transform: translateY(0) scale(1) rotate(0deg); }
+  20% { transform: translateY(-2px) scale(1.05) rotate(1deg); }
+  40% { transform: translateY(-4px) scale(1) rotate(-1deg); }
+  60% { transform: translateY(-2px) scale(1.05) rotate(1deg); }
+  80% { transform: translateY(0) scale(1) rotate(-1deg); }
+  100% { transform: translateY(-2px) scale(1.05) rotate(0deg); }
+}
+
+.fire-animation {
+  animation: flameMovement 2s infinite ease-in-out;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .mobile-menu-button {
+      display: block;
+  }
+
+  #navbar-default {
+      display: none;
   }
 }
 
-  
+.menu-open #navbar-default {
+  display: block !important;
+}

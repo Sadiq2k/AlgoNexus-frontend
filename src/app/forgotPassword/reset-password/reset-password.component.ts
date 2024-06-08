@@ -14,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./reset-password.component.scss']
 })
 export class ResetPasswordComponent {
+  
   changePasswordForm!: FormGroup;
   errorMsg: string = '';
   userId: string | null = null;

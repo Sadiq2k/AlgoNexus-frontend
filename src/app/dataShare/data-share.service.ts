@@ -8,28 +8,28 @@ import { BehaviorSubject } from 'rxjs';
 export class DataShareService {
 
   //this all data is user 
-userDetails:any;
+  userDetails: any;
 
-setLogedUser(user: User | undefined) {
-  localStorage.setItem('userDetails', JSON.stringify(user));
-  console.log("User details saved in local storage:", user);
-}
-
-getUserDetails(): User | undefined {
-  const userDetailsString = localStorage.getItem('userDetails');
-  if (userDetailsString) {
-    return JSON.parse(userDetailsString) as User;
-  } else {
-    return undefined;
+  setLogedUser(user: User | undefined) {
+    localStorage.setItem('userDetails', JSON.stringify(user));
+    console.log("User details saved in local storage:", user);
   }
-}
+
+  getUserDetails(): User | undefined {
+    const userDetailsString = localStorage.getItem('userDetails');
+    if (userDetailsString) {
+      return JSON.parse(userDetailsString) as User;
+    } else {
+      return undefined;
+    }
+  }
 
   role: any;
 
   constructor() { }
 
   private email: string = '';
-  
+
 
   setEmail(email: string) {
     this.email = email;
@@ -39,11 +39,11 @@ getUserDetails(): User | undefined {
   getEmail(): string {
     return this.email;
   }
-  setRole(roles:any){
+  setRole(roles: any) {
     this.role = roles;
-    console.log("share data service",this.role);
+    console.log("share data service", this.role);
   }
-  getRole(){
+  getRole() {
     return this.role;
   }
 
@@ -59,23 +59,23 @@ getUserDetails(): User | undefined {
 
   private formDataSolution = new BehaviorSubject<any>(null);
   formDataSolution$ = this.formDataSolution.asObservable();
-  
-  sendFormDataSolution(editorContent: any){
+
+  sendFormDataSolution(editorContent: any) {
     this.formDataSolution.next(editorContent);
   }
 
-  
+
   private formDataExplanation = new BehaviorSubject<any>(null);
   formDataExplanation$ = this.formDataExplanation.asObservable();
-  
-  sendFormDataExplanation(editorContent: any){
+
+  sendFormDataExplanation(editorContent: any) {
     this.formDataExplanation.next(editorContent);
   }
 
   private formDataTestCase = new BehaviorSubject<any>(null);
   formDataTestCase$ = this.formDataTestCase.asObservable();
-  
-  sendFormDataTestCase(testcaseData: any){
+
+  sendFormDataTestCase(testcaseData: any) {
     this.formDataTestCase.next(testcaseData);
   }
 
@@ -83,10 +83,17 @@ getUserDetails(): User | undefined {
   formDataConstraints$ = this.formDataConstraints.asObservable();
 
   sendCanstraints(constraints: any) {
-   this.formDataConstraints.next(constraints)
+    this.formDataConstraints.next(constraints)
+  }
+
+  private formDataCourse = new BehaviorSubject<any>(null);
+  formDataCourse$ = this.formDataCourse.asObservable();
+
+  sendFormCourse(course: any) {
+    this.formDataCourse.next(course);
+
   }
 
 
-  
 
 }

@@ -2,24 +2,25 @@
 
 <div class="mx-auto bg-grey-400 min-h-screen " style="background-color: rgb(41, 44, 49); margin-top: -230px;">
     <div class="flex flex-1 ">
-        <main class="bg-white-300 ml-72 flex-1 p-3 overflow-hidden" style="padding-left: 3px;">
+        <main class="bg-white-300 ml-72 flex-1 p-3 overflow-hidden " style="padding-left: 3px;">
             <div
-                class="flex-1 flex flex-col items-start justify-end pt-64 px-[69.2px] pb-8 box-border gap-[20px] max-w-full bg-white  text-black lg:pl-[34px] lg:pt-[166px] lg:pr-[34px] lg:box-border mq750:pt-[108px] mq750:box-border">
+                class="flex-1 flex flex-col items-start justify-end pt-64 px-[69.2px]  pb-8 box-border gap-[20px] max-w-full bg-white  text-black lg:pl-[34px] lg:pt-[166px] lg:pr-[34px] lg:box-border mq750:pt-[108px] mq750:box-border">
                 <strong class="font-bold text-3xl mt-[-147px] mb-14">Problem</strong>
                 <div class="flex items-center w-full custom-bg-color">
                     <mat-form-field class="mr-4">
                         <mat-label>Difficulty</mat-label>
-                        <mat-select [(ngModel)]="selectedDifficulty" (selectionChange)="onDifficultyChange()" [ngClass]="{ 'text-green': selectedDifficulty === 'Easy', 'text-yellow': selectedDifficulty === 'Medium', 'text-red': selectedDifficulty === 'Hard' }">
+                        <mat-select [(ngModel)]="selectedDifficulty" (selectionChange)="onDifficultyChange()"
+                            [ngClass]="{ 'text-green': selectedDifficulty === 'Easy', 'text-yellow-600': selectedDifficulty === 'Medium', 'text-red': selectedDifficulty === 'Hard' }">
                             <mat-option class="text-green" value="Easy">Easy</mat-option>
-                            <mat-option class="text-yellow" value="Medium">Medium</mat-option>
+                            <mat-option class="text-yellow-600" value="Medium">Medium</mat-option>
                             <mat-option class="text-red" value="Hard">Hard</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field class="mr-4">
                         <mat-label>Tag</mat-label>
-                        <mat-select [(ngModel)]="selectedCategory" (selectionChange)="onCategoryChange()" [ngClass]="{'array':selectedCategory === 'Array','tag2':selectedCategory === 'String'}">
-                            <mat-option class="array" value="Array">Array</mat-option>
-                            <mat-option value="String">String</mat-option>
+                        <mat-select [(ngModel)]="selectedCategory" (selectionChange)="onCategoryChange()"
+                            [ngClass]="{'array':selectedCategory === 'Array','tag2':selectedCategory === 'String'}">
+                            <mat-option *ngFor="let category of allCategories" [value]="category.name" >{{category?.name}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field class="mr-4">
@@ -33,10 +34,11 @@
                     <div class="absolute h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] hidden">
                     </div>
                 </div>
-            
+
                 <div
-                    class="self-stretch bg-white shadow-[5px_5px_17px_rgba(0,_0,_0,_0.25)] h-[418px] rounded-lg bg-lavender-100 flex flex-col  pb-2 box-border relative max-w-full z-[1]">
-                    <div class="navbar-container flex items-center justify-between rounded-xl rounded-b-none bg-gray-600 h-16 px-4">
+                    class="self-stretch bg-white shadow-[5px_5px_17px_rgba(0,_0,_0,_0.25)] h-[818px] rounded-lg bg-lavender-100 flex flex-col  pb-2 box-border relative max-w-full z-[1]">
+                    <div
+                        class="navbar-container flex items-center justify-between rounded-xl rounded-b-none bg-gray-600 h-16 px-4">
                         <div class="navbar-title text-white font-medium">
                             <p class="m-0">Title</p>
                         </div>
@@ -44,29 +46,57 @@
                             Difficulty
                         </div>
                     </div>
-                    
-                    <div  *ngIf="!searchbooll && !selectedDifficulty"
+                    <!-- Skeleton Loader -->
+                    <div *ngIf="skelton">
+                        <div class="p-4 w-full mx-auto">
+                            <div class="space-y-4">
+                                <div class="animate-pulse flex space-x-4">
+                                    <div class="rounded-full bg-gray-400 h-12 w-12"></div>
+                                    <div class="flex-1 space-y-4 py-1">
+                                        <div class="h-4 bg-gray-400 rounded w-3/4"></div>
+                                        <div class="space-y-2">
+                                            <div class="h-4 bg-gray-400 rounded"></div>
+                                            <div class="h-4 bg-gray-400 rounded w-5/6"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="animate-pulse flex space-x-4">
+                                    <div class="rounded-full bg-gray-400 h-12 w-12"></div>
+                                    <div class="flex-1 space-y-4 py-1">
+                                        <div class="h-4 bg-gray-400 rounded w-3/4"></div>
+                                        <div class="space-y-2">
+                                            <div class="h-4 bg-gray-400 rounded"></div>
+                                            <div class="h-4 bg-gray-400 rounded w-5/6"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Add more skeleton blocks as needed -->
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div *ngIf="!searchbooll && !selectedDifficulty"
                         class="self-stretch flex flex-col items-start  justify-start max-w-full">
-                        <div *ngFor="let Problem of allProblem; let i = index "
+                        <div *ngFor="let Problem of allProblem?.content; let i = index "
                             class="self-stretch flex flex-row items-start border border-b-gray-500  border-t-0 justify-between pt-3 pb-3.5 pr-[93px] pl-11 relative gap-[20px] z-[1] lg:pl-[22px] lg:pr-[46px] lg:box-border mq450:flex-wrap mq750:pr-[23px] mq750:box-border">
                             <div class="h-full w-full absolute !m-[0] top-[0px] right-[0px] bottom-[0px] left-[0px]">
                             </div>
                             <div class="flex flex-col items-start justify-start pt-[3px] px-0 pb-0">
                                 <div class="relative font-medium inline-block min-w-[120px] z-[1]">
                                     <ol class="m-0 font-inherit text-inherit pl-4">
-                                        <li> <span class="hover:text-blue-500 ">{{i+1}}.
+                                        <li> <span class="hover:text-blue-500 ">{{Problem?.problemNo}}.
                                                 {{Problem?.title}}</span></li>
                                     </ol>
                                 </div>
                             </div>
                             <div class="relative font-medium inline-block min-w-[47px] z-[1]" [ngClass]="{
                                    'text-green': Problem?.difficulty === 'Easy',
-                                   'text-yellow': Problem?.difficulty === 'Medium',
+                                   'text-yellow-600': Problem?.difficulty === 'Medium',
                                    'text-red': Problem?.difficulty === 'Hard'
                                 }" *ngIf="Problem?.difficulty">
                                 {{ Problem?.difficulty }}
                             </div>
-
                         </div>
                     </div>
 
@@ -79,19 +109,38 @@
                             <div class="flex flex-col items-start justify-start pt-[3px] px-0 pb-0">
                                 <div class="relative font-medium inline-block min-w-[120px] z-[1]">
                                     <ol class="m-0 font-inherit text-inherit pl-4">
-                                        <li> <span class="hover:text-blue-500 ">{{problem?.id}}.
+                                        <li> <span class="hover:text-blue-500 ">{{problem?.problemNo}}.
                                                 {{problem?.title}}</span></li>
                                     </ol>
                                 </div>
                             </div>
                             <div class="relative font-medium inline-block min-w-[47px] z-[1]" [ngClass]="{
                                    'text-green': problem?.difficulty === 'Easy',
-                                   'text-yellow': problem?.difficulty === 'Medium',
+                                   'text-yellow-600': problem?.difficulty === 'Medium',
                                    'text-red': problem?.difficulty === 'Hard'
                                 }" *ngIf="problem?.difficulty">
                                 {{ problem?.difficulty }}
                             </div>
                         </div>
+                    </div>
+                    
+                    <div class="mt-4 flex justify-center gap-5 w-[100%]">
+                        <button (click)="previousPage()" [disabled]="page === 0" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                            <i class="fa-solid fa-circle-chevron-left text-blue-600"></i>
+                            Newer
+                        </button>
+                        <div>
+                            <button *ngFor="let p of [].constructor(totalPages); let i = index"
+                                (click)="goToPage(i)"
+                                [ngClass]="{'bg-blue-500 text-white': page === i, 'bg-gray-300': page !== i}"
+                                class="px-4 py-2 rounded mx-1">
+                                {{ i + 1 }}
+                            </button>
+                        </div>
+                        <button (click)="nextPage()" [disabled]="page === totalPages - 1" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                            Older
+                            <i class="fa-solid fa-circle-chevron-right text-blue-600"></i>
+                        </button>
                     </div>
                 </div>
             </div>

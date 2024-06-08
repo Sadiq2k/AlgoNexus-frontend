@@ -67,8 +67,10 @@ export class RegisterComponent implements OnInit {
     
     error: (err: HttpErrorResponse) => {
       this.loading = false;
-      // console.error(err);
-      if (err.error.validationErrors) {
+      console.error(err);
+      if (err.status == 503) {
+        this.errorMessage ='Server is down or network error.';
+      }else if (err.error.validationErrors) {
         this.errorMessage = err.error.validationErrors;
       } else {
         this.errorMessage = 'An error occurred. Please try again later.';

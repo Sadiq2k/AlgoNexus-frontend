@@ -21,6 +21,19 @@ import { ExampleComponent } from './admin/problems/example/example.component';
 import { TestCaseComponent } from './admin/problems/testCase/test-case/test-case.component';
 import { ProblemListComponent } from './Component/ProblemList/problem-list/problem-list.component';
 import { CodingPageComponent } from './Component/ProblemList/coding-page/coding-page.component';
+import { ExploreComponent } from './Component/explore/explore.component';
+import { CourseDetailsComponent } from './Component/explore/course-details/course-details.component';
+import { CouresComponent } from './admin/coures/coures.component';
+import { AddCouresComponent } from './admin/coures/add-coures/add-coures.component';
+import { CourseVideosComponent } from './admin/coures/course-videos/course-videos.component';
+import { AddVideoComponent } from './admin/coures/add-video/add-video.component';
+import { EditCourseComponent } from './admin/coures/edit-course/edit-course.component';
+import { AllSubmissionsComponent } from './Component/user-profile/all-submissions/all-submissions.component';
+import { MyNetworkComponent } from './myNetwork/my-network/my-network.component';
+import { SocialUserDetailsComponent } from './myNetwork/social-user-details/social-user-details.component';
+import path from 'path';
+import { DailyProblemsComponent } from './admin/daily-problems/daily-problems.component';
+import { ServerComponent } from './SERVER-DOWN/server-down/server.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -42,7 +55,20 @@ const routes: Routes = [
   { path: 'admin/user-management', component: UserManagementComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN'] } },
   { path: 'admin/problems/solution', component: SolutionComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN'] } },
   { path: 'admin/problems/example', component: ExampleComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN'] } },
-  { path: 'admin/problems/test-case', component: TestCaseComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN'] } }
+  { path: 'admin/problems/test-case', component: TestCaseComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN'] } },
+  { path: 'explore', component: ExploreComponent },
+  { path: 'explore/course-details', component: CourseDetailsComponent },
+  { path: 'admin/courses', component: CouresComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN'] } },
+  { path: 'admin/courses/add', component: AddCouresComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN'] } },
+  { path: 'admin/courses/edit', component: EditCourseComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN'] } },
+  { path: 'admin/courses/course-videos', component: CourseVideosComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN'] } },
+  { path: 'admin/courses/course-videos/add', component: AddVideoComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN'] } },
+  { path: 'user/problem/submissions', component: AllSubmissionsComponent, canActivate: [AuthGuard], data: { roles: ['USER'] } },
+  { path: 'user/my-network', component: MyNetworkComponent, canActivate: [AuthGuard], data: { roles: ['USER'] } },
+  { path: 'user/social-media/user', component: SocialUserDetailsComponent, canActivate: [AuthGuard], data: { roles: ['USER'] } },
+  { path: 'admin/daily-problems', component: DailyProblemsComponent, canActivate: [AuthGuard], data: { roles: ['ADMIN'] } },
+  { path: 'server-down', component: ServerComponent }
+
 
 ];
 

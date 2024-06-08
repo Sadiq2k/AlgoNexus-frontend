@@ -1,62 +1,79 @@
-<nav class=" border-gray-200 bg-color" *ngIf="!role">
+<nav class="border-gray-200 bg-color" *ngIf="!role">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-    <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+    <div class="flex items-center">
       <img routerLink="/home"
-        class="absolute h-[3.01%] w-[1.26%] top-[1.50%] right-[2.78%] bottom-[98.26%] left-[13.17%] cursor-pointer"
-        src="./assets/Algo-exus-logo.png" alt="">
+        class="h-8 w-auto cursor-pointer mr-4"
+        src="./assets/Algo-exus-logo.png" alt="Logo">
+    </div>
 
-      <ul
-        class="font-inter flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 ">
+    <div class="flex md:hidden">
+      <!-- Display the mobile menu button -->
+      <button class="mobile-menu-button" (click)="toggleMobileMenu()">
+        <!-- Mobile menu icon -->
+        <svg class="w-6 h-6 text-gray-500" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          viewBox="0 0 24 24" stroke="currentColor">
+          <path d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
 
+    <!-- Dropdown container for mobile menu -->
+    <div class="hidden md:hidden absolute right-0 top-full w-full bg-white border border-gray-100 rounded-lg mt-2 z-10"
+         [ngClass]="{'block': isMobileMenuOpen, 'hidden': !isMobileMenuOpen}">
+      <ul class="p-4">
         <li>
-          <a href="#"
-            class="block py-2 px-3 text-gray-900 rounded md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500  dark:hover:text-white md:dark:hover:bg-transparent">Explore</a>
+          <a routerLink="/explore"
+            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:text-white"
+            (click)="toggleMobileMenu()">Explore</a>
         </li>
         <li>
           <a routerLink="/user-problems"
-            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Problems</a>
+            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:text-white"
+            (click)="toggleMobileMenu()">Problems</a>
         </li>
         <li>
           <a href="#"
-            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contest</a>
-        </li>
-        <li>
-          <a href="#"
-            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Store</a>
+            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:text-white"
+            (click)="toggleMobileMenu()">Store</a>
         </li>
       </ul>
-      <img
-        class="absolute h-[2.01%] w-[1.26%] top-[1.74%] right-[27.78%] bottom-[98.26%] left-[63.87%] max-w-full overflow-hidden max-h-full object-contain opacity-[0.8] yellow-icon"
-        alt="" src="./assets/bell1.png" />
-
     </div>
-    <img
-      class="absolute h-[2.01%] w-[1.26%] top-[1.94%] right-[22.48%] bottom-[98.26%] left-[63.87%] max-w-full overflow-hidden max-h-full object-contain opacity-[0.8] yellow-icon"
-      alt="" src="./assets/bell1.png" />
 
+    <!-- Hidden by default for larger screens, visible for smaller screens -->
+    <div class="hidden w-full md:flex md:w-auto" id="navbar-default">
+      <ul
+        class="font-inter flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 ">
+        <li>
+          <a routerLink="/explore"
+            class="block py-2 px-3 text-gray-900 rounded md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:text-white">Explore</a>
+        </li>
+        <li>
+          <a routerLink="/user-problems"
+            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:text-white">Problems</a>
+        </li>
+        <li>
+          <a routerLink="/user/my-network"
+            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:text-white">My Network</a>
+        </li>
+        <!-- <li>
+          <a 
+            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:text-white">Store</a>
+        </li> -->
+      </ul>
+    </div>
 
-    <img
-      class="absolute h-[2.01%] w-[1.26%] top-[1.74%] right-[27.78%] bottom-[98.26%] left-[66.67%] max-w-full overflow-hidden max-h-full object-contain opacity-[0.8]"
-      alt="" src="./assets/fire.png" />
-
-    <p
-      class="absolute h-[2.01%] w-[1.26%] top-[1.74%] right-[27.78%] bottom-[98.26%] left-[67.87%] text-white max-w-full overflow-hidden max-h-full object-contain opacity-[0.8]">
-      0</p>
-
-    <img routerLink="/userProfile"
-      class="absolute h-[3.17%] w-[1.69%] top-[1.81%] right-[25.2%] bottom-[98.32%] left-[70.81%] max-w-full overflow-hidden max-h-full cursor-pointer"
-      alt="" src="./assets/profile.png" />
-
-    <!-- <img
-      class="absolute h-[3.17%] w-[1.39%] top-[1.71%] right-[21.3%] bottom-[98.31%] left-[77.71%] max-w-full overflow-hidden max-h-full"
-      alt="" src="./assets/crown.png" /> -->
-
-      <button class="logout-button"  *ngIf="!loggedIn()" (click)="login()" >Log in</button>
-      <button class="logout-buttons"  *ngIf="loggedIn()" (click)="logOut()">Log Out</button>
-      
-    <!-- <ng-template #loginButton>
-      <button class="login-button" (click)="login()">Log In</button>
-    </ng-template> -->
-
+    <div class="relative flex items-center ml-auto">
+      <img *ngIf="loggedIn()"
+        class="h-6 w-6 max-w-full overflow-hidden max-h-full object-contain opacity-[0.8] fire-animation"
+        alt="" src="./assets/fire.png" />
+      <p class="text-white text-sm opacity-[0.8] pr-8">
+        {{dailyStreak}}
+      </p>
+      <img routerLink="/userProfile" *ngIf="loggedIn()"
+        class="h-8 w-8 rounded-full max-w-full overflow-hidden max-h-full cursor-pointer"
+        alt="" [src]="userImage" />
+    </div>
   </div>
+  <button class="logout-button ml-[94%]" *ngIf="!loggedIn()" (click)="login()">Log in</button>
+      <button class="logout-buttons ml-[94%]" *ngIf="loggedIn()" (click)="logOut()">Log Out</button>
 </nav>

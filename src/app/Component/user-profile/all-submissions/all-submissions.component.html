@@ -1,0 +1,51 @@
+<app-header></app-header>
+
+<div class="containers">
+    <div class="justify-center items-center">
+     
+    </div>
+    
+    <div class="table-container ml-40 mt-5">
+        <h2>All Submissions</h2>
+        <table class="table ">
+            <thead>
+                <tr>
+                    <th>Time Submitted</th>
+                    <th>Question</th>
+                    <th>Status</th>
+                    <th>Runtime</th>
+                    <th>Language</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let submission of allSubmissions?.content">
+                    <td>{{ submission.submissionTime | date:'short'}}</td>
+                    <td>{{ submission.title }}</td>
+                    <td [ngClass]="{'text-green-500': submission?.solved, 'text-red-500': !submission?.solved}">
+                        {{ submission?.solved ? 'Accepted' : 'Rejected' }}
+                      </td>
+                      <td>{{ submission.averageTime }}ms</td>
+                      <td>Java</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="mt-4 flex justify-center gap-5 w-[80%]">
+            <button (click)="previousPage()" [disabled]="page === 0" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                <i class="fa-solid fa-circle-chevron-left text-blue-600"></i>
+                Newer
+            </button>
+            <div>
+                <button *ngFor="let p of [].constructor(totalPages); let i = index"
+                    (click)="goToPage(i)"
+                    [ngClass]="{'bg-blue-500 text-white': page === i, 'bg-gray-300': page !== i}"
+                    class="px-4 py-2 rounded mx-1">
+                    {{ i + 1 }}
+                </button>
+            </div>
+            <button (click)="nextPage()" [disabled]="page === totalPages - 1" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                Older
+                <i class="fa-solid fa-circle-chevron-right text-blue-600"></i>
+            </button>
+        </div>
+    </div>
+</div>

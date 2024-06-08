@@ -1,182 +1,148 @@
 <app-header></app-header>
-<!-- app.component.html -->
+<div class="w-full  custom-bg-color">
+    <div class="container mx-auto p-6 dark:bg-gray-200 rounded-b-xl min-h-screen">
+        <!-- Filter Section -->
+        <div class="flex justify-between">
+            <div class="filter-section w-full bg-white shadow-md rounded-md p-6 mb-6">
+               
+                <h2 class="text-2xl font-bold mb-6 text-center">Latest Courses</h2>
 
-<div class="container flex justify-between mx-auto p-4">
-    <!-- Filter Section -->
-    <div class="filter-section bg-gray-100 ml-32 w-[70%] rounded-md p-4">
-        <mat-form-field class="mr-4 mb-4">
-            <mat-label>All Topics</mat-label>
-            <mat-select>
-                <!-- Options for all topics -->
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field class="mr-4 mb-4">
-            <mat-label>Difficulty</mat-label>
-            <mat-select>
-                <mat-option value="easy">Easy</mat-option>
-                <mat-option value="medium">Medium</mat-option>
-                <mat-option value="hard">Hard</mat-option>
-            </mat-select>
-        </mat-form-field>
-        <!-- <mat-form-field class="mr-4 mb-4">
-            <mat-label>Tag</mat-label>
-            <mat-select>
-                <mat-option value="tag1">Tag 1</mat-option>
-                <mat-option value="tag2">Tag 2</mat-option>
-                <mat-option value="tag3">Tag 3</mat-option>
-            </mat-select>
-        </mat-form-field> -->
-
-        <mat-form-field class="mr-4 mb-4">
-            <input matInput type="text" placeholder="Search">
-        </mat-form-field>
-    </div>
-
-    <div class="ml-auto justify-end  items-end mr-44">
-        <!-- Calendar -->
-        <mat-form-field class="mb-4 ">
-            <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        <div class="flex-1 rounded-lg bg-white flex-row items-end justify-start pt-[9px] px-[9px] pb-4 gap-[14px] min-w-[230px]"
-            style="height: 196px;">
-            <div class="h-36 w-[297px] relative rounded-lg bg-lavenderblush hidden"></div>
-
-            <!-- Solved Problems Section -->
-            <div class="flex flex-col items-start justify-end pt-0 px-0 pb-[52px] ">
-                <div class="flex flex-col items-start justify-start gap-[19px]">
-                    <div class="font-bold text-green-900">Solved Problems</div>
-                    <div class="flex flex-row items-start justify-start py-0 px-0.5 text-[24px] text-black">
-                        <div class="flex flex-col items-start justify-start pt-4 px-[18px] pb-[17px] relative">
-                            <div
-                                class="w-28 h-28 absolute !m-[0] top-[0px] right-[0px] bottom-[0px] left-[0px] rounded-[50%] bg-gainsboro-200 shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25)] box-border z-[1] border-[0px] border-solid border-darkslategray">
-                            </div>
-                            <div class="flex flex-row items-start justify-start py-0 pr-2 pl-[23px]">
-                                <div class="relative font-medium inline-block min-w-[27px] z-[3]" style="top: 10px;">91
+                <div class="flex flex-wrap gap-5 justify-center">
+                    <section class="gap-5" *ngFor="let course of latestCourse">
+                        <div class="bg-white w-[300px] rounded-lg shadow-md overflow-hidden transform transition-transform duration-300 hover:scale-105">
+                            <img class="w-full h-32 object-cover" [src]="course?.courses?.imageUrl" alt="Course Image">
+                            <div class="p-4">
+                                <h2 class="text-lg font-encode-sans font-bold mb-2">{{course?.courses?.topicName}}</h2>
+                                <p class="text-gray-700 text-sm">{{transform(course?.courses?.description, 10)}}</p>
+                                <div class="flex justify-between items-center mt-2">
+                                    <span class="text-gray-500 text-xs">Videos: {{course?.totalVideoCount}}</span>
+                                    <button (click)="goToVideoDetails(course?.courses?.courseId , course?.courses?.topicName)" class="bg-gray-900 text-white px-4 py-2 rounded hover:bg-gray-700 text-xs">View Course</button>
                                 </div>
                             </div>
-                            <div class="relative text-smi inline-block min-w-[42px] z-[2]" style="top: 27px;">Solved
-                            </div>
                         </div>
-                    </div>
+                    </section>
+                </div>
+
+                <div class="flex flex-wrap gap-4 mt-6">
+                    <mat-form-field class="w-full sm:w-1/4">
+                        <mat-label>Difficulty</mat-label>
+                        <mat-select [(value)]="selectedDifficulty" (selectionChange)="filterProblems()">
+                            <mat-option value="">All</mat-option>
+                            <mat-option value="easy">Easy</mat-option>
+                            <mat-option value="medium">Medium</mat-option>
+                            <mat-option value="hard">Hard</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+    
+                    <mat-form-field class="w-full sm:w-1/4">
+                        <input matInput [(ngModel)]="searchTerm" (keyup)="search()" placeholder="Search">
+                    </mat-form-field>
                 </div>
             </div>
-
-            <!-- Difficulty Section -->
-            <div
-                class="flex-1 shadow-xl flex flex-col items-start justify-start gap-[30px] text-3xs min-w-[230px] text-black">
-                <!-- Easy -->
-                <div class="self-stretch flex flex-col items-start justify-start gap-[3px]">
-                    <div class="flex flex-row items-start justify-start gap-[14.5px]">
-                        <div class="flex flex-col items-start justify-start pt-0.5 pb-0 pr-5 pl-0">
-                            <div class="relative inline-block min-w-[23px]">Easy</div>
-                        </div>
-                        <div class="relative leading-[12.38px] font-medium inline-block min-w-[33px]">
-                            <span>70</span>
-                            <span class="text-5xs">/760</span>
-                        </div>
-                        <div class="flex flex-col items-start justify-start pt-0.5 px-0 pb-0 text-5xs">
-                            <div class="relative inline-block min-w-[52px]">
-                                <span>Beats</span>
-                                <span class="font-medium whitespace-pre-wrap">84.7%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="self-stretch h-[9px] relative rounded bg-easy-color">
-                        <div class="absolute top-[0px] left-[0px] rounded bg-darkolivegreen w-full h-full"></div>
-                        <div class="absolute top-[0px] left-[0px] rounded bg-green-800 w-[31px] h-[9px]"></div>
-                    </div>
-                </div>
-
-                <!-- Medium -->
-                <div class="self-stretch flex flex-col items-start justify-start gap-[3px]">
-                    <div class="flex flex-row items-start justify-start gap-[17.5px]">
-                        <div class="flex flex-col items-start justify-start pt-0.5 px-0 pb-0">
-                            <div class="relative inline-block min-w-[38px]">Medium</div>
-                        </div>
-                        <div class="relative leading-[12.38px] font-medium inline-block min-w-[32px]">
-                            <span>19</span>
-                            <span class="text-5xs">/760</span>
-                        </div>
-                        <div class="flex flex-col items-start justify-start pt-0.5 px-0 pb-0 text-5xs">
-                            <div class="relative inline-block min-w-[52px]">
-                                <span>Beats</span>
-                                <span class="font-medium whitespace-pre-wrap">64.7%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="self-stretch h-[9px] relative rounded bg-darkkhaki">
-                        <div class="absolute top-[0px] left-[0px] rounded bg-darkkhaki w-full h-full"></div>
-                        <div class="absolute top-[0px] left-[0px] rounded bg-olive w-2.5 h-[9px]"></div>
-                    </div>
-                </div>
-
-                <!-- Hard -->
-                <div class="self-stretch flex flex-col items-start justify-start gap-[3px]">
-                    <div class="flex flex-row items-start justify-start gap-[20px]">
-                        <div class="flex flex-col items-start justify-start pt-0.5 pb-0 pr-3.5 pl-0">
-                            <div class="relative inline-block min-w-[23px]">Hard</div>
-                        </div>
-                        <div class="relative leading-[12.38px] font-medium inline-block min-w-[27px]">
-                            <span>2</span>
-                            <span class="text-5xs">/760</span>
-                        </div>
-                        <div class="flex flex-col items-start justify-start pt-0.5 px-0 pb-0 text-5xs">
-                            <div class="relative inline-block min-w-[52px]">
-                                <span>Beats</span>
-                                <span class="font-medium whitespace-pre-wrap">24.7%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="self-stretch h-[9px] relative rounded bg-maroon">
-                        <div class="absolute top-[0px] left-[0px] rounded bg-maroon w-full h-full"></div>
-                        <div class="absolute top-[0px] left-[0px] rounded bg-firebrick w-[5px] h-[9px]"></div>
-                    </div>
+            <div class="filter-section bg-white shadow-md rounded-md p-6 mb-6">
+                <strong class="text-xl font-bold text-gray-800 underline " style="border-top:0">Daily Problem</strong>
+                <div class="flex flex-wrap items-center">
+                    <p-calendar class="calendar" [(ngModel)]="date" [inline]="true" [showWeek]="true"
+                        (onSelect)="onDateSelect($event)">
+                    </p-calendar>
                 </div>
             </div>
-        </div>
-
-    </div>
-
-    <!-- Problem List -->
-
-    <div
-        class="absolute top-[200px] left-[285px] lg:shadow-[0px_10px_15px_3px_rgba(0,_0,_0,_0.25)] lg:rounded-lg bg-white w-full lg:w-[940px] h-[656px] ">
-        <div action="#">
-            <!-- Header Row -->
-            <div class="flex bg-gray-700 text-white rounded-t-lg">
-                <div class="w-1/4 py-2 px-4">Status</div>
-                <div class="w-3/4 py-2 px-4">Title</div>
-                <div class="w-1/4 py-2 px-4">Acceptance</div>
-                <div class="w-1/4 py-2 px-4">Difficulty</div>
-            </div>
-
-            <!-- Question Rows -->
-            <div class="section flex items-center bg-gray-200 mb-1" *ngFor="let Problem of allProblem ">
-                <div class="w-1/4 flex ml-3" *ngIf="Problem.identity">
-                    <i class="far fa-circle-check text-green-500" style="font-size: 20px;"></i>
-                </div>
-                <div class="w-1/4 flex ml-3" *ngIf="!Problem.identity"></div>
-                <!-- <i class="fa-regular fa-circle-xmark w-1/4 flex ml-3" *ngIf="!Problem.identity"></i> -->
-                <div class="w-3/4 py-2 px-4 cursor-pointer hover:bg-gray-200 hover:text-blue-800 " (click)="goToProblemDetails(Problem.problemId)">{{Problem?.title}}</div>
-
-                <div class="w-1/4 py-2 px-4">56%</div>
-                <div class="w-1/4 py-2 px-4" [ngClass]="{
-                    'text-green': Problem?.difficulty === 'Easy',
-                    'text-yellow': Problem?.difficulty === 'Medium',
-                    'text-red': Problem?.difficulty === 'Hard'
-                }" *ngIf="Problem?.difficulty">
-                    {{ Problem?.difficulty }}
-                </div>
-            </div>
-            
-          
 
         </div>
 
 
+
+        <!-- Problems Table -->
+        <div class="problems-table bg-white shadow-md rounded-md">
+            <div class="header-row flex bg-gray-700 text-white rounded-t-md py-2 px-4">
+                <div class="w-1/4">Status</div>
+                <div class="w-1/2">Title</div>
+                <div class="w-1/4">Acceptance</div>
+                <div class="w-1/4">Difficulty</div>
+            </div>
+            <div *ngIf="!searchbooll && !defaultProblem">
+                <div class="problem-row flex items-center bg-gray-100 hover:bg-gray-200 transition mb-1 py-2 px-4"
+                    *ngFor="let Problem of allProblem?.content">
+                    <div class="w-1/4 flex items-center justify-center">
+                        <i *ngIf="Problem.identity" class="far fa-check-circle text-green-500"></i>
+                        <i *ngIf="!Problem.identity" class="far fa-times-circle text-red-500"></i>
+                    </div>
+                    <div class="w-1/2 cursor-pointer hover:text-blue-800"
+                        (click)="goToProblemDetails(Problem.problemId)">
+                        {{ Problem.problemNo }}. {{ Problem?.title }}
+                    </div>
+
+                    <div class="w-1/4">{{ Problem?.acceptanceRate }}%</div>
+                    <div class="w-1/4" [ngClass]="{
+                'text-green-600': Problem?.difficulty === 'Easy',
+                'text-yellow-600': Problem?.difficulty === 'Medium',
+                'text-red-600': Problem?.difficulty === 'Hard'}">
+                        {{ Problem?.difficulty }}
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="searchbooll">
+                <div class="problem-row flex items-center bg-gray-100 hover:bg-gray-200 transition mb-1 py-2 px-4"
+                    *ngFor="let Problem of filteredProblems">
+                    <div class="w-1/4 flex items-center justify-center">
+                        <i *ngIf="Problem.identity" class="far fa-check-circle text-green-500"></i>
+                        <i *ngIf="!Problem.identity" class="far fa-times-circle text-red-500"></i>
+                    </div>
+                    <div class="w-1/2 cursor-pointer hover:text-blue-800"
+                        (click)="goToProblemDetails(Problem.problemId)">
+                        {{ Problem?.title }}
+                    </div>
+                    <div class="w-1/4">{{ Problem?.acceptanceRate }}%</div>
+                    <div class="w-1/4" [ngClass]="{
+                'text-green-600': Problem?.difficulty === 'Easy',
+                'text-yellow-600': Problem?.difficulty === 'Medium',
+                'text-red-600': Problem?.difficulty === 'Hard'}">
+                        {{ Problem?.difficulty }}
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="defaultProblem">
+                <div class="problem-row flex items-center bg-gray-100 hover:bg-gray-200 transition mb-1 py-2 px-4">
+                    <div class="w-1/4 flex items-center justify-center">
+                        <i *ngIf="defaultProblem.identity" class="far fa-check-circle text-green-500"></i>
+                        <i *ngIf="!defaultProblem.identity" class="far fa-times-circle text-red-500"></i>
+                    </div>
+                    <div class="w-1/2 cursor-pointer hover:text-blue-800"
+                        (click)="goToProblemDetails(defaultProblem.problemId)">
+                        {{ defaultProblem?.title }}
+                    </div>
+                    <div class="w-1/4">{{ defaultProblem?.acceptanceRate }}%</div>
+                    <div class="w-1/4" [ngClass]="{
+                'text-green-600': defaultProblem?.difficulty === 'Easy',
+                'text-yellow-600': defaultProblem?.difficulty === 'Medium',
+                'text-red-600': defaultProblem?.difficulty === 'Hard'}">
+                        {{ defaultProblem?.difficulty }}
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="mt-4 flex justify-center gap-5 w-[100%]">
+            <button (click)="previousPage()" [disabled]="page === 0"
+                class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                <i class="fa-solid fa-circle-chevron-left text-blue-600"></i>
+                Newer
+            </button>
+            <div>
+                <button *ngFor="let p of [].constructor(totalPages); let i = index" (click)="goToPage(i)"
+                    [ngClass]="{'bg-blue-500 text-white': page === i, 'bg-gray-300': page !== i}"
+                    class="px-4 py-2 rounded mx-1">
+                    {{ i + 1 }}
+                </button>
+            </div>
+            <button (click)="nextPage()" [disabled]="page === totalPages - 1"
+                class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                Older
+                <i class="fa-solid fa-circle-chevron-right text-blue-600"></i>
+            </button>
+        </div>
     </div>
-
-
 </div>
+<app-footer></app-footer>

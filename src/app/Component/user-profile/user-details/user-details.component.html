@@ -6,9 +6,9 @@
         src="" />
     <img class="absolute top-[158px] left-[318px] rounded-43xl w-[152px] h-[152px] object-cover lg:block hidden" alt=""
         src="./assets/profile.png" />
-    <div class="absolute top-[244px] left-[551px] text-white">
+    <!-- <div class="absolute top-[244px] left-[551px] text-white">
         AlgoNexus ID: sadiq1
-    </div>
+    </div> -->
     <div class="absolute top-[205px] left-[544px] text-[30px] text-white">
         Sadiq Hussain
     </div>
@@ -37,9 +37,9 @@
                             <span *ngIf="!isEditingFirstName && !isEditingLastName" class="value text-lg">{{
                                 userDetails?.firstname }} {{ userDetails?.lastname }}</span>
                             <span *ngIf="isEditingFirstName || isEditingLastName" class="flex">
-                                <input formControlName="firstname" id="firstname" type="text" [value]="editedFirstName"
+                                <input formControlName="firstname" id="firstname" type="text" placeholder="firstname" [value]="editedFirstName"
                                     class="edit-input text-lg" />
-                                <input formControlName="lastname" type="text" [value]="editedLastName"
+                                <input formControlName="lastname" placeholder="lastname" type="text" [value]="editedLastName"
                                     class="edit-input text-lg" />
                                 <input type="text" class="hidden" formControlName="id" value="">
                             </span>
@@ -65,12 +65,10 @@
                 <div class="section flex items-center mb-6">
                     <div class="label mr-6 text-lg w-36">Gender</div>
                     <div class="content flex items-center ml-28">
-                        <div class="value-container">
+                        <div class="value-container flex items-center">
                             <span *ngIf="!isEditingGender" class="value text-lg">{{ userDetails?.gender }}</span>
-                            <select *ngIf="isEditingGender" formControlName="gender" class="edit-input text-lg">
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                            </select>
+                            <input *ngIf="isEditingGender" placeholder="gender" formControlName="gender" [value]="isEditingGender"
+                                type="text" class="edit-input text-lg" />
                             <input type="text" class="hidden" formControlName="id" value="">
                         </div>
                         <div class="button-container ml-6">
@@ -88,6 +86,7 @@
                     </div>
                 </div>
             </form>
+
             <hr class="underline" />
             <form action="#" [formGroup]="editFormLocation" (ngSubmit)="saveEdit('location')">
                 <div class="section flex items-center mb-6">
@@ -95,7 +94,7 @@
                     <div class="content flex items-center ml-28">
                         <div class="value-container flex items-center">
                             <span *ngIf="!isEditingLocation" class="value text-lg">{{ userDetails?.location }}</span>
-                            <input *ngIf="isEditingLocation" formControlName="location" [value]="editedLocation"
+                            <input *ngIf="isEditingLocation" placeholder="location" formControlName="location" [value]="editedLocation"
                                 type="text" class="edit-input text-lg" />
                             <input type="text" class="hidden" formControlName="id" value="">
                         </div>
@@ -115,6 +114,34 @@
                 </div>
             </form>
             <hr class="underline" />
+
+            <form action="#" [formGroup]="editFormEducation" (ngSubmit)="saveEdit('education')">
+                <div class="section flex items-center mb-6">
+                    <div class="label mr-6 text-lg w-36">Education</div>
+                    <div class="content flex items-center ml-28">
+                        <div class="value-container flex items-center">
+                            <span *ngIf="!isEditingEducation" class="value text-lg">{{ userDetails?.education }}</span>
+                            <input *ngIf="isEditingEducation" placeholder="education" formControlName="education" [value]="editedEducation"
+                                type="text" class="edit-input text-lg" />
+                            <input type="text" class="hidden" formControlName="id" value="">
+                        </div>
+                        <div class="button-container ml-6">
+                            <button *ngIf="isEditingEducation"
+                                class="save-button bg-green-500 text-white px-3 py-2 rounded-lg"
+                                type="submit">Save</button>
+                            <button *ngIf="isEditingEducation"
+                                class="cancel-button bg-red-500 text-white px-3 py-2 rounded-lg ml-3"
+                                (click)="cancelEdit('education')">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="edit-button-container ml-6">
+                        <span *ngIf="!isEditingEducation" class="edit-button text-black cursor-pointer text-lg"
+                            (click)="startEditing('education')">Edit</span>
+                    </div>
+                </div>
+            </form>
+            <hr class="underline" />
+
             <form [formGroup]="editFormBirthday" (ngSubmit)="saveEdit('birthday')">
                 <div class="section flex items-center mb-6">
                     <div class="label mr-6 text-lg w-36">Birthday</div>
@@ -123,7 +150,7 @@
                             <span *ngIf="!isEditingBirthday" class="value text-lg">{{ userDetails?.dateOfBirth }}</span>
                             <input *ngIf="isEditingBirthday" formControlName="birthday" class="edit-input text-lg"
                                 #datepickerInput matInput [matDatepicker]="picker">
-                            <input type="text" class="hidden" formControlName="id" value="">
+                            <input type="text" class="hidden"  placeholder="yy-mm-dd" formControlName="id" value="">
                             <mat-datepicker-toggle *ngIf="isEditingBirthday" matSuffix
                                 [for]="picker"></mat-datepicker-toggle>
                             <!-- Unique identifier for the MatDatepicker -->
@@ -152,7 +179,7 @@
                     <div class="content flex items-center ml-28">
                         <div class="value-container flex items-center">
                             <span *ngIf="!isEditinggithub" class="value text-lg">{{ userDetails?.github }}</span>
-                            <input *ngIf="isEditinggithub" formControlName="github" [value]="editedgithub" type="text"
+                            <input *ngIf="isEditinggithub" placeholder="link" formControlName="github" [value]="editedgithub" type="text"
                                 class="edit-input text-lg" />
                             <input type="text" class="hidden" formControlName="id" value="">
                         </div>
@@ -178,7 +205,7 @@
                     <div class="content flex items-center ml-28">
                         <div class="value-container flex items-center">
                             <span *ngIf="!isEditingLinkedin" class="value text-lg">{{ userDetails?.linkedin }}</span>
-                            <input *ngIf="isEditingLinkedin" formControlName="linkedin" [value]="editedlinkedin"
+                            <input *ngIf="isEditingLinkedin" placeholder="link" formControlName="linkedin" [value]="editedlinkedin"
                                 type="text" class="edit-input text-lg" />
                             <input type="text" class="hidden" formControlName="id" value="">
                         </div>
@@ -204,7 +231,7 @@
                     <div class="content flex items-center ml-28">
                         <div class="value-container flex items-center">
                             <span *ngIf="!isEditingwork" class="value text-lg">{{ userDetails?.work }}</span>
-                            <input *ngIf="isEditingwork" formControlName="work" [value]="editedwork" type="text"
+                            <input *ngIf="isEditingwork" placeholder="work" formControlName="work" [value]="editedwork" type="text"
                                 class="edit-input text-lg" />
                             <input type="text" class="hidden" formControlName="id" value="">
                         </div>
@@ -214,7 +241,7 @@
                                 type="submit">Save</button>
                             <button *ngIf="isEditingwork"
                                 class="cancel-button bg-red-500 text-white px-3 py-2 rounded-lg ml-3"
-                                (click)="cancelEdit('linkedin')">Cancel</button>
+                                (click)="cancelEdit('work')">Cancel</button>
                         </div>
                     </div>
                     <div class="edit-button-container ml-6">
@@ -235,20 +262,20 @@
         <img class="absolute top-[577px] left-[265px] w-[15px] h-[15px] object-cover lg:top-[500px] lg:left-[260px] lg:w-[26px] lg:h-[26px]"
             alt="" src="./assets/profile.png">
         <!-- Orders Text -->
-        <div class="absolute top-[554px] left-[299px] text-black cursor-pointer lg:top-[537px] lg:text-lg"
+        <!-- <div class="absolute top-[554px] left-[299px] text-black cursor-pointer lg:top-[537px] lg:text-lg"
             id="ordersText">
             Orders
-        </div>
+        </div> -->
         <!-- Orders Icon -->
-        <div
+        <!-- <div
             class="absolute top-[557px] left-[265px] w-[15px] h-[15px] object-cover lg:top-[544px] lg:left-[260px] lg:w-[20px] lg:h-[20px]">
             <i class="fa-solid fa-paper-plane" style="font-size: 20px;"></i>
-        </div>
+        </div> -->
         <!-- Basic Info Section -->
         <div
             class="absolute top-[437px] left-[251px] rounded-t-lg rounded-b-none bg-indigo-500 w-[254px] h-[41px] lg:top-[440px]">
         </div>
-        <div class="absolute top-[448px] left-[280px] text-base text-black lg:top-[451px] lg:text-lg">
+        <div routerLink="/user-details" class="absolute cursor-pointer top-[448px] left-[280px] text-base text-black lg:top-[451px] lg:text-lg">
             Basic info
         </div>
         <!-- <div class="absolute top-[158px] left-[318px] rounded-2xl w-[152px] h-[152px] object-cover"  > -->

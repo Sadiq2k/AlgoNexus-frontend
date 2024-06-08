@@ -1,0 +1,56 @@
+.user-card {
+    max-width: 300px;
+    margin: 10px;
+  }
+  
+  .user-image {
+    border: 2px solid #e2e8f0;
+  }
+  
+  .user-info {
+    flex: 1;
+  }
+  
+  .connect-button, .message-button {
+    transition: background-color 0.3s ease;
+  }
+  .users-page {
+    .page-title {
+      color: #1e1e2b;
+    }
+  
+    .users-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+  }
+  /* Animation for card hover effect */
+.card-hover:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease-in-out;
+}
+.card-hover {
+  transition: transform 0.3s ease-in-out;
+}
+/* Shaking letter animation */
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-1px);
+  }
+  50% {
+    transform: translateX(2px);
+  }
+  75% {
+    transform: translateX(-1px);
+  }
+}
+
+.shaking-letters span {
+  display: inline-block;
+  animation: shake 0.5s infinite;
+  transition: transform 0.5s ease-out;
+}

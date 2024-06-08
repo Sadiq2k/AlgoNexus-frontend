@@ -1,0 +1,82 @@
+<app-header></app-header>
+<div class="bg-gray-100 ">
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-gray-800">My Network</div>
+            <div class="flex items-center space-x-4">
+                <input type="text" placeholder="Search"
+                    class="bg-gray-100 rounded-full py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 w-full max-w-sm">
+                <a href="#" class="text-gray-600 hover:text-gray-800">Messaging</a>
+                <a href="#" class="text-gray-600 hover:text-gray-800">Notifications</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-6 py-8 flex">
+        <aside class="w-1/4 pr-6">
+            <div class="bg-white rounded-lg shadow-md p-4 mb-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Manage my network</h3>
+                <ul>
+                    <li><a  class="text-gray-600 hover:text-gray-800">Connections</a></li>
+                    <li><a  class="text-gray-600 hover:text-gray-800">People I Follow</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="w-3/4">
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Invitations</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- <div class="bg-gray-100 p-4 rounded-lg shadow-md card-hover">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <img src="https://via.placeholder.com/50" alt="profile" class="w-12 h-12 rounded-full">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 shaking-letters">John Doe</h3>
+                                <p class="text-sm text-gray-600">Software Engineer at ABC Corp</p>
+                            </div>
+                        </div>
+                        <button class="bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600">Connect</button>
+                    </div> -->
+                    <!-- Repeat the above block for more invitations -->
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Make New Friends</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div *ngFor="let user of allSocialMediaUser?.users"
+                        class="bg-gray-100 p-4 rounded-lg shadow-md card-hover">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <img (click)="onImageClick(user?.id)"
+                             [src]="user?.profileImage?.imageUrl ? user?.profileImage?.imageUrl : '/assets/user_profile_image.png'"
+                                alt="profile" class="w-12 h-12 rounded-full cursor-pointer" >
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 shaking-letters">{{user?.firstname + ' ' + user?.lastname}}</h3>
+                                <p class="text-sm text-gray-600">{{user?.work}}</p>
+                            </div>
+                        </div>
+                        <button class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600">Follow</button>
+                    </div>
+                </div>
+                <div class="mt-4 flex justify-center gap-5 w-[100%]">
+                    <button (click)="previousPage()" [disabled]="page === 0"
+                        class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                        <i class="fa-solid fa-circle-chevron-left text-blue-600"></i> Newer
+                    </button>
+                    <div>
+                        <button *ngFor="let p of [].constructor(totalPages); let i = index" (click)="goToPage(i)"
+                            [ngClass]="{'bg-blue-500 text-white': page === i, 'bg-gray-300': page !== i}"
+                            class="px-4 py-2 rounded mx-1">
+                            {{ i + 1 }}
+                        </button>
+                    </div>
+                    <button (click)="nextPage()" [disabled]="page === totalPages - 1"
+                        class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                        Older <i class="fa-solid fa-circle-chevron-right text-blue-600"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<app-footer></app-footer>
