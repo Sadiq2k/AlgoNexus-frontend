@@ -70,11 +70,13 @@
     }
   }
 
-  getToken(): string | null {
-    const token = localStorage.getItem('jwtToken');
-    return token ? token : null;
+  public getToken(): string | null {
+    if (this.isLocalStorageAvailable()) {
+      const token = localStorage.getItem('jwtToken');
+      return token || null;
+    }
+    return null;
   }
-  
 
   public setUserId(userId: string) {
     if (this.isLocalStorageAvailable()) {
