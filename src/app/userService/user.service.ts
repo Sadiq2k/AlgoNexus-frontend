@@ -11,19 +11,19 @@ import { BlockUser$Params } from '../services/fn/authentication/block-user';
 export class UserService {
  
 
-  PATH_OF_API = 'http://13.202.64.234:8084';
+  PATH_OF_API = 'http://13.233.216.84:8084';
 
   generateToken(email: string): Observable<any> {
-    return this.httpClient.get(`http://13.202.64.234:8084/auth/generate-token/${email}`,);
+    return this.httpClient.get(`http://13.233.216.84:8084/auth/generate-token/${email}`,);
   }
 
 
   unBlockUser(id: any) {
-    return this.httpClient.get(`http://13.202.64.234:8084/auth/unBlock/${id}`);
+    return this.httpClient.get(`http://13.233.216.84:8084/auth/unBlock/${id}`);
   }
 
   blockUser(id: string) {
-    return this.httpClient.get(`http://13.202.64.234:8084/auth/block/${id}`);
+    return this.httpClient.get(`http://13.233.216.84:8084/auth/block/${id}`);
   }
 
   constructor(private httpClient: HttpClient,
