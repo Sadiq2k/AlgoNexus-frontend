@@ -4,5 +4,5 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ApiGatewayConfiguration {
-  rootUrl: string = 'http://localhost:8084';
+  rootUrl: string = 'https://api.algonexus.online';
 }
