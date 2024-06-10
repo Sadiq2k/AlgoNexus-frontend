@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ApiConfiguration {
-  rootUrl: string = 'http://13.233.216.84:8084';  
+  rootUrl: string = 'https://api.algonexus.online';  
 }
 
 /**
