@@ -68,10 +68,6 @@ export class AddVideoComponent implements OnInit {
         file: this.selectedFile,
         courseId: this.courseId
       };
-      console.log(formData)
-
-      console.log('Form Data:', formData);
-
       this.videoService.uploadVideo(formData).subscribe({
         next: (res) => {
           this.loading = false;

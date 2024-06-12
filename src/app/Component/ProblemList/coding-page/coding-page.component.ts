@@ -33,6 +33,7 @@ export class CodingPageComponent implements AfterViewInit {
   statusTextAcceptedOrRejected: string = ''
   pendingLoading: boolean = false;
   acceptedBooll: boolean = false;
+  testCaseValue: string = '';
 
   constructor(private route: ActivatedRoute,
     private problemControleService: ProblemControllerService,
@@ -92,17 +93,12 @@ export class CodingPageComponent implements AfterViewInit {
     this.problemService.getProblem(ProblemId).subscribe({
       next: (res) => {
         this.problemData = res;
-
-        console.log(this.problemData)
         this.testCases = this.problemData.examples;
         this.testCasesAddToArray();
-
         if (this.problemData.solutionTemplate) {
           this.problemData.solutionTemplate = atob(this.problemData.solutionTemplate);
           this.editorCode = this.problemData.solutionTemplate;
         }
-        // console.log("problem data",this.problemData)
-
       }, error: (err) => {
         console.log("error thorw getting a problem", err);
       }
@@ -136,7 +132,7 @@ export class CodingPageComponent implements AfterViewInit {
   }
 
 
-  testCaseValue: string = '';
+
   getTaseCase(id: any) {
     const cases = this.problemData.testCases;
     for (let i = 0; i < cases.length; i++) {
@@ -294,14 +290,11 @@ export class CodingPageComponent implements AfterViewInit {
       title: this.problemData.title
     }
 
-    console.log("?????????", requestbody)
-
     this.testCaseControllerService.runAndTestSolution({ body: requestbody }).subscribe({
       next: (response) => {
 
         this.problemSubmissionsResponse = response
         this.problemSubmissionsResponse.sourceCode = atob(this.problemSubmissionsResponse.sourceCode)
-        console.log(this.problemSubmissionsResponse);
         this.loading = false;
         this.acceptedBooll = true;
         this.isloading = false;
@@ -336,12 +329,11 @@ export class CodingPageComponent implements AfterViewInit {
     this.showDescribtionBooll = false;
     this.showSubmissionBooll = true;
     this.acceptedBooll = false;
-
-    // this.allSubmission = this.problemData.submissionDTO;
-    this.allSubmission = this.problemData.submissionDTO.reverse();
-
-    console.log("========", this.allSubmission)
-
+    
+    if(this.problemData.submissionDTO){
+      this.allSubmission = this.problemData.submissionDTO.reverse();
+    }
+    
   }
 
 

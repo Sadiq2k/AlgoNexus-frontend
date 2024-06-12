@@ -53,13 +53,13 @@ export class RegisterComponent implements OnInit {
     this.signupForm.markAllAsTouched();
     this.loading = true;
     if (this.signupForm.invalid) {
+      this.loading = false;
       this.errorMessage = 'Please fill out all required fields.';
       return;
     } 
   
    this.authService.register({ body: this.signupForm.value }).subscribe({
     next: (res) => { // Accept any type for response
-      // console.log('User created successfully.');
       this.loading = false;
       this.dataShare.setEmail(this.signupForm.get('email')?.value);
       this.router.navigate(['activate-account', { isRegisterActive: true, email: this.signupForm.value.email }]);
@@ -75,6 +75,7 @@ export class RegisterComponent implements OnInit {
       } else {
         this.errorMessage = 'An error occurred. Please try again later.';
       }
+      this.loading = false;
     }
   });
   }
