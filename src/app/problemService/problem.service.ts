@@ -25,8 +25,13 @@ export class ProblemService {
   }
 
   getProblem(problemId: any): Observable<any> {
-    // console.log(problemId);
-    return this.httpClient.get<any>(`${this.rootUrl}/problem/${problemId}`);
+    const jwtToken = this.userAuthService.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${jwtToken}`
+      }),
+    };
+    return this.httpClient.get<any>(`${this.rootUrl}/problem/${problemId}`,httpOptions);
   }
 
   getAllCategory(): Observable<any> {

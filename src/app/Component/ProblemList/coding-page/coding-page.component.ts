@@ -1,13 +1,9 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProblemControllerService } from '../../../problem-services/services';
-import { GetProblem$Params } from '../../../problem-services/fn/problem-controller/get-problem';
 import { ProblemService } from '../../../problemService/problem.service';
 import { MonacoEditorLoaderService, MonacoStandaloneCodeEditor } from '@materia-ui/ngx-monaco-editor';
 import { TestCaseControllerService } from '../../../testcase-services/services';
-import { timeStamp } from 'console';
-import { strict } from 'assert';
-import { response } from 'express';
 import { UserAuthService } from '../../../auth/user-auth.service';
 import Swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
@@ -58,14 +54,11 @@ export class CodingPageComponent implements AfterViewInit {
   editorInstance: MonacoStandaloneCodeEditor | undefined;
 
   ngAfterViewInit() {
-    console.log("ngAfterViewInit called");
 
     this.monacoLoaderService.isMonacoLoaded$.subscribe(isLoaded => {
       if (isLoaded) {
         if (this.editorContainer && this.editorContainer.nativeElement) {
-          console.log("Editor container found:", this.editorContainer.nativeElement);
           this.editorInstance = this.editorContainer.nativeElement.editor;
-          console.log('Editor instance:', this.editorInstance);
         } else {
           console.log("Editor container not found");
         }
@@ -79,8 +72,6 @@ export class CodingPageComponent implements AfterViewInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.problemId = params['problemId'];
-      console.log('Problem ID:', this.problemId);
-
       if (this.problemId) {
         this.getProblem(this.problemId);
       }
@@ -127,9 +118,9 @@ export class CodingPageComponent implements AfterViewInit {
     }
   }
 
-  onEditorContentChange(content: string) {
-    console.log('Editor content changed:', content);
-  }
+  // onEditorContentChange(content: string) {
+  //   console.log('Editor content changed:', content);
+  // }
 
 
 
@@ -147,8 +138,6 @@ export class CodingPageComponent implements AfterViewInit {
     this.problemVerifiedResponse = ''
     this.loading = true;
     this.showSubmissionBooll = false;
-    // this.statusText = "";
-    // this.isClicked = true;
     this.testResultbooll = true;
     this.problemVerifiedResponse = ''
     this.showDescribtionBooll = false;
@@ -182,7 +171,6 @@ export class CodingPageComponent implements AfterViewInit {
     const res = this.editorCode + decodedDriverCode;
 
     const DriverCodePlusUserSourceCode: any = btoa(res);
-    console.log("Decoded Source Code:", this.testCases);
 
     const requestBody = {
       sourceCode: DriverCodePlusUserSourceCode,
@@ -195,7 +183,6 @@ export class CodingPageComponent implements AfterViewInit {
       next: (response) => {
 
         this.problemVerifiedResponse = response;
-        console.log("=========", this.problemVerifiedResponse);
         this.loading = false;
         this.testResultbooll = true;
         this.testCasesAddToArray();
@@ -204,7 +191,6 @@ export class CodingPageComponent implements AfterViewInit {
         console.log("error occure to the conding page component run the solution", err)
         if (err.error) {
           this.statusText = err.error.message;
-          console.log(" message", this.statusText);
           this.loading = false;
         } else {
           this.statusText = err.statusText
@@ -302,7 +288,7 @@ export class CodingPageComponent implements AfterViewInit {
         this.showDescribtionBooll = false;
         this.testResultbooll = false;
         this.problemSubmissionsResponse.submissionTime = this.datePipe.transform(
-          this.problemSubmissionsResponse.submissionTime, 'MMMM d, yyyy HH:mm') || '';
+          this.problemSubmissionsResponse.submissionTime, 'd MMMM , yyyy HH:mm') || '';
         this.showSubmisstion()
       }, error: (err) => {
         console.log(err);
@@ -329,11 +315,10 @@ export class CodingPageComponent implements AfterViewInit {
     this.showDescribtionBooll = false;
     this.showSubmissionBooll = true;
     this.acceptedBooll = false;
-    
-    if(this.problemData.submissionDTO){
+    if (this.problemData.submissionDTO) {
       this.allSubmission = this.problemData.submissionDTO.reverse();
     }
-    
+
   }
 
 
