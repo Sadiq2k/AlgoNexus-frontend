@@ -76,13 +76,13 @@ export class AddVideoComponent implements OnInit {
 
         }, error: (err) => {
           this.loading = false
-          console.log("error occure uploading the video", err)
           if (err.status == 200) {
             console.log("successfully added")
             this.router.navigate(['/admin/courses/course-videos', { courseId: this.courseId }])
           } else if (err.status == 0) {
             this.loading = false
           }
+          console.log("error occure uploading the video", err)
           
         }
       })
