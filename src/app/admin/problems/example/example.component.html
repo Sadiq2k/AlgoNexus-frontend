@@ -2,7 +2,6 @@
 
 <div class="mx-auto bg-grey-400 min-h-screen h-[1000px]  "
     style="background-color: rgb(41, 44, 49); margin-top: -230px;">
-
     <div class="mx-auto bg-gray-800 min-h-screen h-screen">
         <div class="flex justify-center">
             <main class="bg-white ml-12 md:ml-16 lg:ml-24 xl:ml-72 mt-2   min-h-screen h-screen shadow-lg rounded-lg"
@@ -35,71 +34,36 @@
                     </div>
                 </div>
                 <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()">
-                    <div class="p-8 mt-14" >
+                    <div class="p-8 mt-14">
                         <h1
                             class="text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-gray-800 mb-8">
                             New Problem
                         </h1>
-                     
-                        <!-- <div class="mt-6">
-                            <label for="explanation" class="text-gray-600 font-medium mb-2 block">Explanation*</label>
-                            <textarea id="explanation" name="explanation" formControlName="explanation"
-                                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                rows="10" placeholder="Enter explanation"></textarea>
 
-                        </div> -->
                         <label class="text-gray-600 font-medium mb-2 block">Example Test Cases</label>
                         <div class="mt-6" *ngFor="let test of testCases;let i = index">
-                           
+
                             <div class="grid grid-cols-2 gap-4">
                                 <!-- Input -->
                                 <div>
-                                    <label for="testCaseInput{{i}}" class="text-gray-600 font-medium mb-2 block">testCaseInput {{i+1}}*</label>
-                                    <input id="testCaseInput{{i}}" type="text" name="testCaseInput{{i}}" formControlName="testCaseInput{{i}}"
+                                    <label for="testCaseInput{{i}}"
+                                        class="text-gray-600 font-medium mb-2 block">testCaseInput {{i+1}}*</label>
+                                    <input id="testCaseInput{{i}}" type="text" name="testCaseInput{{i}}"
+                                        formControlName="testCaseInput{{i}}"
                                         class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                         placeholder="Enter testCaseInput {{i+1}}" [value]="test?.testCaseInput">
                                 </div>
                                 <!-- Output -->
                                 <div>
-                                    <label for="expectedOutput{{i}}" class="text-gray-600 font-medium mb-2 block">expectedOutput {{i+1}}*</label>
-                                    <input id="expectedOutput{{i}}" type="text" name="expectedOutput{{i}}" [value]="test?.expectedOutput" formControlName="expectedOutput{{i}}"
+                                    <label for="expectedOutput{{i}}"
+                                        class="text-gray-600 font-medium mb-2 block">expectedOutput {{i+1}}*</label>
+                                    <input id="expectedOutput{{i}}" type="text" name="expectedOutput{{i}}"
+                                        [value]="test?.expectedOutput" formControlName="expectedOutput{{i}}"
                                         class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                        placeholder="Enter expectedOutput {{i+1}}" >
+                                        placeholder="Enter expectedOutput {{i+1}}">
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="mt-6">
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label for="input1{{i}}" class="text-gray-600 font-medium mb-2 block">Input {{i+1}}*</label>
-                                    <input id="input1{{i}}" type="text" name="input1{{i}}" formControlName="input1{{i}}"
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                        placeholder="Enter input1 {{i+1}}" [value]="test?.testCaseInput">
-                                </div>
-                                <div>
-                                    <label for="output1{{i}}" class="text-gray-600 font-medium mb-2 block">Output {{i+1}}*</label>
-                                    <input id="output1{{i}}" type="text" name="output1{{i}}" formControlName="output1{{i}}"
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                        placeholder="Enter output1 {{i+1}}" [value]="test?.expectedOutput">
-                                </div>
-                            </div>
-                        </div> -->
-                        <!-- <div class="mt-6">
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label for="input{{i}}" class="text-gray-600 font-medium mb-2 block">Input {{i+1}}*</label>
-                                    <input id="input{{i}}" type="text" name="input{{i}}" formControlName="input{{i}}"
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                        placeholder="Enter input {{i+1}}" [value]="test?.testCaseInput">
-                                </div>
-                                <div>
-                                    <label for="output{{i}}" class="text-gray-600 font-medium mb-2 block">Output {{i+1}}*</label>
-                                    <input id="output{{i}}" type="text" name="output{{i}}" formControlName="output{{i}}"
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                        placeholder="Enter output {{i+1}}" [value]="test?.expectedOutput">
-                                </div>
-                            </div>
-                        </div> -->
                         <div class="flex justify-end mt-6">
                             <button
                                 class="py-2 px-4 text-xl bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
@@ -111,5 +75,4 @@
             </main>
         </div>
     </div>
-    <!-- </div> -->
 </div>
